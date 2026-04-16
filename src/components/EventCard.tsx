@@ -67,7 +67,7 @@ export default function EventCard({ title, date, tickets, booking, index }: Even
         </div>
         <div className="absolute inset-0" style={{ zIndex: 0 }}>
           <Image
-            src="/mishell.jpg"
+            src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/mishell.jpg`}
             alt={title}
             fill
             className="object-cover object-top grayscale group-hover:grayscale-0 transition-all duration-400"

@@ -96,7 +96,7 @@ export default function WhoWeAre() {
             style={{ aspectRatio: "1 / 1", clipPath: "inset(0 100% 0 0)" }}
           >
             <Image
-              src="/mishell.jpg"
+              src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/mishell.jpg`}
               alt="Mishell"
               width={600}
               height={600}

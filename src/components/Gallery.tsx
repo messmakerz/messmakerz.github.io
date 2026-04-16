@@ -68,7 +68,7 @@ function Lightbox({ slot, onClose }: LightboxProps) {
         {/* Image area */}
         <div className="w-full aspect-video relative overflow-hidden">
           <Image
-            src="/mishell.jpg"
+            src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/mishell.jpg`}
             alt={slot.label}
             fill
             className="object-cover object-top"
@@ -154,7 +154,7 @@ export default function Gallery() {
               >
                 {/* Photo */}
                 <Image
-                  src="/mishell.jpg"
+                  src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/mishell.jpg`}
                   alt={slot.label}
                   fill
                   className="object-cover object-top grayscale group-hover:grayscale-0 transition-all duration-400"

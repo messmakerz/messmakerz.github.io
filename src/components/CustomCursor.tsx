@@ -120,7 +120,7 @@ export default function CustomCursor() {
         }}
       >
         <Image
-          src="/mess-small-logo.svg"
+          src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/mess-small-logo.svg`}
           alt=""
           width={56}
           height={25}

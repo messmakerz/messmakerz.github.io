@@ -64,7 +64,7 @@ export default function Footer() {
       <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-12 py-14 md:py-16">
         <div ref={logoRef}>
           <Image
-            src="/mess-small-logo.svg"
+            src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/mess-small-logo.svg`}
             alt="MESS Production"
             width={222}
             height={99}
