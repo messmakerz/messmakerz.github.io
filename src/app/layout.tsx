@@ -9,6 +9,9 @@ export const metadata: Metadata = {
   title: "MESS — Production",
   description:
     "Mess Makers is Mishell's core community. Concept-driven events, fashion, music — bold, sexy, uncompromising.",
+  icons: {
+    icon: "/mess-small-logo.svg",
+  },
   openGraph: {
     title: "MESS — Production",
     description: "Concept-driven events. Bold, sexy, uncompromising.",

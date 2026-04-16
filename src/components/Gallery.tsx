@@ -130,15 +130,14 @@ export default function Gallery() {
         {/* Masonry-style grid */}
         <div
           ref={gridRef}
-          className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3"
-          style={{ gridAutoRows: "220px" }}
+          className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-3"
+          style={{ gridAutoRows: "clamp(120px, 28vw, 220px)" }}
         >
           {SLOTS.map((slot, i) => {
             const overlayOpacity = TONE_OVERLAYS[i % TONE_OVERLAYS.length];
-            const spanCols =
-              slot.aspect === "wide" ? "col-span-2" : "col-span-1";
-            const spanRows =
-              slot.aspect === "tall" ? "row-span-2" : "row-span-1";
+            // On mobile all items are col-span-1 row-span-1 for clean grid
+            const spanCols = slot.aspect === "wide" ? "col-span-1 md:col-span-2" : "col-span-1";
+            const spanRows = slot.aspect === "tall" ? "row-span-1 md:row-span-2" : "row-span-1";
 
             return (
               <div

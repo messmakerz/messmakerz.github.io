@@ -87,14 +87,14 @@ export default function Hero() {
   return (
     <section
       ref={sectionRef}
-      className="relative min-h-screen flex flex-col border-b border-[var(--border)] overflow-hidden"
+      className="relative min-h-[40vh] md:min-h-screen flex flex-col border-b border-[var(--border)] overflow-hidden"
       style={{ background: "var(--bg)" }}
     >
       {/* Video background */}
       <video
         className="absolute inset-0 w-full h-full object-cover pointer-events-none z-0"
         style={{ opacity: 0.18 }}
-        src="/hero-bg.mp4"
+        src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/hero-bg.mp4`}
         autoPlay
         loop
         muted
@@ -127,11 +127,11 @@ export default function Hero() {
       />
 
       {/* TOP BAR */}
-      <div className="relative z-10 flex items-center justify-between px-8 md:px-16 lg:px-20 pt-10">
+      <div className="relative z-10 flex items-center justify-between px-6 md:px-16 lg:px-20 pt-6 md:pt-10">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           ref={logoRef}
-          src="/mess-small-logo.svg"
+          src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/mess-small-logo.svg`}
           alt="MESS Production"
           style={{ width: "clamp(80px, 10vw, 130px)", height: "auto" }}
           draggable={false}
@@ -150,7 +150,7 @@ export default function Hero() {
       </div>
 
       {/* MAIN display type */}
-      <div className="relative z-10 flex-1 flex flex-col justify-center px-8 md:px-16 lg:px-20 py-8">
+      <div className="relative z-10 flex-1 flex flex-col justify-center px-6 md:px-16 lg:px-20 py-4 md:py-8">
 
         {/* Red rule — full bleed, hard */}
         <div
@@ -165,12 +165,11 @@ export default function Hero() {
           style={{
             fontFamily: "var(--font-display)",
             fontWeight: 900,
-            fontSize: "clamp(4rem, 13vw, 11rem)",
+            fontSize: "clamp(2.6rem, 13vw, 11rem)",
             lineHeight: 0.88,
             letterSpacing: "-0.06em",
             color: "var(--text)",
             userSelect: "none",
-            whiteSpace: "nowrap",
           }}
         >
           CONCEPT
@@ -182,14 +181,13 @@ export default function Hero() {
           style={{
             fontFamily: "var(--font-display)",
             fontWeight: 900,
-            fontSize: "clamp(4rem, 13vw, 11rem)",
+            fontSize: "clamp(2.6rem, 13vw, 11rem)",
             lineHeight: 0.88,
             letterSpacing: "-0.06em",
             color: "transparent",
             WebkitTextStroke: "2px var(--red)",
             userSelect: "none",
-            whiteSpace: "nowrap",
-            paddingLeft: "clamp(1.5rem, 5vw, 7rem)",
+            paddingLeft: "clamp(0.8rem, 5vw, 7rem)",
           }}
         >
           DRIVEN
@@ -201,12 +199,11 @@ export default function Hero() {
           style={{
             fontFamily: "var(--font-display)",
             fontWeight: 900,
-            fontSize: "clamp(4rem, 13vw, 11rem)",
+            fontSize: "clamp(2.6rem, 13vw, 11rem)",
             lineHeight: 0.88,
             letterSpacing: "-0.06em",
             color: "var(--text)",
             userSelect: "none",
-            whiteSpace: "nowrap",
           }}
         >
           EVENTS

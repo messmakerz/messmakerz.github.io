@@ -110,21 +110,6 @@ export default function DonutChart({ female, male }: DonutChartProps) {
           />
         </svg>
 
-        {/* Center label */}
-        <div className="absolute inset-0 flex flex-col items-center justify-center">
-          <span
-            className="text-4xl font-bold leading-none"
-            style={{ fontFamily: "var(--font-display)", fontWeight: 700 }}
-          >
-            <span ref={countFemaleRef}>0%</span>
-          </span>
-          <span
-            className="text-sm font-light text-[var(--text-muted)] mt-1 tracking-widest uppercase"
-            style={{ fontFamily: "var(--font-display)" }}
-          >
-            Female
-          </span>
-        </div>
       </div>
 
       {/* Legend */}

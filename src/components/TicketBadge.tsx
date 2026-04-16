@@ -55,7 +55,10 @@ export default function TicketBadge() {
       delay: 1.8,
     });
 
-    // Draggable
+    // Draggable — desktop only
+    const isTouch = window.matchMedia("(pointer: coarse)").matches;
+    if (isTouch) return;
+
     const drag = Draggable.create(wrapRef.current, {
       type: "x,y",
       edgeResistance: 0.65,
@@ -116,7 +119,7 @@ export default function TicketBadge() {
           if (isDragging.current) { e.preventDefault(); return; }
           window.open(TICKET_URL, "_blank", "noopener,noreferrer");
         }}
-        style={{ cursor: "grab" }}
+        style={{ cursor: typeof window !== "undefined" && window.matchMedia("(pointer: coarse)").matches ? "pointer" : "grab" }}
       >
         {/* Pulsing glow */}
         <div

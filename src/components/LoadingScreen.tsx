@@ -76,7 +76,7 @@ export default function LoadingScreen() {
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         ref={logoRef}
-        src="/mess-small-logo.svg"
+        src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/mess-small-logo.svg`}
         alt="MESS Production"
         style={{
           width: "clamp(180px, 40vw, 420px)",
