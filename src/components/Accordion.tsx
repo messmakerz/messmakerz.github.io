@@ -2,6 +2,9 @@
 
 import { useRef, useState } from "react";
 import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 interface AccordionProps {
   title: string;
@@ -28,7 +31,10 @@ export default function Accordion({ title, children, defaultOpen = false, index 
       gsap.fromTo(el,
         { height: 0, opacity: 0, skewX: -2 },
         { height: fullH, opacity: 1, skewX: 0, duration: 0.45, ease: "expo.out",
-          onComplete: () => gsap.set(el, { height: "auto", overflow: "visible" }) }
+          onComplete: () => {
+            gsap.set(el, { height: "auto", overflow: "visible" });
+            ScrollTrigger.refresh();
+          } }
       );
       // Button scale punch
       if (btnRef.current) gsap.fromTo(btnRef.current, { scaleX: 0.98 }, { scaleX: 1, duration: 0.3, ease: "elastic.out(1,0.5)" });

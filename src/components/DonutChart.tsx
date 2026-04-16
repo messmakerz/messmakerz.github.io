@@ -32,7 +32,7 @@ export default function DonutChart({ female, male }: DonutChartProps) {
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: svgRef.current,
-        start: "top 80%",
+        start: "top 95%",
       },
     });
 

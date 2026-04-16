@@ -59,7 +59,7 @@ export default function LineChart() {
         ease: "power2.inOut",
         scrollTrigger: {
           trigger: path,
-          start: "top 85%",
+          start: "top 95%",
         },
       });
     });
@@ -76,7 +76,7 @@ export default function LineChart() {
           ease: "back.out(2)",
           scrollTrigger: {
             trigger: dotsRef.current,
-            start: "top 80%",
+            start: "top 95%",
           },
           delay: 1.2,
         }

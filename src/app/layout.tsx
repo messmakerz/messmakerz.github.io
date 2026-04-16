@@ -4,6 +4,7 @@ import CustomCursor from "@/components/CustomCursor";
 import ThemeToggle from "@/components/ThemeToggle";
 import TicketBadge from "@/components/TicketBadge";
 import LoadingScreen from "@/components/LoadingScreen";
+import ScrollRefresh from "@/components/ScrollRefresh";
 
 export const metadata: Metadata = {
   title: "MESS — Production",
@@ -27,6 +28,7 @@ export default function RootLayout({
     <html lang="en" className="h-full dark">
       <body className="min-h-full">
         <LoadingScreen />
+        <ScrollRefresh />
         <CustomCursor />
         <ThemeToggle />
         <TicketBadge />

@@ -38,7 +38,7 @@ export default function WhoWeAre() {
           stagger: 0.025,
           duration: 0.5,
           ease: "expo.out",
-          scrollTrigger: { trigger: heading, start: "top 85%", toggleActions: "play reverse play reverse" },
+          scrollTrigger: { trigger: heading, start: "top 95%", toggleActions: "play reverse play reverse" },
         }
       );
     }
@@ -53,7 +53,7 @@ export default function WhoWeAre() {
         skewX: 0,
         duration: 0.7,
         ease: "expo.out",
-        scrollTrigger: { trigger: bodyRef.current, start: "top 88%", toggleActions: "play reverse play reverse" },
+        scrollTrigger: { trigger: bodyRef.current, start: "top 95%", toggleActions: "play reverse play reverse" },
       }
     );
 
@@ -66,7 +66,7 @@ export default function WhoWeAre() {
           clipPath: "inset(0 0% 0 0)",
           duration: 0.8,
           ease: "expo.out",
-          scrollTrigger: { trigger: imgRef.current, start: "top 85%", toggleActions: "play reverse play reverse" },
+          scrollTrigger: { trigger: imgRef.current, start: "top 95%", toggleActions: "play reverse play reverse" },
         }
       );
     }

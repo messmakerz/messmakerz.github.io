@@ -31,7 +31,7 @@ export default function Audience() {
           duration: 1.0,
           delay: i * 0.15,
           ease: "power3.out",
-          scrollTrigger: { trigger: sectionRef.current, start: "top 75%", toggleActions: "play reverse play reverse" },
+          scrollTrigger: { trigger: sectionRef.current, start: "top 95%", toggleActions: "play reverse play reverse" },
         }
       );
       const obj = { val: 0 };
@@ -40,7 +40,7 @@ export default function Audience() {
         duration: 0.9,
         delay: i * 0.15 + 0.2,
         ease: "power2.out",
-        scrollTrigger: { trigger: sectionRef.current, start: "top 75%", toggleActions: "play reverse play reverse" },
+        scrollTrigger: { trigger: sectionRef.current, start: "top 95%", toggleActions: "play reverse play reverse" },
         onUpdate() {
           if (valuesRef.current[i])
             valuesRef.current[i]!.textContent = Math.round(obj.val).toString();

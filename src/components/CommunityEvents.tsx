@@ -44,7 +44,7 @@ export default function CommunityEvents() {
           stagger: 0.1,
           duration: 0.55,
           ease: "expo.out",
-          scrollTrigger: { trigger: gridRef.current, start: "top 82%", toggleActions: "play reverse play reverse" },
+          scrollTrigger: { trigger: gridRef.current, start: "top 95%", toggleActions: "play reverse play reverse" },
         }
       );
     }

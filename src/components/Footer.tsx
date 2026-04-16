@@ -27,7 +27,7 @@ export default function Footer() {
       {
         y: 0, opacity: 1, skewX: 0,
         duration: 0.6, ease: "expo.out",
-        scrollTrigger: { trigger: footerRef.current, start: "top 92%", toggleActions: "play reverse play reverse" },
+        scrollTrigger: { trigger: footerRef.current, start: "top 95%", toggleActions: "play reverse play reverse" },
       }
     );
 
@@ -42,7 +42,7 @@ export default function Footer() {
           stagger: 0.06,
           duration: 0.45,
           ease: "expo.out",
-          scrollTrigger: { trigger: linksRef.current, start: "top 93%", toggleActions: "play reverse play reverse" },
+          scrollTrigger: { trigger: linksRef.current, start: "top 95%", toggleActions: "play reverse play reverse" },
           delay: 0.1,
         }
       );

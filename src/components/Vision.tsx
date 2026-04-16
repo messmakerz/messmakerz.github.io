@@ -28,7 +28,7 @@ export default function Vision() {
         {
           x: 0, opacity: 1, skewX: 0,
           duration: 0.65, ease: "expo.out",
-          scrollTrigger: { trigger: introRef.current, start: "top 88%", toggleActions: "play reverse play reverse" },
+          scrollTrigger: { trigger: introRef.current, start: "top 95%", toggleActions: "play reverse play reverse" },
         }
       );
     }
@@ -43,7 +43,7 @@ export default function Vision() {
         stagger: 0.07,
         duration: 0.5,
         ease: "expo.out",
-        scrollTrigger: { trigger: sectionRef.current, start: "top 78%", toggleActions: "play reverse play reverse" },
+        scrollTrigger: { trigger: sectionRef.current, start: "top 95%", toggleActions: "play reverse play reverse" },
       }
     );
 

@@ -114,7 +114,7 @@ export default function Gallery() {
           stagger: 0.07,
           duration: 0.6,
           ease: "power2.out",
-          scrollTrigger: { trigger: gridRef.current, start: "top 80%", toggleActions: "play reverse play reverse" },
+          scrollTrigger: { trigger: gridRef.current, start: "top 95%", toggleActions: "play reverse play reverse" },
         }
       );
     }
