@@ -35,7 +35,7 @@ function Lightbox({ slide, onClose }: LightboxProps) {
     const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") close(); };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const close = () => {
@@ -104,37 +104,33 @@ export default function Gallery() {
       { opacity: 1, duration: 0.7, scrollTrigger: { trigger: tagRef.current, start: "top 95%" } }
     );
 
-    // Horizontal scroll
     const track = trackRef.current;
     const container = containerRef.current;
     if (!track || !container) return;
 
-    const getScrollAmount = () => -(track.scrollWidth - window.innerWidth);
+    // Single clean context — one ScrollTrigger, no dual-create pattern
+    const ctx = gsap.context(() => {
+      gsap.to(track, {
+        x: () => -(track.scrollWidth - window.innerWidth),
+        ease: "none",
+        scrollTrigger: {
+          trigger: container,
+          start: "top top",
+          end: () => `+=${track.scrollWidth - window.innerWidth}`,
+          scrub: 1,
+          pin: true,
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
+          onUpdate: (self) => {
+            if (progressRef.current) {
+              progressRef.current.style.width = `${self.progress * 100}%`;
+            }
+          },
+        },
+      });
+    }, container);
 
-    const st = ScrollTrigger.create({
-      trigger: container,
-      start: "top top",
-      end: () => `+=${Math.abs(getScrollAmount())}`,
-      scrub: 1.2,
-      pin: true,
-      anticipatePin: 1,
-      invalidateOnRefresh: true,
-      onUpdate: (self) => {
-        if (progressRef.current) {
-          progressRef.current.style.width = `${self.progress * 100}%`;
-        }
-      },
-    });
-
-    gsap.to(track, {
-      x: getScrollAmount,
-      ease: "none",
-      scrollTrigger: st,
-    });
-
-    return () => {
-      st.kill();
-    };
+    return () => ctx.revert();
   }, []);
 
   return (
@@ -156,14 +152,14 @@ export default function Gallery() {
               />
             </div>
             <span style={{ fontFamily: "var(--font-display)", fontSize: "0.55rem", letterSpacing: "0.2em", color: "var(--text-subtle)", textTransform: "uppercase" }}>
-              Drag
+              Scroll
             </span>
           </div>
         </div>
       </div>
 
-      {/* Pinned horizontal scroll container */}
-      <div ref={containerRef} className="relative overflow-hidden" style={{ height: "85vh" }}>
+      {/* Pinned horizontal scroll container — no overflow:hidden so pin spacer works */}
+      <div ref={containerRef} style={{ height: "85vh" }}>
         <div
           ref={trackRef}
           className="flex h-full items-stretch"
@@ -185,9 +181,9 @@ export default function Gallery() {
               />
 
               {/* Gradient */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
 
-              {/* Hover overlay */}
+              {/* Hover red overlay */}
               <div className="absolute inset-0 bg-[var(--red)] opacity-0 group-hover:opacity-60 transition-opacity duration-300 pointer-events-none" />
 
               {/* Bottom label */}
