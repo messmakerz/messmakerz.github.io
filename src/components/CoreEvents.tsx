@@ -37,10 +37,28 @@ function EventRow({ event, index, flip }: EventRowProps) {
       { y: 0, opacity: 1, duration: 0.9, ease: "power3.out", scrollTrigger: { ...st, start: "top 92%" } }
     );
 
-    // Subtle image scale on hover
-    const img = imgRef.current?.querySelector("img");
-    const onEnter = () => img && gsap.to(img, { scale: 1.04, duration: 0.6, ease: "power2.out" });
-    const onLeave = () => img && gsap.to(img, { scale: 1, duration: 0.8, ease: "power2.out" });
+    // Parallax: inner image drifts as you scroll past
+    const innerImg = imgRef.current?.querySelector("img");
+    if (innerImg) {
+      gsap.fromTo(
+        innerImg,
+        { y: "-8%" },
+        {
+          y: "8%",
+          ease: "none",
+          scrollTrigger: {
+            trigger: rowRef.current,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: 1.5,
+          },
+        }
+      );
+    }
+
+    // Hover scale
+    const onEnter = () => innerImg && gsap.to(innerImg, { scale: 1.04, duration: 0.6, ease: "power2.out" });
+    const onLeave = () => innerImg && gsap.to(innerImg, { scale: 1, duration: 0.8, ease: "power2.out" });
     rowRef.current?.addEventListener("mouseenter", onEnter);
     rowRef.current?.addEventListener("mouseleave", onLeave);
     return () => {
