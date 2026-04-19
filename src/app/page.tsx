@@ -14,12 +14,12 @@ export default function Home() {
       <Hero />
       <WhoWeAre />
       <Audience />
+      <Vision />
       <CoreEvents />
       <PhotoBreak />
       <CommunityEvents />
-      <Gallery />
-      <Vision />
       <Footer />
+      <Gallery />
     </main>
   );
 }
