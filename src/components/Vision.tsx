@@ -38,7 +38,7 @@ export default function Vision() {
   return (
     <section ref={sectionRef} className="px-6 md:px-14 lg:px-20 py-4 md:py-8 pb-16 md:pb-24">
       <div ref={tagRef} className="flex items-center gap-3 mb-16 pt-10 border-t border-[var(--border)]">
-        <span style={{ fontFamily: "var(--font-display)", fontSize: "0.62rem", letterSpacing: "0.22em", color: "var(--text-subtle)" }}>06</span>
+        <span style={{ fontFamily: "var(--font-display)", fontSize: "0.62rem", letterSpacing: "0.22em", color: "var(--text-subtle)" }}>03</span>
         <span style={{ fontSize: "0.62rem", color: "var(--border-strong)" }}>—</span>
         <span style={{ fontFamily: "var(--font-display)", fontSize: "0.62rem", letterSpacing: "0.22em", textTransform: "uppercase", color: "var(--text-subtle)" }}>Vision</span>
       </div>

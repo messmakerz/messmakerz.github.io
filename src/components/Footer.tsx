@@ -67,14 +67,6 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="border-t border-[var(--border)] py-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
-        <span style={{ fontFamily: "var(--font-display)", fontSize: "0.6rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--text-subtle)" }}>
-          © 2026 MESS Production
-        </span>
-        <span style={{ fontFamily: "var(--font-display)", fontSize: "0.6rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--text-subtle)" }}>
-          Tel Aviv, Israel
-        </span>
-      </div>
     </footer>
   );
 }
