@@ -3,71 +3,149 @@
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import EventCard from "./EventCard";
+import Image from "next/image";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const coreEvents = [
-  {
-    title: "MESS PLANET",
-    date: "December 2024",
-    tickets: "600",
-    booking: "Mita Gami",
-  },
-  {
-    title: "LIVE FROM HELL",
-    date: "March 2025",
-    tickets: "1,000",
-    booking: "Omri, Garden City Movement",
-  },
-  {
-    title: "A TRIBE CALLED MESS",
-    date: "Aug 2025",
-    tickets: "800",
-    booking: "Darco Genish",
-  },
-  {
-    title: "MESS JUNGLE TRIP",
-    date: "Oct 2025",
-    tickets: "1,200",
-    booking: "Cour T, Kino Todo",
-  },
+  { title: "MESS PLANET", date: "December 2024", tickets: "600", booking: "Mita Gami" },
+  { title: "LIVE FROM HELL", date: "March 2025", tickets: "1,000", booking: "Omri, Garden City Movement" },
+  { title: "A TRIBE CALLED MESS", date: "Aug 2025", tickets: "800", booking: "Darco Genish" },
+  { title: "MESS JUNGLE TRIP", date: "Oct 2025", tickets: "1,200", booking: "Cour T, Kino Todo" },
 ];
 
-export default function CoreEvents() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const gridRef = useRef<HTMLDivElement>(null);
+interface EventRowProps {
+  event: typeof coreEvents[0];
+  index: number;
+  flip: boolean;
+}
+
+function EventRow({ event, index, flip }: EventRowProps) {
+  const rowRef = useRef<HTMLElement>(null);
+  const imgRef = useRef<HTMLDivElement>(null);
+  const infoRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (gridRef.current) {
-      const cards = gridRef.current.querySelectorAll(".event-card");
-      gsap.fromTo(
-        cards,
-        { y: 80, opacity: 0, skewY: -3 },
-        {
-          y: 0,
-          opacity: 1,
-          skewY: 0,
-          stagger: 0.1,
-          duration: 0.55,
-          ease: "expo.out",
-          scrollTrigger: { trigger: gridRef.current, start: "top 95%", toggleActions: "play reverse play reverse" },
-        }
-      );
-    }
+    const st = { trigger: rowRef.current, start: "top 95%", toggleActions: "play reverse play reverse" };
+
+    gsap.fromTo(imgRef.current,
+      { clipPath: "inset(0 0 100% 0)" },
+      { clipPath: "inset(0 0 0% 0)", duration: 1.1, ease: "power3.out", scrollTrigger: st }
+    );
+    gsap.fromTo(infoRef.current,
+      { y: 30, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.9, ease: "power3.out", scrollTrigger: { ...st, start: "top 92%" } }
+    );
+
+    // Subtle image scale on hover
+    const img = imgRef.current?.querySelector("img");
+    const onEnter = () => img && gsap.to(img, { scale: 1.04, duration: 0.6, ease: "power2.out" });
+    const onLeave = () => img && gsap.to(img, { scale: 1, duration: 0.8, ease: "power2.out" });
+    rowRef.current?.addEventListener("mouseenter", onEnter);
+    rowRef.current?.addEventListener("mouseleave", onLeave);
+    return () => {
+      rowRef.current?.removeEventListener("mouseenter", onEnter);
+      rowRef.current?.removeEventListener("mouseleave", onLeave);
+    };
   }, []);
 
   return (
-    <section
-      ref={sectionRef}
-      className="px-8 md:px-16 lg:px-20 py-14 md:py-20"
+    <article
+      ref={rowRef}
+      className="grid grid-cols-1 md:grid-cols-2 border-t border-[var(--border)] overflow-hidden"
+      style={{ direction: flip ? "rtl" : "ltr" }}
     >
+      {/* Image */}
       <div
-        ref={gridRef}
-        className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-14"
+        ref={imgRef}
+        className="relative overflow-hidden w-full"
+        style={{ aspectRatio: "4/3", direction: "ltr", clipPath: "inset(0 0 100% 0)" }}
       >
+        <Image
+          src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/mishell.jpg`}
+          alt={event.title}
+          fill
+          className="object-cover object-top"
+          style={{ objectPosition: `${25 + index * 15}% top`, transform: "scale(1)" }}
+        />
+      </div>
+
+      {/* Info */}
+      <div
+        ref={infoRef}
+        className="flex flex-col justify-between p-8 md:p-12 lg:p-16"
+        style={{ direction: "ltr" }}
+      >
+        <div>
+          <span
+            style={{
+              fontFamily: "var(--font-display)",
+              fontSize: "0.62rem",
+              letterSpacing: "0.22em",
+              color: "var(--text-subtle)",
+              display: "block",
+              marginBottom: "1rem",
+            }}
+          >
+            0{index + 1}
+          </span>
+          <h3
+            style={{
+              fontFamily: "var(--font-display)",
+              fontWeight: 300,
+              fontSize: "clamp(1.8rem, 3.5vw, 3rem)",
+              letterSpacing: "-0.03em",
+              lineHeight: 1.05,
+              color: "var(--text)",
+            }}
+          >
+            {event.title}
+          </h3>
+        </div>
+
+        <dl
+          className="mt-10 md:mt-0 space-y-3"
+          style={{ fontFamily: "var(--font-display)" }}
+        >
+          {[
+            { label: "Date", value: event.date },
+            { label: "Tickets sold", value: event.tickets },
+            { label: "Artists", value: event.booking },
+          ].map(({ label, value }) => (
+            <div key={label} className="flex items-baseline justify-between border-b border-[var(--border)] pb-3">
+              <dt style={{ fontSize: "0.68rem", letterSpacing: "0.15em", textTransform: "uppercase", color: "var(--text-subtle)" }}>{label}</dt>
+              <dd style={{ fontSize: "0.9rem", fontWeight: 300, color: "var(--text-muted)" }}>{value}</dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+    </article>
+  );
+}
+
+export default function CoreEvents() {
+  const tagRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    gsap.fromTo(tagRef.current,
+      { opacity: 0 },
+      { opacity: 1, duration: 0.7, ease: "power2.out", scrollTrigger: { trigger: tagRef.current, start: "top 95%" } }
+    );
+  }, []);
+
+  return (
+    <section className="py-4 md:py-8">
+      <div className="px-6 md:px-14 lg:px-20">
+        <div ref={tagRef} className="flex items-center gap-3 mb-0 pt-10 border-t border-[var(--border)]">
+          <span style={{ fontFamily: "var(--font-display)", fontSize: "0.62rem", letterSpacing: "0.22em", color: "var(--text-subtle)" }}>03</span>
+          <span style={{ fontSize: "0.62rem", color: "var(--border-strong)" }}>—</span>
+          <span style={{ fontFamily: "var(--font-display)", fontSize: "0.62rem", letterSpacing: "0.22em", textTransform: "uppercase", color: "var(--text-subtle)" }}>Core Events</span>
+        </div>
+      </div>
+
+      <div className="mt-12">
         {coreEvents.map((event, i) => (
-          <EventCard key={event.title} {...event} index={i} />
+          <EventRow key={event.title} event={event} index={i} flip={i % 2 !== 0} />
         ))}
       </div>
     </section>

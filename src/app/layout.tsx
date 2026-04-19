@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import "./globals.css";
 import CustomCursor from "@/components/CustomCursor";
 import ThemeToggle from "@/components/ThemeToggle";
-import TicketBadge from "@/components/TicketBadge";
 import LoadingScreen from "@/components/LoadingScreen";
 import ScrollRefresh from "@/components/ScrollRefresh";
 
@@ -31,7 +30,6 @@ export default function RootLayout({
         <ScrollRefresh />
         <CustomCursor />
         <ThemeToggle />
-        <TicketBadge />
         {children}
       </body>
     </html>

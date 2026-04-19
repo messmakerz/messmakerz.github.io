@@ -9,121 +9,100 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function WhoWeAre() {
   const sectionRef = useRef<HTMLElement>(null);
+  const tagRef = useRef<HTMLDivElement>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
-  const bodyRef = useRef<HTMLParagraphElement>(null);
   const imgRef = useRef<HTMLDivElement>(null);
+  const bodyRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const heading = headingRef.current;
-    if (heading) {
-      const text = heading.textContent ?? "";
-      heading.innerHTML = text
-        .split("")
-        .map((ch) =>
-          ch === " "
-            ? "<span style='display:inline-block'>&nbsp;</span>"
-            : `<span style='display:inline-block;overflow:hidden'><span class='char' style='display:inline-block'>${ch}</span></span>`
-        )
-        .join("");
+    const st = { start: "top 95%", toggleActions: "play reverse play reverse" };
 
-      const chars = heading.querySelectorAll(".char");
-      // Punk entrance: slam in from below with skew
-      gsap.fromTo(
-        chars,
-        { y: "120%", skewX: -15, opacity: 0 },
-        {
-          y: "0%",
-          skewX: 0,
-          opacity: 1,
-          stagger: 0.025,
-          duration: 0.5,
-          ease: "expo.out",
-          scrollTrigger: { trigger: heading, start: "top 95%", toggleActions: "play reverse play reverse" },
-        }
-      );
-    }
-
-    // Body text: lines fly in with hard ease
-    gsap.fromTo(
-      bodyRef.current,
-      { x: -40, opacity: 0, skewX: -4 },
-      {
-        x: 0,
-        opacity: 1,
-        skewX: 0,
-        duration: 0.7,
-        ease: "expo.out",
-        scrollTrigger: { trigger: bodyRef.current, start: "top 95%", toggleActions: "play reverse play reverse" },
-      }
+    gsap.fromTo(tagRef.current,
+      { opacity: 0 },
+      { opacity: 1, duration: 0.7, ease: "power2.out", scrollTrigger: { trigger: tagRef.current, ...st } }
     );
 
-    // Image: hard clip reveal from left
-    if (imgRef.current) {
-      gsap.fromTo(
-        imgRef.current,
-        { clipPath: "inset(0 100% 0 0)", opacity: 1 },
-        {
-          clipPath: "inset(0 0% 0 0)",
-          duration: 0.8,
-          ease: "expo.out",
-          scrollTrigger: { trigger: imgRef.current, start: "top 95%", toggleActions: "play reverse play reverse" },
-        }
-      );
-    }
+    gsap.fromTo(headingRef.current,
+      { y: 40, opacity: 0 },
+      { y: 0, opacity: 1, duration: 1.0, ease: "power3.out", scrollTrigger: { trigger: headingRef.current, ...st } }
+    );
 
-    return () => { ScrollTrigger.getAll().forEach((t) => t.kill()); };
+    gsap.fromTo(imgRef.current,
+      { clipPath: "inset(0 0 100% 0)" },
+      { clipPath: "inset(0 0 0% 0)", duration: 1.1, ease: "power3.out", scrollTrigger: { trigger: imgRef.current, ...st } }
+    );
+
+    gsap.fromTo(bodyRef.current,
+      { y: 24, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.9, ease: "power3.out", scrollTrigger: { trigger: bodyRef.current, ...st } }
+    );
   }, []);
 
   return (
-    <section
-      ref={sectionRef}
-      className="px-8 md:px-16 lg:px-20 py-20 md:py-28 lg:py-36"
-    >
-      <div className="max-w-6xl">
-        <h2
-          ref={headingRef}
-          className="text-6xl md:text-8xl lg:text-[7rem] font-bold leading-none mb-12 md:mb-16"
-          style={{ fontFamily: "var(--font-display)", fontWeight: 700, letterSpacing: "-0.04em" }}
+    <section ref={sectionRef} className="px-6 md:px-14 lg:px-20 py-16 md:py-24">
+
+      {/* Section tag */}
+      <div ref={tagRef} className="flex items-center gap-3 mb-12 pt-10 border-t border-[var(--border)]">
+        <span style={{ fontFamily: "var(--font-display)", fontSize: "0.62rem", letterSpacing: "0.22em", color: "var(--text-subtle)" }}>01</span>
+        <span style={{ fontSize: "0.62rem", color: "var(--border-strong)" }}>—</span>
+        <span style={{ fontFamily: "var(--font-display)", fontSize: "0.62rem", letterSpacing: "0.22em", textTransform: "uppercase", color: "var(--text-subtle)" }}>Who We Are</span>
+      </div>
+
+      {/* Statement heading */}
+      <h2
+        ref={headingRef}
+        className="mb-16 md:mb-20"
+        style={{
+          fontFamily: "var(--font-display)",
+          fontWeight: 300,
+          fontSize: "clamp(2.2rem, 5.5vw, 5.5rem)",
+          lineHeight: 1.05,
+          letterSpacing: "-0.04em",
+          color: "var(--text)",
+          maxWidth: "18ch",
+        }}
+      >
+        Mishell&apos;s core community. Concept-driven events, fashion, music.
+      </h2>
+
+      {/* Split: image left, body right */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-end">
+        <div
+          ref={imgRef}
+          className="relative overflow-hidden w-full"
+          style={{ aspectRatio: "4/5", clipPath: "inset(0 0 100% 0)" }}
         >
-          WHO ARE WE?
-        </h2>
+          <Image
+            src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/mishell.jpg`}
+            alt="Mishell"
+            fill
+            className="object-cover object-top"
+          />
+        </div>
 
-        <div className="flex flex-col md:flex-row gap-10 md:gap-14 items-start">
-          {/* Square image — clip reveal */}
-          <div
-            ref={imgRef}
-            className="w-full md:w-[42%] shrink-0 overflow-hidden"
-            style={{ aspectRatio: "1 / 1", clipPath: "inset(0 100% 0 0)" }}
+        <div ref={bodyRef} className="flex flex-col justify-end pb-2">
+          <p
+            style={{
+              fontFamily: "var(--font-display)",
+              fontWeight: 300,
+              fontSize: "clamp(0.95rem, 1.3vw, 1.1rem)",
+              lineHeight: 1.75,
+              color: "var(--text-muted)",
+              maxWidth: "48ch",
+            }}
           >
-            <Image
-              src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/mishell.jpg`}
-              alt="Mishell"
-              width={600}
-              height={600}
-              className="w-full h-full object-cover object-top grayscale hover:grayscale-0 transition-all duration-500"
-            />
-          </div>
-
-          {/* Text */}
-          <div className="flex flex-col justify-center">
-            <p
-              ref={bodyRef}
-              className="text-base md:text-lg font-light leading-relaxed text-[var(--text-muted)]"
-              style={{ fontFamily: "var(--font-display)", fontWeight: 300 }}
-            >
-              Mess Makers is Mishell&apos;s core community. Supported by his local
-              team, Mishell has built a unique brand that brings a fresh style to
-              the local and international scene.
-              <br /><br />
-              Mess is dedicated to producing{" "}
-              <span className="text-[var(--red)]">concept-driven events, fashion, music, and more</span>{" "}
-              — always with a bold, sexy, naughty and uncompromising approach,
-              fully committed to pure art.
-              <br /><br />
-              The brand allows Mishell to form a direct connection with his
-              audience and add a new dimension to his journey.
-            </p>
-          </div>
+            Mess Makers is Mishell&apos;s core community. Supported by his local
+            team, Mishell has built a unique brand that brings a fresh style to
+            the local and international scene.
+            <br /><br />
+            Mess is dedicated to producing{" "}
+            <span style={{ color: "var(--text)" }}>concept-driven events, fashion, music, and more</span>
+            {" "}— always with a bold, sexy, naughty and uncompromising approach,
+            fully committed to pure art.
+            <br /><br />
+            The brand allows Mishell to form a direct connection with his
+            audience and add a new dimension to his journey.
+          </p>
         </div>
       </div>
     </section>

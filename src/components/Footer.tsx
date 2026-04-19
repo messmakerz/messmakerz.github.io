@@ -16,89 +16,62 @@ const socials = [
 
 export default function Footer() {
   const footerRef = useRef<HTMLElement>(null);
-  const logoRef = useRef<HTMLDivElement>(null);
-  const linksRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Logo: slam up from below
-    gsap.fromTo(
-      logoRef.current,
-      { y: 50, opacity: 0, skewX: -5 },
-      {
-        y: 0, opacity: 1, skewX: 0,
-        duration: 0.6, ease: "expo.out",
-        scrollTrigger: { trigger: footerRef.current, start: "top 95%", toggleActions: "play reverse play reverse" },
-      }
+    gsap.fromTo(contentRef.current,
+      { y: 24, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.9, ease: "power3.out", scrollTrigger: { trigger: footerRef.current, start: "top 95%" } }
     );
-
-    // Links: stagger slam in
-    const items = linksRef.current?.querySelectorAll("a");
-    if (items) {
-      gsap.fromTo(
-        items,
-        { x: 30, opacity: 0 },
-        {
-          x: 0, opacity: 1,
-          stagger: 0.06,
-          duration: 0.45,
-          ease: "expo.out",
-          scrollTrigger: { trigger: linksRef.current, start: "top 95%", toggleActions: "play reverse play reverse" },
-          delay: 0.1,
-        }
-      );
-
-      // Hover: punch each link
-      items.forEach((el) => {
-        el.addEventListener("mouseenter", () => {
-          gsap.to(el, { x: 6, skewX: -3, duration: 0.12, ease: "power2.out" });
-        });
-        el.addEventListener("mouseleave", () => {
-          gsap.to(el, { x: 0, skewX: 0, duration: 0.4, ease: "elastic.out(1, 0.5)" });
-        });
-      });
-    }
   }, []);
 
   return (
-    <footer ref={footerRef} className="border-t border-[var(--border)] px-8 md:px-16 lg:px-20">
-      <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-12 py-14 md:py-16">
-        <div ref={logoRef}>
-          <Image
-            src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/mess-small-logo.svg`}
-            alt="MESS Production"
-            width={222}
-            height={99}
-            className="w-32 md:w-40 opacity-90"
-          />
-        </div>
+    <footer ref={footerRef} className="border-t border-[var(--border)] px-6 md:px-14 lg:px-20">
+      <div ref={contentRef} className="py-14 md:py-20">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8 items-start">
 
-        <div ref={linksRef} className="flex flex-col gap-4">
-          {socials.map((s) => (
-            <a
-              key={s.label}
-              href={s.href}
-              target={s.href.startsWith("mailto") ? undefined : "_blank"}
-              rel="noopener noreferrer"
-              className="group flex items-center gap-3"
-              style={{ willChange: "transform" }}
-            >
-              <span className="w-1 h-1 rounded-full bg-[var(--red)]" />
-              <span
-                className="text-sm font-light tracking-[0.12em] uppercase text-[var(--text-muted)] group-hover:text-[var(--text)] transition-colors duration-150"
-                style={{ fontFamily: "var(--font-display)" }}
+          {/* Logo + tagline */}
+          <div className="md:col-span-2">
+            <Image
+              src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/mess-small-logo.svg`}
+              alt="MESS Production"
+              width={222}
+              height={99}
+              className="w-28 md:w-36 mb-6"
+            />
+            <p style={{ fontFamily: "var(--font-display)", fontWeight: 300, fontSize: "0.85rem", color: "var(--text-subtle)", lineHeight: 1.7, maxWidth: "36ch" }}>
+              Concept-driven events, fashion, music. Bold, sexy, uncompromising.
+            </p>
+          </div>
+
+          {/* Links */}
+          <div className="flex flex-col gap-3">
+            {socials.map((s) => (
+              <a
+                key={s.label}
+                href={s.href}
+                target={s.href.startsWith("mailto") ? undefined : "_blank"}
+                rel="noopener noreferrer"
+                className="group flex items-center justify-between border-b border-[var(--border)] pb-3"
               >
-                {s.label}
-              </span>
-            </a>
-          ))}
+                <span style={{ fontFamily: "var(--font-display)", fontWeight: 300, fontSize: "0.82rem", letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--text-muted)", transition: "color 0.2s" }}
+                  onMouseEnter={(e) => (e.currentTarget.style.color = "var(--text)")}
+                  onMouseLeave={(e) => (e.currentTarget.style.color = "var(--text-muted)")}
+                >
+                  {s.label}
+                </span>
+                <span style={{ color: "var(--text-subtle)", fontSize: "0.75rem" }}>↗</span>
+              </a>
+            ))}
+          </div>
         </div>
       </div>
 
       <div className="border-t border-[var(--border)] py-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
-        <span className="text-xs font-light text-[var(--text-subtle)] tracking-widest uppercase" style={{ fontFamily: "var(--font-display)" }}>
+        <span style={{ fontFamily: "var(--font-display)", fontSize: "0.6rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--text-subtle)" }}>
           © 2026 MESS Production
         </span>
-        <span className="text-xs font-light text-[var(--text-subtle)] tracking-widest uppercase" style={{ fontFamily: "var(--font-display)" }}>
+        <span style={{ fontFamily: "var(--font-display)", fontSize: "0.6rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--text-subtle)" }}>
           Tel Aviv, Israel
         </span>
       </div>
