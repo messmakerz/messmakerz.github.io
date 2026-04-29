@@ -4,18 +4,19 @@ import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
+import Link from "next/link";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const coreEvents = [
-  { title: "MESS PLANET", date: "December 2024", tickets: "600", booking: "Mita Gami" },
-  { title: "LIVE FROM HELL", date: "March 2025", tickets: "1,000", booking: "Omri, Garden City Movement" },
-  { title: "A TRIBE CALLED MESS", date: "Aug 2025", tickets: "800", booking: "Darco Genish" },
-  { title: "MESS JUNGLE TRIP", date: "Oct 2025", tickets: "1,200", booking: "Cour T, Kino Todo" },
+  { title: "MESS PLANET", date: "December 2024", tickets: "600", booking: "Mita Gami", slug: null },
+  { title: "LIVE FROM HELL", date: "March 2025", tickets: "1,000", booking: "Omri, Garden City Movement", slug: null },
+  { title: "A TRIBE CALLED MESS", date: "Aug 2025", tickets: "800", booking: "Darco Genish", slug: "tribe-called-mess" },
+  { title: "MESS JUNGLE TRIP", date: "Oct 2025", tickets: "1,200", booking: "Cour T, Kino Todo", slug: null },
 ];
 
 interface EventRowProps {
-  event: typeof coreEvents[0];
+  event: (typeof coreEvents)[0];
   index: number;
   flip: boolean;
 }
@@ -67,10 +68,10 @@ function EventRow({ event, index, flip }: EventRowProps) {
     };
   }, []);
 
-  return (
+  const inner = (
     <article
       ref={rowRef}
-      className="grid grid-cols-1 md:grid-cols-2 border-t border-[var(--border)] overflow-hidden"
+      className={`grid grid-cols-1 md:grid-cols-2 border-t border-[var(--border)] overflow-hidden${event.slug ? " group cursor-none" : ""}`}
       style={{ direction: flip ? "rtl" : "ltr" }}
     >
       {/* Image */}
@@ -140,9 +141,30 @@ function EventRow({ event, index, flip }: EventRowProps) {
             </div>
           ))}
         </dl>
+
+        {event.slug && (
+          <span
+            className="mt-8 self-start translate-x-0 group-hover:translate-x-1 transition-transform duration-300"
+            style={{
+              fontFamily: "var(--font-display)",
+              fontSize: "0.62rem",
+              letterSpacing: "0.22em",
+              textTransform: "uppercase",
+              color: "var(--text-subtle)",
+            }}
+          >
+            View photos ↗
+          </span>
+        )}
       </div>
     </article>
   );
+
+  return event.slug ? (
+    <Link href={`/gallery/${event.slug}`} className="block">
+      {inner}
+    </Link>
+  ) : inner;
 }
 
 export default function CoreEvents() {
