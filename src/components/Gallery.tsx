@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
+import Link from "next/link";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -150,8 +151,8 @@ export default function Gallery() {
           <span style={{ fontSize: "0.62rem", color: "var(--border-strong)" }}>—</span>
           <span style={{ fontFamily: "var(--font-display)", fontSize: "0.62rem", letterSpacing: "0.22em", textTransform: "uppercase", color: "var(--text-subtle)" }}>Gallery</span>
 
-          {/* Scroll progress bar */}
-          <div className="ml-auto flex items-center gap-3">
+          {/* Scroll progress bar + link */}
+          <div className="ml-auto flex items-center gap-5">
             <div className="w-24 md:w-40 h-px bg-[var(--border)] relative overflow-hidden">
               <div
                 ref={progressRef}
@@ -159,9 +160,20 @@ export default function Gallery() {
                 style={{ width: "0%" }}
               />
             </div>
-            <span style={{ fontFamily: "var(--font-display)", fontSize: "0.55rem", letterSpacing: "0.2em", color: "var(--text-subtle)", textTransform: "uppercase" }}>
-              Scroll
-            </span>
+            <Link
+              href="/gallery"
+              style={{
+                fontFamily: "var(--font-display)",
+                fontSize: "0.55rem",
+                letterSpacing: "0.2em",
+                color: "var(--text-subtle)",
+                textTransform: "uppercase",
+                whiteSpace: "nowrap",
+              }}
+              className="hover:text-[var(--text)] transition-colors"
+            >
+              View all ↗
+            </Link>
           </div>
         </div>
       </div>
