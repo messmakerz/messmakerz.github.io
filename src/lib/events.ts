@@ -9,6 +9,26 @@ export interface EventData {
 
 export const EVENTS: EventData[] = [
   {
+    slug: "live-from-hell",
+    title: "LIVE FROM HELL",
+    date: "March 2025",
+    tickets: "1,000",
+    coverPhoto: "DSC00060",
+    photos: [
+      "DSC00001","DSC00002","DSC00006","DSC00017","DSC00019",
+      "DSC00021","DSC00026","DSC00036-Enhanced-NR","DSC00037-Enhanced-NR","DSC00038-Enhanced-NR",
+      "DSC00041-Enhanced-NR","DSC00044-Enhanced-NR","DSC00054","DSC00055","DSC00058",
+      "DSC00059","DSC00060","DSC00062","DSC00063","DSC00064",
+      "DSC00066","DSC00067","DSC00070","DSC00071","DSC00087-Enhanced-NR",
+      "DSC00088-Enhanced-NR","DSC00089","DSC00090-Enhanced-NR","DSC00091-Enhanced-NR","DSC00097-Enhanced-NR",
+      "DSC00098-Enhanced-NR","DSC00107-Enhanced-NR","DSC00110-Enhanced-NR","DSC00111-Enhanced-NR","DSC00112-Enhanced-NR",
+      "DSC00113","DSC00116","DSC00117","DSC00118","DSC00120",
+      "DSC00130","DSC00131","DSC00132","DSC00133","DSC00148",
+      "DSC00150-Enhanced-NR","DSC00154-Enhanced-NR","DSC00178","DSC00180","DSC00206",
+      "DSC00208","DSC00228-Enhanced-NR","DSC00232","DSC00235","DSC00238",
+    ],
+  },
+  {
     slug: "tribe-called-mess",
     title: "A TRIBE CALLED MESS",
     date: "Aug 2025",
