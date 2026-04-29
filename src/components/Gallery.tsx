@@ -7,17 +7,25 @@ import Image from "next/image";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const SLIDES = [
-  { id: 1, label: "MESS PLANET", num: "01" },
-  { id: 2, label: "LIVE FROM HELL", num: "02" },
-  { id: 3, label: "MESSY SESSIONS", num: "03" },
-  { id: 4, label: "A TRIBE CALLED MESS", num: "04" },
-  { id: 5, label: "MESS JUNGLE TRIP", num: "05" },
-  { id: 6, label: "MESS GALA", num: "06" },
-  { id: 7, label: "MESS BAKERY RAVE", num: "07" },
-  { id: 8, label: "MESS PLANET II", num: "08" },
-  { id: 9, label: "BEHIND THE SCENES", num: "09" },
+const EVENT_PHOTOS = [
+  "B97A5091","B97A5092","B97A5093","B97A5094","B97A5095",
+  "B97A5097","B97A5098","B97A5099","B97A5100","B97A5101",
+  "B97A5102","B97A5103","B97A5104","B97A5105","B97A5106",
+  "B97A5107","B97A5108","B97A5110","B97A5111","B97A5116",
+  "B97A5118","B97A5119","B97A5120","B97A5121","B97A5122",
+  "B97A5123","B97A5124","B97A5125","B97A5127","B97A5131",
+  "B97A5133","B97A5135","B97A5139","B97A5140","B97A5141",
+  "B97A5142","B97A5144","B97A5145","B97A5146","B97A5147",
+  "B97A5148","B97A5149","B97A5150","B97A5160","B97A5164",
+  "B97A5165",
 ];
+
+const SLIDES = EVENT_PHOTOS.map((file, i) => ({
+  id: i + 1,
+  file,
+  label: "A TRIBE CALLED MESS",
+  num: String(i + 1).padStart(2, "0"),
+}));
 
 interface LightboxProps {
   slide: (typeof SLIDES)[0];
@@ -63,10 +71,10 @@ function Lightbox({ slide, onClose }: LightboxProps) {
 
         <div className="w-full aspect-video relative overflow-hidden">
           <Image
-            src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/mishell.jpg`}
+            src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/events/tribe-called-mess/${slide.file}.jpg`}
             alt={slide.label}
             fill
-            className="object-cover object-top"
+            className="object-cover object-center"
           />
           <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/70 to-transparent" />
         </div>
@@ -173,11 +181,11 @@ export default function Gallery() {
               onClick={() => setActive(slide)}
             >
               <Image
-                src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/mishell.jpg`}
+                src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/events/tribe-called-mess/${slide.file}.jpg`}
                 alt={slide.label}
                 fill
-                className="object-cover object-top grayscale group-hover:grayscale-0 transition-[filter] duration-500"
-                style={{ objectPosition: `${20 + (i * 11) % 50}% ${10 + (i * 7) % 35}%` }}
+                className="object-cover grayscale group-hover:grayscale-0 transition-[filter] duration-500"
+                style={{ objectPosition: "50% 30%" }}
               />
 
               {/* Gradient */}

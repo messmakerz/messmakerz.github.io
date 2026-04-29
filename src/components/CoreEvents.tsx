@@ -80,11 +80,15 @@ function EventRow({ event, index, flip }: EventRowProps) {
         style={{ aspectRatio: "4/3", direction: "ltr", clipPath: "inset(0 0 100% 0)" }}
       >
         <Image
-          src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/mishell.jpg`}
+          src={
+            event.title === "A TRIBE CALLED MESS"
+              ? `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/events/tribe-called-mess/B97A5120.jpg`
+              : `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/mishell.jpg`
+          }
           alt={event.title}
           fill
-          className="object-cover object-top"
-          style={{ objectPosition: `${25 + index * 15}% top`, transform: "scale(1)" }}
+          className="object-cover"
+          style={{ objectPosition: event.title === "A TRIBE CALLED MESS" ? "50% 25%" : `${25 + index * 15}% top`, transform: "scale(1)" }}
         />
       </div>
 
