@@ -32,7 +32,7 @@ export default function Hero() {
       {/* Video bg — very subtle, texture only */}
       <video
         className="absolute inset-0 w-full h-full object-cover pointer-events-none"
-        style={{ opacity: 0.1 }}
+        style={{ opacity: 0.25 }}
         src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/hero-bg.mp4`}
         autoPlay
         loop
