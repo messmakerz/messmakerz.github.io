@@ -53,6 +53,24 @@ function VideoCard({ video, index, onOpen }: VideoCardProps) {
     );
   }, [index]);
 
+  // Autoplay on mobile when the video enters the viewport
+  useEffect(() => {
+    const el = previewRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          el.play().catch(() => {});
+        } else {
+          el.pause();
+        }
+      },
+      { threshold: 0.3 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <div
       ref={cardRef}
@@ -62,7 +80,7 @@ function VideoCard({ video, index, onOpen }: VideoCardProps) {
       onMouseLeave={handleMouseLeave}
       onClick={onOpen}
     >
-      {/* Preview video — muted, plays on hover */}
+      {/* Preview video — muted, autoplays on mobile / hover on desktop */}
       <div className="relative w-full overflow-hidden" style={{ aspectRatio: "9/16", maxHeight: "70vh" }}>
         <video
           ref={previewRef}
@@ -71,14 +89,14 @@ function VideoCard({ video, index, onOpen }: VideoCardProps) {
           muted
           playsInline
           loop
-          preload="metadata"
+          preload="auto"
         />
 
         {/* Dark overlay */}
         <div className="absolute inset-0 bg-black/40 group-hover:bg-black/10 transition-colors duration-500 pointer-events-none" />
 
-        {/* Play icon */}
-        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+        {/* Play icon — desktop only */}
+        <div className="absolute inset-0 items-center justify-center pointer-events-none hidden md:flex">
           <div
             className="w-12 h-12 md:w-16 md:h-16 rounded-full border border-white/40 flex items-center justify-center opacity-100 group-hover:opacity-0 transition-opacity duration-300"
           >
