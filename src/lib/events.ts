@@ -47,6 +47,23 @@ export const EVENTS: EventData[] = [
       "B97A5165",
     ],
   },
+  {
+    slug: "mess-jungle-trip",
+    title: "MESS JUNGLE TRIP",
+    date: "Oct 2025",
+    tickets: "1,200",
+    coverPhoto: "B97A5720",
+    photos: [
+      "B97A5705","B97A5706","B97A5708","B97A5709","B97A5712",
+      "B97A5713","B97A5714","B97A5715","B97A5716","B97A5717",
+      "B97A5718","B97A5719","B97A5720","B97A5721","B97A5722",
+      "B97A5724","B97A5725","B97A5726","B97A5728","B97A5729",
+      "B97A5730","B97A5731","B97A5732","B97A5733","B97A5734",
+      "B97A5736","B97A5738","B97A5741","B97A5742","B97A5743",
+      "B97A5744","B97A5745","B97A5746","B97A5747","B97A5749",
+      "B97A5750","B97A5752","B97A5753","B97A5754",
+    ],
+  },
 ];
 
 export function getEvent(slug: string): EventData | undefined {

@@ -9,10 +9,10 @@ import Link from "next/link";
 gsap.registerPlugin(ScrollTrigger);
 
 const coreEvents = [
-  { title: "MESS PLANET", date: "December 2024", tickets: "600", booking: "Mita Gami", slug: null },
-  { title: "LIVE FROM HELL", date: "March 2025", tickets: "1,000", booking: "Omri, Garden City Movement", slug: "live-from-hell" },
-  { title: "A TRIBE CALLED MESS", date: "Aug 2025", tickets: "800", booking: "Darco Genish", slug: "tribe-called-mess" },
-  { title: "MESS JUNGLE TRIP", date: "Oct 2025", tickets: "1,200", booking: "Cour T, Kino Todo", slug: null },
+  { title: "MESS PLANET", date: "December 2024", tickets: "600", booking: "Mita Gami", slug: null, coverPhoto: null },
+  { title: "LIVE FROM HELL", date: "March 2025", tickets: "1,000", booking: "Omri, Garden City Movement", slug: "live-from-hell", coverPhoto: "DSC00060" },
+  { title: "A TRIBE CALLED MESS", date: "Aug 2025", tickets: "800", booking: "Darco Genish", slug: "tribe-called-mess", coverPhoto: "B97A5120" },
+  { title: "MESS JUNGLE TRIP", date: "Oct 2025", tickets: "1,200", booking: "Cour T, Kino Todo", slug: "mess-jungle-trip", coverPhoto: "B97A5720" },
 ];
 
 interface EventRowProps {
@@ -82,10 +82,8 @@ function EventRow({ event, index, flip }: EventRowProps) {
       >
         <Image
           src={
-            event.slug
-              ? `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/events/${event.slug}/${
-                  event.title === "A TRIBE CALLED MESS" ? "B97A5120" : "DSC00060"
-                }.jpg`
+            event.slug && event.coverPhoto
+              ? `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/events/${event.slug}/${event.coverPhoto}.jpg`
               : `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/mishell.jpg`
           }
           alt={event.title}
