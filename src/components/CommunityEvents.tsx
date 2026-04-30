@@ -122,8 +122,10 @@ function VideoLightbox({ src, title, onClose }: VideoLightboxProps) {
 
 // ─── Video card media ──────────────────────────────────────────────────────────
 function VideoMedia({ src }: { src: string }) {
+  const wrapRef = useRef<HTMLDivElement>(null);
   const previewRef = useRef<HTMLVideoElement>(null);
 
+  // Desktop: hover to play/pause
   const handleMouseEnter = () => {
     const v = previewRef.current;
     if (v) { v.currentTime = 0; v.play().catch(() => {}); }
@@ -133,8 +135,34 @@ function VideoMedia({ src }: { src: string }) {
     if (v) { v.pause(); v.currentTime = 0; }
   };
 
+  // Mobile: autoplay when >50% visible
+  useEffect(() => {
+    const el = wrapRef.current;
+    const v = previewRef.current;
+    if (!el || !v) return;
+
+    const isMobile = () => window.matchMedia("(hover: none)").matches;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (!isMobile()) return;
+        const entry = entries[0];
+        if (entry.isIntersecting) {
+          v.play().catch(() => {});
+        } else {
+          v.pause();
+        }
+      },
+      { threshold: 0.5 }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <div
+      ref={wrapRef}
       className="relative w-full overflow-hidden"
       style={{ aspectRatio: "3/4" }}
       onMouseEnter={handleMouseEnter}
@@ -151,8 +179,8 @@ function VideoMedia({ src }: { src: string }) {
       />
       {/* Dark overlay */}
       <div className="absolute inset-0 bg-black/35 group-hover:bg-black/10 transition-colors duration-500 pointer-events-none" />
-      {/* Play icon */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+      {/* Play icon — desktop only */}
+      <div className="hidden md:flex absolute inset-0 items-center justify-center pointer-events-none">
         <div className="w-10 h-10 rounded-full border border-white/40 flex items-center justify-center opacity-80 group-hover:opacity-0 transition-opacity duration-300">
           <svg width="14" height="14" viewBox="0 0 18 18" fill="none">
             <path d="M5 3l10 6-10 6V3z" fill="rgba(255,255,255,0.8)" />
