@@ -3,13 +3,13 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   output: "export",
   trailingSlash: true,
-  basePath: "/mess",
-  assetPrefix: "/mess",
+  basePath: "",
+  assetPrefix: "",
   images: {
     unoptimized: true,
   },
   env: {
-    NEXT_PUBLIC_BASE_PATH: "/mess",
+    NEXT_PUBLIC_BASE_PATH: "",
   },
 };
 
