@@ -1,24 +1,110 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
+
+const ADMIN_API = "https://mess-admin-prod.vercel.app";
+
+function HeroNewsletter() {
+  const [email, setEmail] = useState("");
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email.includes("@")) return;
+    setStatus("loading");
+    try {
+      const res = await fetch(`${ADMIN_API}/api/subscribe`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+      setStatus(res.ok ? "success" : "error");
+      if (res.ok) setEmail("");
+    } catch {
+      setStatus("error");
+    }
+  };
+
+  if (status === "success") {
+    return (
+      <div className="flex items-center gap-3">
+        <span className="w-1.5 h-1.5 rounded-full bg-[var(--red)]" />
+        <span style={{ fontFamily: "var(--font-display)", fontSize: "0.68rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--text-subtle)" }}>
+          You&apos;re in.
+        </span>
+      </div>
+    );
+  }
+
+  return (
+    <form onSubmit={handleSubmit} className="flex items-stretch gap-0">
+      <input
+        type="email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        placeholder="your@email.com"
+        required
+        style={{
+          background: "transparent",
+          border: "none",
+          borderBottom: "1px solid rgba(255,255,255,0.2)",
+          outline: "none",
+          fontFamily: "var(--font-display)",
+          fontWeight: 300,
+          fontSize: "0.78rem",
+          color: "var(--text)",
+          padding: "10px 0",
+          width: "clamp(140px, 20vw, 220px)",
+          letterSpacing: "0.02em",
+        }}
+      />
+      <button
+        type="submit"
+        disabled={status === "loading"}
+        style={{
+          fontFamily: "var(--font-display)",
+          fontSize: "0.6rem",
+          letterSpacing: "0.22em",
+          textTransform: "uppercase",
+          color: "#0a0a0a",
+          background: "var(--text)",
+          border: "none",
+          cursor: "pointer",
+          padding: "0 20px",
+          marginLeft: "12px",
+          opacity: status === "loading" ? 0.5 : 1,
+          transition: "opacity 0.2s, background 0.2s",
+          whiteSpace: "nowrap",
+        }}
+        onMouseEnter={(e) => (e.currentTarget.style.background = "var(--red)")}
+        onMouseLeave={(e) => (e.currentTarget.style.background = "var(--text)")}
+      >
+        {status === "loading" ? "..." : "Join"}
+      </button>
+    </form>
+  );
+}
 
 export default function Hero() {
   const metaRef = useRef<HTMLDivElement>(null);
   const line1Ref = useRef<HTMLDivElement>(null);
   const line2Ref = useRef<HTMLDivElement>(null);
+  const ctaRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const els = [metaRef.current, line1Ref.current, line2Ref.current];
+    const els = [metaRef.current, line1Ref.current, line2Ref.current, ctaRef.current];
     gsap.killTweensOf(els);
     gsap.set(els, { opacity: 0 });
     gsap.set([line1Ref.current, line2Ref.current], { y: 28 });
+    gsap.set(ctaRef.current, { y: 16 });
 
     const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
     tl
       .to(line1Ref.current, { opacity: 1, y: 0, duration: 1.1 }, 0.35)
       .to(line2Ref.current, { opacity: 1, y: 0, duration: 1.1 }, 0.5)
-      .to(metaRef.current, { opacity: 1, duration: 0.8 }, 0.55);
+      .to(metaRef.current, { opacity: 1, duration: 0.8 }, 0.55)
+      .to(ctaRef.current, { opacity: 1, y: 0, duration: 0.8 }, 0.75);
   }, []);
 
   return (
@@ -26,7 +112,7 @@ export default function Hero() {
       className="relative overflow-hidden"
       style={{ background: "var(--bg)" }}
     >
-      {/* Video bg — very subtle, texture only */}
+      {/* Video bg */}
       <video
         className="absolute inset-0 w-full h-full object-cover pointer-events-none"
         style={{ opacity: 0.25 }}
@@ -37,7 +123,7 @@ export default function Hero() {
         playsInline
       />
 
-      {/* Gradient overlay — fade edges into bg */}
+      {/* Gradient overlay */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
@@ -75,15 +161,15 @@ export default function Hero() {
             }}
           >
             <span className="flex items-center gap-1.5">
-            Scroll
-            <svg width="8" height="11" viewBox="0 0 8 11" fill="none" aria-hidden="true">
-              <path d="M4 1v9M1 7l3 3 3-3" stroke="currentColor" strokeWidth="1.1" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          </span>
+              Scroll
+              <svg width="8" height="11" viewBox="0 0 8 11" fill="none" aria-hidden="true">
+                <path d="M4 1v9M1 7l3 3 3-3" stroke="currentColor" strokeWidth="1.1" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </span>
           </span>
         </div>
 
-        {/* Display type — editorial weight */}
+        {/* Display type */}
         <div
           ref={line1Ref}
           style={{
@@ -112,7 +198,7 @@ export default function Hero() {
             EVENTS.
           </div>
 
-          {/* Tagline — absolute bottom-right on desktop, below on mobile */}
+          {/* Tagline */}
           <p
             className="mt-4 md:mt-0 md:absolute md:bottom-[0.4em] md:right-0"
             style={{
@@ -131,6 +217,21 @@ export default function Hero() {
             Production based in Tel Aviv.
           </p>
         </div>
+
+        {/* Newsletter CTA */}
+        <div ref={ctaRef} className="mt-10 md:mt-14 flex flex-col gap-3">
+          <p style={{
+            fontFamily: "var(--font-display)",
+            fontSize: "0.6rem",
+            letterSpacing: "0.22em",
+            textTransform: "uppercase",
+            color: "var(--text-subtle)",
+          }}>
+            Be the first to know
+          </p>
+          <HeroNewsletter />
+        </div>
+
       </div>
     </section>
   );
