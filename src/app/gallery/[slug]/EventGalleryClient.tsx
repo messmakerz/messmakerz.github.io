@@ -7,6 +7,30 @@ import type { EventData } from "@/lib/events";
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
+function ArrowLeft() {
+  return (
+    <svg width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true" style={{ display: "inline-block", verticalAlign: "middle" }}>
+      <path d="M13 5H1M1 5l4-4M1 5l4 4" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
+  );
+}
+
+function ArrowRight() {
+  return (
+    <svg width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true" style={{ display: "inline-block", verticalAlign: "middle" }}>
+      <path d="M1 5h12M13 5L9 1M13 5L9 9" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
+  );
+}
+
+function CloseIcon() {
+  return (
+    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true" style={{ display: "inline-block", verticalAlign: "middle" }}>
+      <path d="M1 1l10 10M11 1L1 11" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round"/>
+    </svg>
+  );
+}
+
 interface LightboxProps {
   event: EventData;
   index: number;
@@ -60,7 +84,7 @@ function Lightbox({ event, index, onClose, onPrev, onNext }: LightboxProps) {
           }}
           className="hover:text-white transition-colors"
         >
-          ESC / CLOSE ×
+          <span className="flex items-center gap-1.5">ESC / CLOSE <CloseIcon /></span>
         </button>
       </div>
 
@@ -94,7 +118,7 @@ function Lightbox({ event, index, onClose, onPrev, onNext }: LightboxProps) {
             color: "rgba(255,255,255,0.6)",
           }}
         >
-          ← PREV
+          <span className="flex items-center gap-2"><ArrowLeft /> PREV</span>
         </button>
 
         {/* Dot strip */}
@@ -123,7 +147,7 @@ function Lightbox({ event, index, onClose, onPrev, onNext }: LightboxProps) {
             color: "rgba(255,255,255,0.6)",
           }}
         >
-          NEXT →
+          <span className="flex items-center gap-2">NEXT <ArrowRight /></span>
         </button>
       </div>
     </div>
@@ -175,7 +199,7 @@ export default function EventGalleryClient({ event }: Props) {
           }}
           className="hover:text-[var(--text)] transition-colors"
         >
-          ← All Events
+          <span className="flex items-center gap-2"><ArrowLeft /> All Events</span>
         </Link>
       </div>
 

@@ -74,7 +74,12 @@ export default function Hero() {
               color: "var(--text-subtle)",
             }}
           >
-            Scroll ↓
+            <span className="flex items-center gap-1.5">
+            Scroll
+            <svg width="8" height="11" viewBox="0 0 8 11" fill="none" aria-hidden="true">
+              <path d="M4 1v9M1 7l3 3 3-3" stroke="currentColor" strokeWidth="1.1" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </span>
           </span>
         </div>
 

@@ -5,11 +5,19 @@ import { useEffect, useRef, useState } from "react";
 const base = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
 const NAV_LINKS = [
-  { label: "Instagram", href: "https://www.instagram.com/mess.production/" },
-  { label: "SoundCloud", href: "https://soundcloud.com" },
-  { label: "YouTube", href: "https://youtube.com" },
+  { label: "Instagram", href: "https://www.instagram.com/mess.makerz/" },
+  { label: "SoundCloud", href: "https://soundcloud.com/messmakerz" },
+  { label: "YouTube", href: "https://www.youtube.com/@MessRecordings" },
   { label: "Contact", href: "mailto:mess@mishell.com" },
 ];
+
+function ArrowUpRight() {
+  return (
+    <svg width="9" height="9" viewBox="0 0 9 9" fill="none" aria-hidden="true">
+      <path d="M1.5 7.5L7.5 1.5M7.5 1.5H2.5M7.5 1.5V6.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
+  );
+}
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
@@ -73,7 +81,7 @@ export default function Header() {
                 onMouseLeave={(e) => (e.currentTarget.style.color = "var(--text-subtle)")}
               >
                 {link.label}
-                <span style={{ fontSize: "0.55rem", opacity: 0.5 }}>↗</span>
+                <span style={{ opacity: 0.5 }}><ArrowUpRight /></span>
               </a>
             ))}
           </nav>
@@ -140,7 +148,7 @@ export default function Header() {
               >
                 {link.label}
               </span>
-              <span style={{ color: "var(--text-subtle)", fontSize: "1rem" }}>↗</span>
+              <span style={{ color: "var(--text-subtle)" }}><ArrowUpRight /></span>
             </a>
           ))}
         </nav>

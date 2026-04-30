@@ -69,10 +69,10 @@ export default function Audience() {
       </div>
 
       {/* Key stats */}
-      <div ref={statsRef} className="grid grid-cols-3 gap-px mb-20" style={{ background: "var(--border)" }}>
+      <div ref={statsRef} className="grid grid-cols-1 sm:grid-cols-3 gap-px mb-20" style={{ background: "var(--border)" }}>
         {stats.map((s) => (
-          <div key={s.label} className="stat-item py-10 px-4 md:px-10" style={{ background: "var(--bg)" }}>
-            <div style={{ fontFamily: "var(--font-display)", fontWeight: 300, fontSize: "clamp(1.8rem, 4.5vw, 4rem)", letterSpacing: "-0.04em", lineHeight: 1, color: "var(--text)", marginBottom: "0.5rem" }}>
+          <div key={s.label} className="stat-item flex sm:block items-center justify-between py-6 px-6 sm:py-10 sm:px-4 md:px-10" style={{ background: "var(--bg)" }}>
+            <div style={{ fontFamily: "var(--font-display)", fontWeight: 300, fontSize: "clamp(1.8rem, 4.5vw, 4rem)", letterSpacing: "-0.04em", lineHeight: 1, color: "var(--text)", marginBottom: "0" }} className="sm:mb-2">
               {s.value}
             </div>
             <div style={{ fontFamily: "var(--font-display)", fontSize: "0.62rem", letterSpacing: "0.15em", textTransform: "uppercase", color: "var(--text-subtle)" }}>

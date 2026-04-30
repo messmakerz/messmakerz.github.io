@@ -8,11 +8,19 @@ import Image from "next/image";
 gsap.registerPlugin(ScrollTrigger);
 
 const socials = [
-  { label: "Instagram", href: "https://instagram.com" },
-  { label: "SoundCloud", href: "https://soundcloud.com" },
-  { label: "YouTube", href: "https://youtube.com" },
+  { label: "Instagram", href: "https://www.instagram.com/mess.makerz/" },
+  { label: "SoundCloud", href: "https://soundcloud.com/messmakerz" },
+  { label: "YouTube", href: "https://www.youtube.com/@MessRecordings" },
   { label: "Contact", href: "mailto:mess@mishell.com" },
 ];
+
+function ArrowUpRight() {
+  return (
+    <svg width="10" height="10" viewBox="0 0 9 9" fill="none" aria-hidden="true">
+      <path d="M1.5 7.5L7.5 1.5M7.5 1.5H2.5M7.5 1.5V6.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
+  );
+}
 
 export default function Footer() {
   const footerRef = useRef<HTMLElement>(null);
@@ -60,7 +68,7 @@ export default function Footer() {
                 >
                   {s.label}
                 </span>
-                <span style={{ color: "var(--text-subtle)", fontSize: "0.75rem" }}>↗</span>
+                <span style={{ color: "var(--text-subtle)" }}><ArrowUpRight /></span>
               </a>
             ))}
           </div>

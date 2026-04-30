@@ -6,6 +6,14 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
 import Link from "next/link";
 
+function ArrowUpRight() {
+  return (
+    <svg width="9" height="9" viewBox="0 0 9 9" fill="none" aria-hidden="true" style={{ display: "inline-block", verticalAlign: "middle" }}>
+      <path d="M1.5 7.5L7.5 1.5M7.5 1.5H2.5M7.5 1.5V6.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
+  );
+}
+
 gsap.registerPlugin(ScrollTrigger);
 
 const coreEvents = [
@@ -91,6 +99,25 @@ function EventRow({ event, index, flip }: EventRowProps) {
           className="object-cover"
           style={{ objectPosition: "50% 25%", transform: "scale(1)" }}
         />
+        {/* Hover overlay — click to see gallery */}
+        {event.slug && (
+          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/50 transition-colors duration-400 flex items-center justify-center pointer-events-none">
+            <span
+              className="opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300"
+              style={{
+                fontFamily: "var(--font-display)",
+                fontSize: "0.62rem",
+                letterSpacing: "0.22em",
+                textTransform: "uppercase",
+                color: "rgba(255,255,255,0.9)",
+                border: "1px solid rgba(255,255,255,0.3)",
+                padding: "0.6em 1.2em",
+              }}
+            >
+              Click to see more
+            </span>
+          </div>
+        )}
       </div>
 
       {/* Info */}
@@ -153,7 +180,7 @@ function EventRow({ event, index, flip }: EventRowProps) {
               color: "var(--text-subtle)",
             }}
           >
-            View photos ↗
+            <span className="flex items-center gap-1.5">View photos <ArrowUpRight /></span>
           </span>
         )}
       </div>

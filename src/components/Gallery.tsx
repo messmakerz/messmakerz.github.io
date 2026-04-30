@@ -8,6 +8,22 @@ import Link from "next/link";
 
 gsap.registerPlugin(ScrollTrigger);
 
+function ArrowUpRight() {
+  return (
+    <svg width="9" height="9" viewBox="0 0 9 9" fill="none" aria-hidden="true" style={{ display: "inline-block", verticalAlign: "middle" }}>
+      <path d="M1.5 7.5L7.5 1.5M7.5 1.5H2.5M7.5 1.5V6.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
+  );
+}
+
+function CloseIcon() {
+  return (
+    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true" style={{ display: "inline-block", verticalAlign: "middle" }}>
+      <path d="M1 1l10 10M11 1L1 11" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round"/>
+    </svg>
+  );
+}
+
 const EVENT_PHOTOS = [
   "B97A5091","B97A5092","B97A5093","B97A5094","B97A5095",
   "B97A5097","B97A5098","B97A5099","B97A5100","B97A5101",
@@ -67,7 +83,7 @@ function Lightbox({ slide, onClose }: LightboxProps) {
           className="absolute -top-10 right-0 text-white/60 hover:text-white text-xs tracking-widest uppercase transition-colors"
           style={{ fontFamily: "var(--font-display)" }}
         >
-          ESC / CLOSE ×
+          <span className="flex items-center gap-1.5">ESC / CLOSE <CloseIcon /></span>
         </button>
 
         <div className="w-full aspect-video relative overflow-hidden">
@@ -172,7 +188,7 @@ export default function Gallery() {
               }}
               className="hover:text-[var(--text)] transition-colors"
             >
-              View all ↗
+              <span className="flex items-center gap-1.5">View all <ArrowUpRight /></span>
             </Link>
           </div>
         </div>

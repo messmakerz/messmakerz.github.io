@@ -6,6 +6,22 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
 import Link from "next/link";
 
+function ArrowUpRight() {
+  return (
+    <svg width="9" height="9" viewBox="0 0 9 9" fill="none" aria-hidden="true" style={{ display: "inline-block", verticalAlign: "middle" }}>
+      <path d="M1.5 7.5L7.5 1.5M7.5 1.5H2.5M7.5 1.5V6.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
+  );
+}
+
+function CloseIcon() {
+  return (
+    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true" style={{ display: "inline-block", verticalAlign: "middle" }}>
+      <path d="M1 1l10 10M11 1L1 11" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round"/>
+    </svg>
+  );
+}
+
 gsap.registerPlugin(ScrollTrigger);
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || "";
@@ -77,7 +93,7 @@ function VideoLightbox({ src, title, onClose }: VideoLightboxProps) {
           className="absolute -top-10 right-0 text-white/50 hover:text-white transition-colors text-xs tracking-widest uppercase"
           style={{ fontFamily: "var(--font-display)" }}
         >
-          ESC / CLOSE ×
+          <span className="flex items-center gap-1.5">ESC / CLOSE <CloseIcon /></span>
         </button>
         <video
           ref={videoRef}
@@ -213,7 +229,22 @@ export default function CommunityEvents() {
                       className="object-cover grayscale group-hover:grayscale-0 transition-[filter] duration-700"
                       style={{ objectPosition: "50% 25%" }}
                     />
-                    <div className="absolute inset-0 bg-black/25 group-hover:bg-black/0 transition-colors duration-500 pointer-events-none" />
+                    <div className="absolute inset-0 bg-black/25 group-hover:bg-black/50 transition-colors duration-500 pointer-events-none flex items-center justify-center">
+                      <span
+                        className="opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300"
+                        style={{
+                          fontFamily: "var(--font-display)",
+                          fontSize: "0.62rem",
+                          letterSpacing: "0.22em",
+                          textTransform: "uppercase",
+                          color: "rgba(255,255,255,0.9)",
+                          border: "1px solid rgba(255,255,255,0.3)",
+                          padding: "0.6em 1.2em",
+                        }}
+                      >
+                        Click to see more
+                      </span>
+                    </div>
                   </div>
                 )}
 
@@ -236,7 +267,7 @@ export default function CommunityEvents() {
                       className="mt-6 inline-block translate-x-0 group-hover:translate-x-1 transition-transform duration-300"
                       style={{ fontSize: "0.62rem", letterSpacing: "0.22em", textTransform: "uppercase", color: "var(--text-subtle)" }}
                     >
-                      View photos ↗
+                      <span className="flex items-center gap-1.5">View photos <ArrowUpRight /></span>
                     </span>
                   )}
                 </div>
