@@ -4,21 +4,18 @@ import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 
 export default function Hero() {
-  const logoRef = useRef<HTMLImageElement>(null);
-  const locRef = useRef<HTMLSpanElement>(null);
   const metaRef = useRef<HTMLDivElement>(null);
   const line1Ref = useRef<HTMLDivElement>(null);
   const line2Ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const els = [logoRef.current, locRef.current, metaRef.current, line1Ref.current, line2Ref.current];
+    const els = [metaRef.current, line1Ref.current, line2Ref.current];
     gsap.killTweensOf(els);
     gsap.set(els, { opacity: 0 });
     gsap.set([line1Ref.current, line2Ref.current], { y: 28 });
 
     const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
     tl
-      .to([logoRef.current, locRef.current], { opacity: 1, duration: 0.8 }, 0)
       .to(line1Ref.current, { opacity: 1, y: 0, duration: 1.1 }, 0.35)
       .to(line2Ref.current, { opacity: 1, y: 0, duration: 1.1 }, 0.5)
       .to(metaRef.current, { opacity: 1, duration: 0.8 }, 0.55);
@@ -48,30 +45,6 @@ export default function Hero() {
             "linear-gradient(to bottom, var(--bg) 0%, transparent 20%, transparent 55%, var(--bg) 100%)",
         }}
       />
-
-      {/* Top bar */}
-      <div className="relative z-10 flex items-center justify-between px-6 md:px-14 lg:px-20 pt-8 md:pt-10">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          ref={logoRef}
-          src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/mess-small-logo.svg`}
-          alt="MESS Production"
-          style={{ width: "clamp(66px, 7vw, 100px)", height: "auto" }}
-          draggable={false}
-        />
-        <span
-          ref={locRef}
-          style={{
-            fontFamily: "var(--font-display)",
-            fontSize: "0.6rem",
-            letterSpacing: "0.22em",
-            textTransform: "uppercase",
-            color: "var(--text-subtle)",
-          }}
-        >
-          Tel Aviv, Israel
-        </span>
-      </div>
 
       {/* Bottom content */}
       <div className="relative z-10 flex-1 flex flex-col justify-end px-6 md:px-14 lg:px-20 pb-10 md:pb-14">

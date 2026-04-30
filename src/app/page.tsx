@@ -1,3 +1,4 @@
+import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import WhoWeAre from "@/components/WhoWeAre";
 import Audience from "@/components/Audience";
@@ -10,6 +11,7 @@ import Footer from "@/components/Footer";
 export default function Home() {
   return (
     <main>
+      <Header />
       <Hero />
       <WhoWeAre />
       <Audience />
