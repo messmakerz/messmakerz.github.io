@@ -8,7 +8,7 @@ const NAV_LINKS = [
   { label: "Instagram", href: "https://www.instagram.com/mess.makerz/" },
   { label: "SoundCloud", href: "https://soundcloud.com/messmakerz" },
   { label: "YouTube", href: "https://www.youtube.com/@MessRecordings" },
-  { label: "Contact", href: "mailto:mess@mishell.com" },
+  { label: "Contact", href: "mailto:daniel@messmakerz.com" },
 ];
 
 function ArrowUpRight() {
