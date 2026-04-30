@@ -13,7 +13,7 @@ export const EVENTS: EventData[] = [
     title: "LIVE FROM HELL",
     date: "March 2025",
     tickets: "1,000",
-    coverPhoto: "DSC00060",
+    coverPhoto: "HELL_COVER",
     photos: [
       "DSC00001","DSC00002","DSC00006","DSC00017","DSC00019",
       "DSC00021","DSC00026","DSC00036-Enhanced-NR","DSC00037-Enhanced-NR","DSC00038-Enhanced-NR",
