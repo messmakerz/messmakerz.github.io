@@ -228,7 +228,7 @@ export default function Gallery() {
                   className="translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300"
                   style={{
                     fontFamily: "var(--font-display)",
-                    fontWeight: 300,
+                    fontWeight: 700,
                     fontSize: "clamp(1.2rem, 2.2vw, 2rem)",
                     letterSpacing: "-0.02em",
                     color: "#fff",

@@ -197,7 +197,7 @@ export default function Hero() {
           ref={line1Ref}
           style={{
             fontFamily: "var(--font-display)",
-            fontWeight: 300,
+            fontWeight: 700,
             fontSize: "clamp(3rem, 9.5vw, 10.5rem)",
             lineHeight: 0.88,
             letterSpacing: "-0.04em",
@@ -211,7 +211,7 @@ export default function Hero() {
           <div
             style={{
               fontFamily: "var(--font-display)",
-              fontWeight: 300,
+              fontWeight: 700,
               fontSize: "clamp(3rem, 9.5vw, 10.5rem)",
               lineHeight: 0.88,
               letterSpacing: "-0.04em",

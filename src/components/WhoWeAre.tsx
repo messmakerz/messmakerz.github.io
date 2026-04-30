@@ -54,7 +54,7 @@ export default function WhoWeAre() {
         className="mb-16 md:mb-20"
         style={{
           fontFamily: "var(--font-display)",
-          fontWeight: 300,
+          fontWeight: 700,
           fontSize: "clamp(2.2rem, 5.5vw, 5.5rem)",
           lineHeight: 1.05,
           letterSpacing: "-0.04em",

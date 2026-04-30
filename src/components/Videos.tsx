@@ -94,7 +94,7 @@ function VideoCard({ video, index, onOpen }: VideoCardProps) {
             <h3
               style={{
                 fontFamily: "var(--font-display)",
-                fontWeight: 300,
+                fontWeight: 700,
                 fontSize: "clamp(1.1rem, 2.2vw, 1.8rem)",
                 letterSpacing: "-0.02em",
                 lineHeight: 1.1,

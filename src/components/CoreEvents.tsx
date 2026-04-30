@@ -142,7 +142,7 @@ function EventRow({ event, index, flip }: EventRowProps) {
           <h3
             style={{
               fontFamily: "var(--font-display)",
-              fontWeight: 300,
+              fontWeight: 700,
               fontSize: "clamp(1.8rem, 3.5vw, 3rem)",
               letterSpacing: "-0.03em",
               lineHeight: 1.05,

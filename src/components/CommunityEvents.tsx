@@ -281,7 +281,7 @@ export default function CommunityEvents() {
                   <span style={{ fontSize: "0.58rem", letterSpacing: "0.22em", textTransform: "uppercase", color: "var(--text-subtle)", display: "block", marginBottom: "0.6rem" }}>
                     0{i + 1}
                   </span>
-                  <h3 style={{ fontWeight: 300, fontSize: "clamp(1.1rem, 2.2vw, 1.5rem)", letterSpacing: "-0.02em", color: "var(--text)", marginBottom: "1rem" }}>
+                  <h3 style={{ fontWeight: 700, fontSize: "clamp(1.1rem, 2.2vw, 1.5rem)", letterSpacing: "-0.02em", color: "var(--text)", marginBottom: "1rem" }}>
                     {event.title}
                   </h3>
                   <div className="space-y-1.5">
