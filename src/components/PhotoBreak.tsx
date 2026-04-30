@@ -53,7 +53,7 @@ export default function PhotoBreak() {
         style={{ top: "-15%", bottom: "-15%", left: 0, right: 0 }}
       >
         <Image
-          src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/mishell.jpg`}
+          src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/photo-break.jpg`}
           alt="MESS Production"
           fill
           className="object-cover object-center"

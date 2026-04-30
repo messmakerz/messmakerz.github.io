@@ -64,6 +64,14 @@ export const EVENTS: EventData[] = [
       "B97A5750","B97A5752","B97A5753","B97A5754",
     ],
   },
+  {
+    slug: "mess-gala",
+    title: "MESS GALA",
+    date: "May 2025",
+    tickets: "150",
+    coverPhoto: "GALA01",
+    photos: ["GALA01","GALA02","GALA03","GALA04","GALA05","GALA06","GALA07","GALA08"],
+  },
 ];
 
 export function getEvent(slug: string): EventData | undefined {

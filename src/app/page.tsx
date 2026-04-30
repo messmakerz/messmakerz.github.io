@@ -4,8 +4,6 @@ import Audience from "@/components/Audience";
 import CoreEvents from "@/components/CoreEvents";
 import PhotoBreak from "@/components/PhotoBreak";
 import CommunityEvents from "@/components/CommunityEvents";
-import Videos from "@/components/Videos";
-import Gallery from "@/components/Gallery";
 import Vision from "@/components/Vision";
 import Footer from "@/components/Footer";
 
@@ -19,9 +17,7 @@ export default function Home() {
       <CoreEvents />
       <PhotoBreak />
       <CommunityEvents />
-      <Videos />
       <Footer />
-      <Gallery />
       <div className="border-t border-[var(--border)] px-6 md:px-14 lg:px-20 py-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
         <span style={{ fontFamily: "var(--font-display)", fontSize: "0.6rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--text-subtle)" }}>
           © 2026 MESS Production
