@@ -28,9 +28,9 @@ function HeroNewsletter() {
 
   if (status === "success") {
     return (
-      <div className="flex items-center gap-3">
-        <span className="w-1.5 h-1.5 rounded-full bg-[var(--red)]" />
-        <span style={{ fontFamily: "var(--font-display)", fontSize: "0.68rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--text-subtle)" }}>
+      <div className="flex items-center gap-3 py-4">
+        <span className="w-2 h-2 rounded-full bg-[var(--red)] animate-pulse" />
+        <span style={{ fontFamily: "var(--font-display)", fontSize: "0.75rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--text)" }}>
           You&apos;re in.
         </span>
       </div>
@@ -38,7 +38,7 @@ function HeroNewsletter() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="flex items-stretch gap-0">
+    <form onSubmit={handleSubmit} className="flex items-stretch" style={{ maxWidth: "clamp(280px, 36vw, 460px)" }}>
       <input
         type="email"
         value={email}
@@ -46,17 +46,18 @@ function HeroNewsletter() {
         placeholder="your@email.com"
         required
         style={{
-          background: "transparent",
-          border: "none",
-          borderBottom: "1px solid rgba(255,255,255,0.2)",
+          flex: 1,
+          background: "rgba(255,255,255,0.05)",
+          border: "1px solid rgba(255,255,255,0.15)",
+          borderRight: "none",
           outline: "none",
           fontFamily: "var(--font-display)",
           fontWeight: 300,
-          fontSize: "0.78rem",
+          fontSize: "0.88rem",
           color: "var(--text)",
-          padding: "10px 0",
-          width: "clamp(140px, 20vw, 220px)",
+          padding: "14px 18px",
           letterSpacing: "0.02em",
+          minWidth: 0,
         }}
       />
       <button
@@ -64,21 +65,21 @@ function HeroNewsletter() {
         disabled={status === "loading"}
         style={{
           fontFamily: "var(--font-display)",
-          fontSize: "0.6rem",
-          letterSpacing: "0.22em",
+          fontSize: "0.65rem",
+          letterSpacing: "0.25em",
           textTransform: "uppercase",
-          color: "#0a0a0a",
-          background: "var(--text)",
-          border: "none",
+          color: "#fff",
+          background: "var(--red)",
+          border: "1px solid var(--red)",
           cursor: "pointer",
-          padding: "0 20px",
-          marginLeft: "12px",
-          opacity: status === "loading" ? 0.5 : 1,
-          transition: "opacity 0.2s, background 0.2s",
+          padding: "14px 28px",
+          opacity: status === "loading" ? 0.6 : 1,
+          transition: "opacity 0.2s, background 0.2s, color 0.2s",
           whiteSpace: "nowrap",
+          flexShrink: 0,
         }}
-        onMouseEnter={(e) => (e.currentTarget.style.background = "var(--red)")}
-        onMouseLeave={(e) => (e.currentTarget.style.background = "var(--text)")}
+        onMouseEnter={(e) => { e.currentTarget.style.background = "#fff"; e.currentTarget.style.color = "#0a0a0a"; }}
+        onMouseLeave={(e) => { e.currentTarget.style.background = "var(--red)"; e.currentTarget.style.color = "#fff"; }}
       >
         {status === "loading" ? "..." : "Join"}
       </button>
@@ -219,17 +220,20 @@ export default function Hero() {
         </div>
 
         {/* Newsletter CTA */}
-        <div ref={ctaRef} className="mt-10 md:mt-14 flex flex-col gap-3">
-          <p style={{
-            fontFamily: "var(--font-display)",
-            fontSize: "0.6rem",
-            letterSpacing: "0.22em",
-            textTransform: "uppercase",
-            color: "var(--text-subtle)",
-          }}>
-            Be the first to know
-          </p>
-          <HeroNewsletter />
+        <div ref={ctaRef} className="mt-12 md:mt-16">
+          <div style={{ borderTop: "1px solid rgba(255,255,255,0.1)", paddingTop: "24px", display: "inline-block" }}>
+            <p style={{
+              fontFamily: "var(--font-display)",
+              fontSize: "0.62rem",
+              letterSpacing: "0.22em",
+              textTransform: "uppercase",
+              color: "var(--text-subtle)",
+              marginBottom: "14px",
+            }}>
+              Be the first to know
+            </p>
+            <HeroNewsletter />
+          </div>
         </div>
 
       </div>
