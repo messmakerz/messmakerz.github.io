@@ -33,7 +33,7 @@ export const EVENTS: EventData[] = [
     title: "A TRIBE CALLED MESS",
     date: "Aug 2025",
     tickets: "800",
-    coverPhoto: "B97A5120",
+    coverPhoto: "TRIBE_COVER",
     photos: [
       "B97A5091","B97A5092","B97A5093","B97A5094","B97A5095",
       "B97A5097","B97A5098","B97A5099","B97A5100","B97A5101",
