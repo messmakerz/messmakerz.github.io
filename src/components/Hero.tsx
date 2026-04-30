@@ -23,7 +23,7 @@ export default function Hero() {
 
   return (
     <section
-      className="relative min-h-[100dvh] flex flex-col overflow-hidden"
+      className="relative overflow-hidden"
       style={{ background: "var(--bg)" }}
     >
       {/* Video bg — very subtle, texture only */}
@@ -46,8 +46,8 @@ export default function Hero() {
         }}
       />
 
-      {/* Bottom content */}
-      <div className="relative z-10 flex-1 flex flex-col justify-end px-6 md:px-14 lg:px-20 pb-10 md:pb-14">
+      {/* Content */}
+      <div className="relative z-10 px-6 md:px-14 lg:px-20 pt-28 md:pt-36 pb-14 md:pb-20">
 
         {/* Meta row */}
         <div ref={metaRef} className="flex items-center justify-between mb-5 md:mb-7">
