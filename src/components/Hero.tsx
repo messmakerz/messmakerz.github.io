@@ -28,62 +28,84 @@ function HeroNewsletter() {
 
   if (status === "success") {
     return (
-      <div className="flex items-center gap-3 py-4">
-        <span className="w-2 h-2 rounded-full bg-[var(--red)] animate-pulse" />
+      <div className="flex items-center gap-3" style={{ padding: "14px 0" }}>
+        <span className="w-2 h-2 rounded-full bg-[var(--red)]" style={{ flexShrink: 0 }} />
         <span style={{ fontFamily: "var(--font-display)", fontSize: "0.75rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--text)" }}>
-          You&apos;re in.
+          You&apos;re in. We&apos;ll be in touch.
         </span>
       </div>
     );
   }
 
   return (
-    <form onSubmit={handleSubmit} className="flex items-stretch" style={{ maxWidth: "clamp(280px, 36vw, 460px)" }}>
-      <input
-        type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        placeholder="your@email.com"
-        required
-        style={{
-          flex: 1,
-          background: "rgba(255,255,255,0.05)",
-          border: "1px solid rgba(255,255,255,0.15)",
-          borderRight: "none",
-          outline: "none",
+    <div style={{ display: "flex", flexDirection: "column", gap: "10px", maxWidth: "clamp(280px, 36vw, 460px)" }}>
+      <form onSubmit={handleSubmit} className="flex items-stretch">
+        <input
+          type="email"
+          value={email}
+          onChange={(e) => { setEmail(e.target.value); if (status === "error") setStatus("idle"); }}
+          placeholder="your@email.com"
+          required
+          style={{
+            flex: 1,
+            background: status === "error" ? "rgba(180,30,30,0.08)" : "rgba(255,255,255,0.05)",
+            border: status === "error" ? "1px solid rgba(180,30,30,0.5)" : "1px solid rgba(255,255,255,0.15)",
+            borderRight: "none",
+            outline: "none",
+            fontFamily: "var(--font-display)",
+            fontWeight: 300,
+            fontSize: "0.88rem",
+            color: "var(--text)",
+            padding: "14px 18px",
+            letterSpacing: "0.02em",
+            minWidth: 0,
+            transition: "border-color 0.2s, background 0.2s",
+          }}
+        />
+        <button
+          type="submit"
+          disabled={status === "loading"}
+          style={{
+            fontFamily: "var(--font-display)",
+            fontSize: "0.65rem",
+            letterSpacing: "0.25em",
+            textTransform: "uppercase",
+            color: "#fff",
+            background: "var(--red)",
+            border: "1px solid var(--red)",
+            cursor: status === "loading" ? "default" : "pointer",
+            padding: "14px 28px",
+            opacity: status === "loading" ? 0.6 : 1,
+            transition: "opacity 0.2s, background 0.2s, color 0.2s",
+            whiteSpace: "nowrap",
+            flexShrink: 0,
+            minWidth: "90px",
+          }}
+          onMouseEnter={(e) => { if (status !== "loading") { e.currentTarget.style.background = "#fff"; e.currentTarget.style.color = "#0a0a0a"; }}}
+          onMouseLeave={(e) => { e.currentTarget.style.background = "var(--red)"; e.currentTarget.style.color = "#fff"; }}
+        >
+          {status === "loading" ? (
+            <span style={{ display: "inline-flex", gap: "3px", alignItems: "center", justifyContent: "center" }}>
+              <span style={{ width: "3px", height: "3px", borderRadius: "50%", background: "currentColor", animation: "pulse 1s ease-in-out infinite" }} />
+              <span style={{ width: "3px", height: "3px", borderRadius: "50%", background: "currentColor", animation: "pulse 1s ease-in-out 0.2s infinite" }} />
+              <span style={{ width: "3px", height: "3px", borderRadius: "50%", background: "currentColor", animation: "pulse 1s ease-in-out 0.4s infinite" }} />
+            </span>
+          ) : "Join"}
+        </button>
+      </form>
+      {status === "error" && (
+        <p style={{
           fontFamily: "var(--font-display)",
-          fontWeight: 300,
-          fontSize: "0.88rem",
-          color: "var(--text)",
-          padding: "14px 18px",
-          letterSpacing: "0.02em",
-          minWidth: 0,
-        }}
-      />
-      <button
-        type="submit"
-        disabled={status === "loading"}
-        style={{
-          fontFamily: "var(--font-display)",
-          fontSize: "0.65rem",
-          letterSpacing: "0.25em",
+          fontSize: "0.62rem",
+          letterSpacing: "0.12em",
           textTransform: "uppercase",
-          color: "#fff",
-          background: "var(--red)",
-          border: "1px solid var(--red)",
-          cursor: "pointer",
-          padding: "14px 28px",
-          opacity: status === "loading" ? 0.6 : 1,
-          transition: "opacity 0.2s, background 0.2s, color 0.2s",
-          whiteSpace: "nowrap",
-          flexShrink: 0,
-        }}
-        onMouseEnter={(e) => { e.currentTarget.style.background = "#fff"; e.currentTarget.style.color = "#0a0a0a"; }}
-        onMouseLeave={(e) => { e.currentTarget.style.background = "var(--red)"; e.currentTarget.style.color = "#fff"; }}
-      >
-        {status === "loading" ? "..." : "Join"}
-      </button>
-    </form>
+          color: "rgba(200,60,60,0.9)",
+          margin: 0,
+        }}>
+          Something went wrong — try again
+        </p>
+      )}
+    </div>
   );
 }
 
