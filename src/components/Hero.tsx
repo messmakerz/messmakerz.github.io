@@ -155,6 +155,24 @@ export default function Hero() {
         }}
       />
 
+      {/* MESS logo — decorative right-side overlay */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/mess-logo.svg`}
+        alt=""
+        aria-hidden="true"
+        className="absolute pointer-events-none select-none"
+        style={{
+          right: "-4%",
+          top: "50%",
+          transform: "translateY(-52%)",
+          width: "clamp(260px, 52vw, 720px)",
+          opacity: 0.09,
+          mixBlendMode: "overlay",
+          zIndex: 5,
+        }}
+      />
+
       {/* Content */}
       <div className="relative z-10 px-6 md:px-14 lg:px-20 pt-28 md:pt-36 pb-14 md:pb-20">
 
