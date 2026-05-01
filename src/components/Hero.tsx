@@ -158,17 +158,17 @@ export default function Hero() {
 
       {/* Scroll indicator — absolute center-bottom */}
       <div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 pointer-events-none"
+        className="absolute bottom-6 md:bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 pointer-events-none"
         style={{ zIndex: 10, opacity: 0.5 }}
       >
         <span style={{
           fontFamily: "var(--font-display)",
-          fontSize: "0.55rem",
+          fontSize: "0.52rem",
           letterSpacing: "0.3em",
           textTransform: "uppercase",
           color: "var(--text-subtle)",
         }}>Scroll</span>
-        <div style={{ position: "relative", width: 1, height: 52, overflow: "hidden" }}>
+        <div style={{ position: "relative", width: 1, height: 36, overflow: "hidden" }} className="md:[height:52px]">
           <div style={{ position: "absolute", inset: 0, background: "var(--border-strong)" }} />
           <div style={{
             position: "absolute", top: 0, left: 0, width: "100%", height: "50%",
@@ -187,7 +187,7 @@ export default function Hero() {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 px-6 md:px-14 lg:px-20 pt-28 md:pt-36 pb-14 md:pb-20">
+      <div className="relative z-10 px-6 md:px-14 lg:px-20 pt-28 md:pt-36 pb-24 md:pb-20">
 
         {/* Meta row */}
         <div ref={metaRef} className="flex items-center justify-between mb-5 md:mb-7">
