@@ -101,7 +101,7 @@ function EventRow({ event, index, flip }: EventRowProps) {
             muted
             playsInline
             loop
-            preload="auto"
+            preload="metadata"
           />
         ) : (
           <Image

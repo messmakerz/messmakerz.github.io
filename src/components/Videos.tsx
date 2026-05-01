@@ -53,12 +53,14 @@ function VideoCard({ video, index, onOpen }: VideoCardProps) {
     );
   }, [index]);
 
-  // Autoplay on mobile when the video enters the viewport
+  // Autoplay on mobile (touch devices) when the video enters the viewport
   useEffect(() => {
     const el = previewRef.current;
     if (!el) return;
+    const isMobile = () => window.matchMedia("(hover: none)").matches;
     const observer = new IntersectionObserver(
       ([entry]) => {
+        if (!isMobile()) return;
         if (entry.isIntersecting) {
           el.play().catch(() => {});
         } else {
@@ -89,7 +91,7 @@ function VideoCard({ video, index, onOpen }: VideoCardProps) {
           muted
           playsInline
           loop
-          preload="auto"
+          preload="metadata"
         />
 
         {/* Dark overlay */}
