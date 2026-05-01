@@ -3,7 +3,6 @@
 import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import Image from "next/image";
 import Link from "next/link";
 
 function ArrowUpRight() {
@@ -41,8 +40,8 @@ const communityEvents = [
     date: "May 2025",
     tickets: "150",
     booking: "O.I, N.O.Y",
-    type: "photo" as const,
-    cover: `${base}/events/mess-gala/GALA01.jpg`,
+    type: "video" as const,
+    video: `${base}/videos/mess-gala.mp4`,
     slug: "mess-gala",
   },
   {
@@ -246,35 +245,7 @@ export default function CommunityEvents() {
                 }}
               >
                 {/* Media */}
-                {event.type === "video" ? (
-                  <VideoMedia src={event.video} />
-                ) : (
-                  <div className="relative overflow-hidden w-full" style={{ aspectRatio: "3/4" }}>
-                    <Image
-                      src={event.cover!}
-                      alt={event.title}
-                      fill
-                      className="object-cover grayscale group-hover:grayscale-0 transition-[filter] duration-700"
-                      style={{ objectPosition: "50% 25%" }}
-                    />
-                    <div className="absolute inset-0 bg-black/25 group-hover:bg-black/50 transition-colors duration-500 pointer-events-none flex items-center justify-center">
-                      <span
-                        className="opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300"
-                        style={{
-                          fontFamily: "var(--font-display)",
-                          fontSize: "0.62rem",
-                          letterSpacing: "0.22em",
-                          textTransform: "uppercase",
-                          color: "rgba(255,255,255,0.9)",
-                          border: "1px solid rgba(255,255,255,0.3)",
-                          padding: "0.6em 1.2em",
-                        }}
-                      >
-                        Click to see more
-                      </span>
-                    </div>
-                  </div>
-                )}
+                <VideoMedia src={event.video} />
 
                 {/* Info */}
                 <div className="p-6 md:p-8 border-t border-[var(--border)]" style={{ fontFamily: "var(--font-display)" }}>

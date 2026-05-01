@@ -17,10 +17,10 @@ function ArrowUpRight() {
 gsap.registerPlugin(ScrollTrigger);
 
 const coreEvents = [
-  { title: "MESS PLANET", date: "December 2024", tickets: "600", booking: "Mita Gami", slug: "mess-planet", coverPhoto: "PLANET01", coverSlug: "mess-planet" },
-  { title: "LIVE FROM HELL", date: "March 2025", tickets: "1,000", booking: "Omri, Garden City Movement", slug: "live-from-hell", coverPhoto: "HELL_COVER", coverSlug: "live-from-hell" },
-  { title: "A TRIBE CALLED MESS", date: "Aug 2025", tickets: "800", booking: "Darco Genish", slug: "tribe-called-mess", coverPhoto: "TRIBE_COVER", coverSlug: "tribe-called-mess" },
-  { title: "MESS JUNGLE TRIP", date: "Oct 2025", tickets: "1,200", booking: "Cour T, Kino Todo", slug: "mess-jungle-trip", coverPhoto: "JUNGLE_COVER", coverSlug: "mess-jungle-trip" },
+  { title: "MESS PLANET", date: "December 2024", tickets: "600", booking: "Mita Gami", slug: "mess-planet", coverPhoto: "PLANET01", coverSlug: "mess-planet", videoFile: undefined },
+  { title: "LIVE FROM HELL", date: "March 2025", tickets: "1,000", booking: "Omri, Garden City Movement", slug: "live-from-hell", coverPhoto: undefined, coverSlug: undefined, videoFile: "live-from-hell.mp4" },
+  { title: "A TRIBE CALLED MESS", date: "Aug 2025", tickets: "800", booking: "Darco Genish", slug: "tribe-called-mess", coverPhoto: undefined, coverSlug: undefined, videoFile: "tribe-called-mess.mp4" },
+  { title: "MESS JUNGLE TRIP", date: "Oct 2025", tickets: "1,200", booking: "Cour T, Kino Todo", slug: "mess-jungle-trip", coverPhoto: "JUNGLE_COVER", coverSlug: "mess-jungle-trip", videoFile: undefined },
 ];
 
 interface EventRowProps {
@@ -33,6 +33,7 @@ function EventRow({ event, index, flip }: EventRowProps) {
   const rowRef = useRef<HTMLElement>(null);
   const imgRef = useRef<HTMLDivElement>(null);
   const infoRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
     const st = { trigger: rowRef.current, start: "top 95%", toggleActions: "play reverse play reverse" };
@@ -46,35 +47,39 @@ function EventRow({ event, index, flip }: EventRowProps) {
       { y: 0, opacity: 1, duration: 0.9, ease: "power3.out", scrollTrigger: { ...st, start: "top 92%" } }
     );
 
-    // Parallax: inner image drifts as you scroll past
-    const innerImg = imgRef.current?.querySelector("img");
-    if (innerImg) {
-      gsap.fromTo(
-        innerImg,
-        { y: "-8%" },
-        {
-          y: "8%",
-          ease: "none",
-          scrollTrigger: {
-            trigger: rowRef.current,
-            start: "top bottom",
-            end: "bottom top",
-            scrub: 1.5,
-          },
-        }
-      );
+    if (!event.videoFile) {
+      // Parallax: inner image drifts as you scroll past
+      const innerImg = imgRef.current?.querySelector("img");
+      if (innerImg) {
+        gsap.fromTo(innerImg, { y: "-8%" }, {
+          y: "8%", ease: "none",
+          scrollTrigger: { trigger: rowRef.current, start: "top bottom", end: "bottom top", scrub: 1.5 },
+        });
+      }
+      const onEnter = () => innerImg && gsap.to(innerImg, { scale: 1.04, duration: 0.6, ease: "power2.out" });
+      const onLeave = () => innerImg && gsap.to(innerImg, { scale: 1, duration: 0.8, ease: "power2.out" });
+      rowRef.current?.addEventListener("mouseenter", onEnter);
+      rowRef.current?.addEventListener("mouseleave", onLeave);
+      return () => {
+        rowRef.current?.removeEventListener("mouseenter", onEnter);
+        rowRef.current?.removeEventListener("mouseleave", onLeave);
+      };
     }
+  }, [event.videoFile]);
 
-    // Hover scale
-    const onEnter = () => innerImg && gsap.to(innerImg, { scale: 1.04, duration: 0.6, ease: "power2.out" });
-    const onLeave = () => innerImg && gsap.to(innerImg, { scale: 1, duration: 0.8, ease: "power2.out" });
-    rowRef.current?.addEventListener("mouseenter", onEnter);
-    rowRef.current?.addEventListener("mouseleave", onLeave);
-    return () => {
-      rowRef.current?.removeEventListener("mouseenter", onEnter);
-      rowRef.current?.removeEventListener("mouseleave", onLeave);
-    };
+  // Autoplay video on mobile when in view
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => { entry.isIntersecting ? v.play().catch(() => {}) : v.pause(); },
+      { threshold: 0.3 }
+    );
+    observer.observe(v);
+    return () => observer.disconnect();
   }, []);
+
+  const base = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
   const inner = (
     <article
@@ -82,24 +87,36 @@ function EventRow({ event, index, flip }: EventRowProps) {
       className={`grid grid-cols-1 md:grid-cols-2 border-t border-[var(--border)] overflow-hidden${event.slug ? " group cursor-none" : ""}`}
       style={{ direction: flip ? "rtl" : "ltr" }}
     >
-      {/* Image */}
+      {/* Media */}
       <div
         ref={imgRef}
         className="relative overflow-hidden w-full"
         style={{ aspectRatio: "4/3", direction: "ltr", clipPath: "inset(0 0 100% 0)" }}
       >
-        <Image
-          src={
-            event.coverPhoto && event.coverSlug
-              ? `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/events/${event.coverSlug}/${event.coverPhoto}.jpg`
-              : `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/mishell.jpg`
-          }
-          alt={event.title}
-          fill
-          className="object-cover"
-          style={{ objectPosition: "50% 25%", transform: "scale(1)" }}
-        />
-        {/* Hover overlay — click to see gallery */}
+        {event.videoFile ? (
+          <video
+            ref={videoRef}
+            src={`${base}/videos/${event.videoFile}`}
+            className="absolute inset-0 w-full h-full object-cover"
+            muted
+            playsInline
+            loop
+            preload="auto"
+          />
+        ) : (
+          <Image
+            src={
+              event.coverPhoto && event.coverSlug
+                ? `${base}/events/${event.coverSlug}/${event.coverPhoto}.jpg`
+                : `${base}/mishell.jpg`
+            }
+            alt={event.title}
+            fill
+            className="object-cover"
+            style={{ objectPosition: "50% 25%", transform: "scale(1)" }}
+          />
+        )}
+        {/* Hover overlay */}
         {event.slug && (
           <div className="absolute inset-0 bg-black/0 group-hover:bg-black/50 transition-colors duration-400 flex items-center justify-center pointer-events-none">
             <span

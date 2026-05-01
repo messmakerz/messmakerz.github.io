@@ -5,7 +5,7 @@ import LoadingScreen from "@/components/LoadingScreen";
 import ScrollRefresh from "@/components/ScrollRefresh";
 
 export const metadata: Metadata = {
-  title: "MESS — Production",
+  title: "messmakerzzzz",
   description:
     "Mess Makers is Mishell's core community. Concept-driven events, fashion, music — bold, sexy, uncompromising.",
   icons: {
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     apple: "/apple-touch-icon.png",
   },
   openGraph: {
-    title: "MESS — Production",
+    title: "messmakerzzzz",
     description: "Concept-driven events. Bold, sexy, uncompromising.",
     type: "website",
     url: "https://messmakerz.com",
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "MESS — Production",
+    title: "messmakerzzzz",
     description: "Concept-driven events. Bold, sexy, uncompromising.",
     images: ["/og-image.png"],
   },
