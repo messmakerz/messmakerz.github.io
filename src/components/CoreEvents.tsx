@@ -20,7 +20,7 @@ const coreEvents = [
   { title: "MESS PLANET", date: "December 2024", tickets: "600", booking: "Mita Gami", slug: "mess-planet", coverPhoto: undefined, coverSlug: undefined, videoFile: "mess-planet.mp4" },
   { title: "LIVE FROM HELL", date: "March 2025", tickets: "1,000", booking: "Omri, Garden City Movement", slug: "live-from-hell", coverPhoto: undefined, coverSlug: undefined, videoFile: "live-from-hell.mp4" },
   { title: "A TRIBE CALLED MESS", date: "Aug 2025", tickets: "800", booking: "Darco Genish", slug: "tribe-called-mess", coverPhoto: undefined, coverSlug: undefined, videoFile: "tribe-called-mess.mp4" },
-  { title: "MESS JUNGLE TRIP", date: "Oct 2025", tickets: "1,200", booking: "Cour T, Kino Todo", slug: "mess-jungle-trip", coverPhoto: "JUNGLE_COVER", coverSlug: "mess-jungle-trip", videoFile: undefined },
+  { title: "MESS JUNGLE TRIP", date: "Oct 2025", tickets: "1,200", booking: "Cour T, Kino Todo", slug: "mess-jungle-trip", coverPhoto: undefined, coverSlug: undefined, videoFile: "mess-jungle-trip.mp4" },
 ];
 
 interface EventRowProps {

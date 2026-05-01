@@ -108,7 +108,7 @@ export default function AdminPage() {
       }}>
         <div style={{ marginBottom: 64, textAlign: "center" }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/og-admin.png" alt="MESS ADMIN" style={{ width: 220, display: "block", margin: "0 auto" }} />
+          <img src="/mess-logo.svg" alt="MESS" style={{ width: 120, display: "block", margin: "0 auto" }} />
         </div>
         <form onSubmit={login} style={{ width: 300 }}>
           <div style={{ position: "relative", marginBottom: 24 }}>
