@@ -85,12 +85,12 @@ function EventRow({ event, index, flip }: EventRowProps) {
     <article
       ref={rowRef}
       className={`grid grid-cols-1 md:grid-cols-2 border-t border-[var(--border)]${event.slug ? " group cursor-none" : ""}`}
-      style={{ direction: flip ? "rtl" : "ltr", overflow: "hidden", transform: "translateZ(0)" }}
+      style={{ direction: flip ? "rtl" : "ltr", overflow: "hidden", contain: "paint" }}
     >
-      {/* Media — outer div clips overflow, inner div carries the clipPath animation */}
+      {/* Media */}
       <div
         className="relative w-full"
-        style={{ aspectRatio: "4/3", direction: "ltr", overflow: "hidden", transform: "translateZ(0)" }}
+        style={{ aspectRatio: "4/3", direction: "ltr", overflow: "hidden", contain: "paint" }}
       >
         <div ref={imgRef} className="absolute inset-0" style={{ clipPath: "inset(0 0 100% 0)" }}>
           {event.videoFile ? (
