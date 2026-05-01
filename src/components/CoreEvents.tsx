@@ -87,54 +87,55 @@ function EventRow({ event, index, flip }: EventRowProps) {
       className={`grid grid-cols-1 md:grid-cols-2 border-t border-[var(--border)] overflow-hidden${event.slug ? " group cursor-none" : ""}`}
       style={{ direction: flip ? "rtl" : "ltr" }}
     >
-      {/* Media */}
+      {/* Media — outer div clips overflow, inner div carries the clipPath animation */}
       <div
-        ref={imgRef}
-        className="relative overflow-hidden w-full"
-        style={{ aspectRatio: "4/3", direction: "ltr", clipPath: "inset(0 0 100% 0)" }}
+        className="relative w-full"
+        style={{ aspectRatio: "4/3", direction: "ltr", overflow: "hidden" }}
       >
-        {event.videoFile ? (
-          <video
-            ref={videoRef}
-            src={`${base}/videos/${event.videoFile}`}
-            className="absolute inset-0 w-full h-full object-cover"
-            muted
-            playsInline
-            loop
-            preload="metadata"
-          />
-        ) : (
-          <Image
-            src={
-              event.coverPhoto && event.coverSlug
-                ? `${base}/events/${event.coverSlug}/${event.coverPhoto}.jpg`
-                : `${base}/mishell.jpg`
-            }
-            alt={event.title}
-            fill
-            className="object-cover"
-            style={{ objectPosition: "50% 25%", transform: "scale(1)" }}
-          />
-        )}
-        {/* Hover overlay */}
-        {event.slug && (
-          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/50 transition-colors duration-400 flex items-center justify-center pointer-events-none">
-            <span
-              className="opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300"
-              style={{
-                fontFamily: "var(--font-display)",
-                fontSize: "0.62rem",
-                letterSpacing: "0.22em",
-                textTransform: "uppercase",
-                color: "rgba(255,255,255,0.9)",
-                border: "1px solid rgba(255,255,255,0.3)",
-                padding: "0.6em 1.2em",
-              }}
-            >
-              Click to see more
-            </span>
-          </div>
-        )}
+        <div ref={imgRef} className="absolute inset-0" style={{ clipPath: "inset(0 0 100% 0)" }}>
+          {event.videoFile ? (
+            <video
+              ref={videoRef}
+              src={`${base}/videos/${event.videoFile}`}
+              style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }}
+              muted
+              playsInline
+              loop
+              preload="metadata"
+            />
+          ) : (
+            <Image
+              src={
+                event.coverPhoto && event.coverSlug
+                  ? `${base}/events/${event.coverSlug}/${event.coverPhoto}.jpg`
+                  : `${base}/mishell.jpg`
+              }
+              alt={event.title}
+              fill
+              className="object-cover"
+              style={{ objectPosition: "50% 25%", transform: "scale(1)" }}
+            />
+          )}
+          {/* Hover overlay */}
+          {event.slug && (
+            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/50 transition-colors duration-400 flex items-center justify-center pointer-events-none">
+              <span
+                className="opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300"
+                style={{
+                  fontFamily: "var(--font-display)",
+                  fontSize: "0.62rem",
+                  letterSpacing: "0.22em",
+                  textTransform: "uppercase",
+                  color: "rgba(255,255,255,0.9)",
+                  border: "1px solid rgba(255,255,255,0.3)",
+                  padding: "0.6em 1.2em",
+                }}
+              >
+                Click to see more
+              </span>
+            </div>
+          )}
+        </div>
       </div>
 
       {/* Info */}

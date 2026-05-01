@@ -162,15 +162,16 @@ function VideoMedia({ src }: { src: string }) {
   return (
     <div
       ref={wrapRef}
-      className="relative w-full overflow-hidden"
-      style={{ aspectRatio: "3/4" }}
+      className="relative w-full"
+      style={{ aspectRatio: "3/4", overflow: "hidden", transform: "translateZ(0)" }}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
       <video
         ref={previewRef}
         src={src}
-        className="absolute inset-0 w-full h-full object-cover grayscale group-hover:grayscale-0 transition-[filter] duration-500"
+        className="grayscale group-hover:grayscale-0 transition-[filter] duration-500"
+        style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }}
         muted
         playsInline
         loop
