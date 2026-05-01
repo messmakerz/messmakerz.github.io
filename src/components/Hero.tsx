@@ -161,22 +161,19 @@ export default function Hero() {
       <div className="relative z-10 px-6 md:px-14 lg:px-20 pt-28 md:pt-36 pb-14 md:pb-20">
 
         {/* Meta row */}
-        <div ref={metaRef} className="flex items-center justify-between mb-5 md:mb-7">
-          <div className="flex items-center gap-2.5">
-            <span className="w-1.5 h-1.5 rounded-full bg-[var(--red)] animate-pulse" />
-            <span
-              style={{
-                fontFamily: "var(--font-display)",
-                fontSize: "0.6rem",
-                letterSpacing: "0.2em",
-                textTransform: "uppercase",
-                color: "var(--text-subtle)",
-              }}
-            >
-              Since 2022
-            </span>
-          </div>
-          <span />
+        <div ref={metaRef} className="flex items-center gap-2.5 mb-5 md:mb-7">
+          <span className="w-1.5 h-1.5 rounded-full bg-[var(--red)] animate-pulse" />
+          <span
+            style={{
+              fontFamily: "var(--font-display)",
+              fontSize: "0.6rem",
+              letterSpacing: "0.2em",
+              textTransform: "uppercase",
+              color: "var(--text-subtle)",
+            }}
+          >
+            Since 2022
+          </span>
         </div>
 
         {/* Display type */}

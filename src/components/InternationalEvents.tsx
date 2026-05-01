@@ -220,7 +220,7 @@ export default function InternationalEvents() {
     <section className="py-4 md:py-8">
       <div className="px-6 md:px-14 lg:px-20">
         <div ref={tagRef} className="flex items-center gap-3 mb-0 pt-10 border-t border-[var(--border)]">
-          <span style={{ fontFamily: "var(--font-display)", fontSize: "0.62rem", letterSpacing: "0.22em", color: "var(--text-subtle)" }}>06</span>
+          <span style={{ fontFamily: "var(--font-display)", fontSize: "0.62rem", letterSpacing: "0.22em", color: "var(--text-subtle)" }}>05</span>
           <span style={{ fontSize: "0.62rem", color: "var(--border-strong)" }}>—</span>
           <span style={{ fontFamily: "var(--font-display)", fontSize: "0.62rem", letterSpacing: "0.22em", textTransform: "uppercase", color: "var(--text-subtle)" }}>International</span>
         </div>
