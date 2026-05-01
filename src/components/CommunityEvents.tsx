@@ -240,7 +240,7 @@ export default function CommunityEvents() {
                 className={`com-card group overflow-hidden${event.type === "video" ? " cursor-none" : event.slug ? " cursor-none" : ""}`}
                 style={{ background: "var(--bg)" }}
                 onClick={() => {
-                  if (event.type === "video") {
+                  if (event.type === "video" && !event.slug) {
                     setActiveVideo({ src: event.video, title: event.title });
                   }
                 }}
