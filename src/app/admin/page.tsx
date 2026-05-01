@@ -107,8 +107,8 @@ export default function AdminPage() {
         flexDirection: "column", alignItems: "center", justifyContent: "center", fontFamily: FONT,
       }}>
         <div style={{ marginBottom: 64, textAlign: "center" }}>
-          <div style={{ fontSize: 28, fontWeight: 700, letterSpacing: "-0.04em", color: "#e8e8e8", lineHeight: 1 }}>MESS</div>
-          <div style={{ fontSize: 9, letterSpacing: "0.3em", textTransform: "uppercase", color: "#444", marginTop: 8 }}>Admin</div>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/og-admin.png" alt="MESS ADMIN" style={{ width: 220, display: "block", margin: "0 auto" }} />
         </div>
         <form onSubmit={login} style={{ width: 300 }}>
           <div style={{ position: "relative", marginBottom: 24 }}>
