@@ -89,10 +89,10 @@ function EventCard({ event, index }: EventCardProps) {
   return (
     <div
       ref={cardRef}
-      className="grid grid-cols-1 md:grid-cols-[3fr_2fr] border-t border-[var(--border)]"
+      className="grid grid-cols-1 md:grid-cols-[1fr_2fr] border-t border-[var(--border)]"
     >
-      {/* Video */}
-      <div className="relative w-full" style={{ aspectRatio: "16/9", overflow: "hidden" }}>
+      {/* Video — portrait */}
+      <div className="relative w-full" style={{ aspectRatio: "9/16", overflow: "hidden", contain: "paint", maxHeight: "85vh" }}>
         <div ref={mediaRef} className="absolute inset-0" style={{ clipPath: "inset(0 0 100% 0)" }}>
           <video
             ref={videoRef}
