@@ -109,11 +109,22 @@ function HeroNewsletter() {
   );
 }
 
+const base = process.env.NEXT_PUBLIC_BASE_PATH || "";
+
 export default function Hero() {
   const metaRef = useRef<HTMLDivElement>(null);
   const line1Ref = useRef<HTMLDivElement>(null);
   const line2Ref = useRef<HTMLDivElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
+  const bgVideoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    // Force autoplay on mobile (bypasses browser play button)
+    const v = bgVideoRef.current;
+    if (v) {
+      v.play().catch(() => {});
+    }
+  }, []);
 
   useEffect(() => {
     const els = [metaRef.current, line1Ref.current, line2Ref.current, ctaRef.current];
@@ -137,13 +148,30 @@ export default function Hero() {
     >
       {/* Video bg */}
       <video
+        ref={bgVideoRef}
         className="absolute inset-0 w-full h-full object-cover pointer-events-none"
         style={{ opacity: 0.25 }}
-        src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/hero-bg.mp4`}
+        src={`${base}/hero-bg.mp4`}
         autoPlay
         loop
         muted
         playsInline
+      />
+
+      {/* MESS logo overlay — right side, behind content */}
+      <img
+        src={`${base}/mess-small-logo.svg`}
+        alt=""
+        aria-hidden="true"
+        className="absolute pointer-events-none select-none"
+        style={{
+          right: "-3%",
+          top: "50%",
+          transform: "translateY(-50%)",
+          width: "clamp(280px, 55vw, 780px)",
+          opacity: 0.18,
+          zIndex: 5,
+        }}
       />
 
       {/* Gradient overlay */}
