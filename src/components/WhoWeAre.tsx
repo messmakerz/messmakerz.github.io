@@ -1,11 +1,13 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
 
 gsap.registerPlugin(ScrollTrigger);
+
+const base = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
 export default function WhoWeAre() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -13,6 +15,8 @@ export default function WhoWeAre() {
   const headingRef = useRef<HTMLHeadingElement>(null);
   const imgRef = useRef<HTMLDivElement>(null);
   const bodyRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [hovered, setHovered] = useState(false);
 
   useEffect(() => {
     const st = { start: "top 95%", toggleActions: "play reverse play reverse" };
@@ -37,6 +41,23 @@ export default function WhoWeAre() {
       { y: 0, opacity: 1, duration: 0.9, ease: "power3.out", scrollTrigger: { trigger: bodyRef.current, ...st } }
     );
   }, []);
+
+  const handleMouseEnter = () => {
+    setHovered(true);
+    const v = videoRef.current;
+    if (v) {
+      v.currentTime = 0;
+      v.play().catch(() => {});
+    }
+  };
+
+  const handleMouseLeave = () => {
+    setHovered(false);
+    const v = videoRef.current;
+    if (v) {
+      v.pause();
+    }
+  };
 
   return (
     <section ref={sectionRef} className="px-6 md:px-14 lg:px-20 py-16 md:py-24">
@@ -70,13 +91,39 @@ export default function WhoWeAre() {
         <div
           ref={imgRef}
           className="relative overflow-hidden w-full"
-          style={{ aspectRatio: "4/5", clipPath: "inset(0 0 100% 0)" }}
+          style={{ aspectRatio: "4/5", clipPath: "inset(0 0 100% 0)", cursor: "none" }}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
         >
+          {/* Static image */}
           <Image
-            src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/mishell.jpg`}
+            src={`${base}/mishell.jpg`}
             alt="Mishell"
             fill
             className="object-cover object-top"
+            style={{
+              transition: "opacity 0.4s ease",
+              opacity: hovered ? 0 : 1,
+            }}
+          />
+
+          {/* Hover video */}
+          <video
+            ref={videoRef}
+            src={`${base}/videos/mishell-hover.mp4`}
+            muted
+            playsInline
+            loop
+            preload="metadata"
+            style={{
+              position: "absolute",
+              inset: 0,
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              transition: "opacity 0.4s ease",
+              opacity: hovered ? 1 : 0,
+            }}
           />
         </div>
 
