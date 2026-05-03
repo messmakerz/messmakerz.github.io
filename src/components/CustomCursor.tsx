@@ -94,9 +94,27 @@ export default function CustomCursor() {
       });
     };
 
-    attachListeners();
+    // Hide cursor over elements with data-hide-cursor
+    const attachHideCursor = () => {
+      document.querySelectorAll("[data-hide-cursor]").forEach((el) => {
+        const h = el as HTMLElement;
+        if (h.dataset.hideCursorAttached) return;
+        h.dataset.hideCursorAttached = "1";
+        h.addEventListener("mouseenter", () => {
+          gsap.to(cursor, { opacity: 0, duration: 0.15 });
+          gsap.to(dot, { opacity: 0, duration: 0.15 });
+        });
+        h.addEventListener("mouseleave", () => {
+          gsap.to(cursor, { opacity: 1, duration: 0.15 });
+          gsap.to(dot, { opacity: 1, duration: 0.15 });
+        });
+      });
+    };
 
-    const observer = new MutationObserver(attachListeners);
+    attachListeners();
+    attachHideCursor();
+
+    const observer = new MutationObserver(() => { attachListeners(); attachHideCursor(); });
     observer.observe(document.body, { childList: true, subtree: true });
 
     return () => {
