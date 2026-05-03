@@ -11,6 +11,19 @@ import Footer from "@/components/Footer";
 
 export const metadata = {
   title: "MESS Press Kit",
+  description: "Official press kit for MESS — concept-driven events. Bold, sexy, uncompromising. Production based in Tel Aviv.",
+  openGraph: {
+    title: "MESS Press Kit",
+    description: "Official press kit for MESS — concept-driven events. Bold, sexy, uncompromising. Production based in Tel Aviv.",
+    url: "https://messmakerz.com/press-kit",
+    siteName: "MESS",
+    type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: "MESS Press Kit",
+    description: "Official press kit for MESS — concept-driven events. Bold, sexy, uncompromising. Production based in Tel Aviv.",
+  },
 };
 
 export default function PressKit() {
