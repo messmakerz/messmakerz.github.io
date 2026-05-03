@@ -1,10 +1,10 @@
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
+import WhoWeAre from "@/components/WhoWeAre";
 import CoreEvents from "@/components/CoreEvents";
 import PhotoBreak from "@/components/PhotoBreak";
 import CommunityEvents from "@/components/CommunityEvents";
 import InternationalEvents from "@/components/InternationalEvents";
-import Vision from "@/components/Vision";
 import Footer from "@/components/Footer";
 
 export default function Home() {
@@ -12,7 +12,7 @@ export default function Home() {
     <main>
       <Header />
       <Hero hideNewsletter />
-      <Vision />
+      <WhoWeAre />
       <CoreEvents />
       <PhotoBreak />
       <InternationalEvents />

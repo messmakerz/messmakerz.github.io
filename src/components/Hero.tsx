@@ -169,7 +169,7 @@ export default function Hero({ hideNewsletter = false }: HeroProps) {
         aria-hidden="true"
         className="absolute pointer-events-none select-none"
         style={{
-          left: "50%",
+          right: "40px",
           top: "50%",
           transform: "translateY(-50%)",
           width: "clamp(280px, 55vw, 780px)",
