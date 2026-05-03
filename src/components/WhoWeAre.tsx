@@ -83,34 +83,35 @@ export default function WhoWeAre() {
   };
 
   return (
-    <section ref={sectionRef} className="px-6 md:px-14 lg:px-20 py-16 md:py-24">
+    <section ref={sectionRef} className="py-16 md:py-24">
 
-      {/* Section tag */}
-      <div ref={tagRef} className="flex items-center gap-3 mb-12 pt-10 border-t border-[var(--border)]">
-        <span style={{ fontFamily: "var(--font-display)", fontSize: "0.62rem", letterSpacing: "0.22em", color: "var(--text-subtle)" }}>01</span>
-        <span style={{ fontSize: "0.62rem", color: "var(--border-strong)" }}>—</span>
-        <span style={{ fontFamily: "var(--font-display)", fontSize: "0.62rem", letterSpacing: "0.22em", textTransform: "uppercase", color: "var(--text-subtle)" }}>Who We Are</span>
+      {/* Section tag + heading — padded */}
+      <div className="px-6 md:px-14 lg:px-20">
+        <div ref={tagRef} className="flex items-center gap-3 mb-12">
+          <span style={{ fontFamily: "var(--font-display)", fontSize: "0.62rem", letterSpacing: "0.22em", color: "var(--text-subtle)" }}>01</span>
+          <span style={{ fontSize: "0.62rem", color: "var(--border-strong)" }}>—</span>
+          <span style={{ fontFamily: "var(--font-display)", fontSize: "0.62rem", letterSpacing: "0.22em", textTransform: "uppercase", color: "var(--text-subtle)" }}>Who We Are</span>
+        </div>
+
+        <h2
+          ref={headingRef}
+          className="mb-16 md:mb-20"
+          style={{
+            fontFamily: "var(--font-display)",
+            fontWeight: 700,
+            fontSize: "clamp(2.2rem, 5.5vw, 5.5rem)",
+            lineHeight: 1.05,
+            letterSpacing: "-0.04em",
+            color: "var(--text)",
+            maxWidth: "18ch",
+          }}
+        >
+          Mishell&apos;s core community. Concept-driven events, fashion, music.
+        </h2>
       </div>
 
-      {/* Statement heading */}
-      <h2
-        ref={headingRef}
-        className="mb-16 md:mb-20"
-        style={{
-          fontFamily: "var(--font-display)",
-          fontWeight: 700,
-          fontSize: "clamp(2.2rem, 5.5vw, 5.5rem)",
-          lineHeight: 1.05,
-          letterSpacing: "-0.04em",
-          color: "var(--text)",
-          maxWidth: "18ch",
-        }}
-      >
-        Mishell&apos;s core community. Concept-driven events, fashion, music.
-      </h2>
-
-      {/* Split: image left, body right */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-end">
+      {/* Split: image full-bleed left, body padded right */}
+      <div className="grid grid-cols-1 md:grid-cols-2 items-end">
         <div
           ref={imgRef}
           className="relative overflow-hidden w-full"
@@ -184,7 +185,7 @@ export default function WhoWeAre() {
           />
         </div>
 
-        <div ref={bodyRef} className="flex flex-col justify-end pb-2">
+        <div ref={bodyRef} className="flex flex-col justify-end pb-2 px-6 md:px-14 lg:px-20 md:pl-12 lg:pl-16">
           <p
             style={{
               fontFamily: "var(--font-display)",
