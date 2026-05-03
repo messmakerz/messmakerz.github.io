@@ -16,6 +16,7 @@ export default function WhoWeAre() {
   const imgRef = useRef<HTMLDivElement>(null);
   const bodyRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const cursorRef = useRef<HTMLDivElement>(null);
   const [hovered, setHovered] = useState(false);
 
   useEffect(() => {
@@ -54,9 +55,19 @@ export default function WhoWeAre() {
   const handleMouseLeave = () => {
     setHovered(false);
     const v = videoRef.current;
-    if (v) {
-      v.pause();
+    if (v) v.pause();
+    if (cursorRef.current) {
+      cursorRef.current.style.opacity = "0";
     }
+  };
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const el = cursorRef.current;
+    if (!el) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    el.style.left = `${e.clientX - rect.left}px`;
+    el.style.top = `${e.clientY - rect.top}px`;
+    el.style.opacity = "1";
   };
 
   return (
@@ -94,6 +105,7 @@ export default function WhoWeAre() {
           style={{ aspectRatio: "4/5", clipPath: "inset(0 0 100% 0)", cursor: "none" }}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
+          onMouseMove={handleMouseMove}
         >
           {/* Static image */}
           <Image
@@ -106,6 +118,38 @@ export default function WhoWeAre() {
               opacity: hovered ? 0 : 1,
             }}
           />
+
+          {/* Custom cursor */}
+          <div
+            ref={cursorRef}
+            style={{
+              position: "absolute",
+              pointerEvents: "none",
+              opacity: 0,
+              transform: "translate(-50%, -50%)",
+              zIndex: 20,
+              display: "flex",
+              alignItems: "center",
+              gap: "6px",
+              transition: "opacity 0.2s ease",
+            }}
+          >
+            {/* Arrow */}
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+              <path d="M2 2L16 9L2 16V2Z" fill="white" />
+            </svg>
+            <span style={{
+              fontFamily: "var(--font-display)",
+              fontSize: "0.7rem",
+              letterSpacing: "0.18em",
+              textTransform: "uppercase",
+              color: "#fff",
+              whiteSpace: "nowrap",
+              textShadow: "0 1px 8px rgba(0,0,0,0.7)",
+            }}>
+              This is Mishell
+            </span>
+          </div>
 
           {/* Hover video */}
           <video
