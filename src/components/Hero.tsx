@@ -123,11 +123,26 @@ export default function Hero({ hideNewsletter = false }: HeroProps) {
   const bgVideoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
-    // Force autoplay on mobile (bypasses browser play button)
     const v = bgVideoRef.current;
-    if (v) {
-      v.play().catch(() => {});
-    }
+    if (!v) return;
+
+    const tryPlay = () => { v.play().catch(() => {}); };
+
+    // Try immediately and on metadata loaded
+    tryPlay();
+    v.addEventListener("loadedmetadata", tryPlay);
+    v.addEventListener("canplay", tryPlay);
+
+    // Fallback: play on first user interaction (iOS Low Power Mode, etc.)
+    document.addEventListener("touchstart", tryPlay, { once: true, passive: true });
+    document.addEventListener("click", tryPlay, { once: true });
+
+    return () => {
+      v.removeEventListener("loadedmetadata", tryPlay);
+      v.removeEventListener("canplay", tryPlay);
+      document.removeEventListener("touchstart", tryPlay);
+      document.removeEventListener("click", tryPlay);
+    };
   }, []);
 
   useEffect(() => {

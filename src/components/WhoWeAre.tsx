@@ -207,7 +207,7 @@ export default function WhoWeAre() {
           />
         </div>
 
-        <div ref={bodyRef} className="flex flex-col justify-end pb-2 px-6 md:px-14 lg:px-20 md:pl-12 lg:pl-16">
+        <div ref={bodyRef} className="flex flex-col justify-end pt-8 md:pt-0 pb-2 px-6 md:px-14 lg:px-20 md:pl-12 lg:pl-16">
           <p
             style={{
               fontFamily: "var(--font-display)",

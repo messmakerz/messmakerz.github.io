@@ -156,6 +156,7 @@ function ProductCard({ p }: ProductCardProps) {
               fontWeight: 300,
               color: "var(--text-subtle)",
               letterSpacing: "0.04em",
+              paddingLeft: "10px",
             }}>
               {p.description}
             </p>
