@@ -145,7 +145,7 @@ export default function WhoWeAre() {
         >
           {/* Static image */}
           <Image
-            src={`${base}/mishell.jpg`}
+            src={`${base}/mishell.jpeg`}
             alt="Mishell"
             fill
             className="object-cover object-top"
