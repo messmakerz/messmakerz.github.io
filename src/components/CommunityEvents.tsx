@@ -192,7 +192,7 @@ function VideoMedia({ src }: { src: string }) {
 }
 
 // ─── Main component ────────────────────────────────────────────────────────────
-export default function CommunityEvents({ sectionNumber = "06" }: { sectionNumber?: string }) {
+export default function CommunityEvents({ sectionNumber = "06", showDetails = false }: { sectionNumber?: string; showDetails?: boolean }) {
   const tagRef = useRef<HTMLDivElement>(null);
   const gridRef = useRef<HTMLDivElement>(null);
   const [activeVideo, setActiveVideo] = useState<{ src: string; title: string } | null>(null);
@@ -258,9 +258,11 @@ export default function CommunityEvents({ sectionNumber = "06" }: { sectionNumbe
                   </h3>
                   <div className="space-y-1.5">
                     <p style={{ fontSize: "0.75rem", color: "var(--text-subtle)" }}>{event.date}</p>
+                    {showDetails && (
                     <p style={{ fontSize: "0.75rem", color: "var(--text-subtle)" }}>
                       {event.tickets} tickets · {event.booking}
                     </p>
+                    )}
                   </div>
                   {event.slug && (
                     <span

@@ -66,10 +66,10 @@ export default function PressKit() {
       <WhoWeAre />
       <Audience />
       <Vision />
-      <CoreEvents />
+      <CoreEvents showDetails />
       <PhotoBreak />
-      <InternationalEvents />
-      <CommunityEvents />
+      <InternationalEvents showDetails />
+      <CommunityEvents showDetails />
       <Footer />
       <div className="border-t border-[var(--border)] px-6 md:px-14 lg:px-20 py-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
         <span style={{ fontFamily: "var(--font-display)", fontSize: "0.6rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--text-subtle)" }}>

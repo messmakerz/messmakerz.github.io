@@ -27,9 +27,10 @@ interface EventRowProps {
   event: (typeof coreEvents)[0];
   index: number;
   flip: boolean;
+  showDetails?: boolean;
 }
 
-function EventRow({ event, index, flip }: EventRowProps) {
+function EventRow({ event, index, flip, showDetails = true }: EventRowProps) {
   const rowRef = useRef<HTMLElement>(null);
   const imgRef = useRef<HTMLDivElement>(null);
   const infoRef = useRef<HTMLDivElement>(null);
@@ -176,10 +177,10 @@ function EventRow({ event, index, flip }: EventRowProps) {
           style={{ fontFamily: "var(--font-display)" }}
         >
           {[
-            { label: "Date", value: event.date },
-            { label: "Tickets sold", value: event.tickets },
-            { label: "Artists", value: event.booking },
-          ].map(({ label, value }) => (
+            { label: "Date", value: event.date, always: true },
+            { label: "Tickets sold", value: event.tickets, always: false },
+            { label: "Artists", value: event.booking, always: false },
+          ].filter(item => item.always || showDetails).map(({ label, value }) => (
             <div key={label} className="flex items-baseline justify-between border-b border-[var(--border)] pb-3">
               <dt style={{ fontSize: "0.68rem", letterSpacing: "0.15em", textTransform: "uppercase", color: "var(--text-subtle)" }}>{label}</dt>
               <dd style={{ fontSize: "0.9rem", fontWeight: 300, color: "var(--text-muted)" }}>{value}</dd>
@@ -212,7 +213,7 @@ function EventRow({ event, index, flip }: EventRowProps) {
   ) : inner;
 }
 
-export default function CoreEvents({ sectionNumber = "04" }: { sectionNumber?: string }) {
+export default function CoreEvents({ sectionNumber = "04", showDetails = false }: { sectionNumber?: string; showDetails?: boolean }) {
   const tagRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -234,7 +235,7 @@ export default function CoreEvents({ sectionNumber = "04" }: { sectionNumber?: s
 
       <div className="mt-12">
         {coreEvents.map((event, i) => (
-          <EventRow key={event.title} event={event} index={i} flip={i % 2 !== 0} />
+          <EventRow key={event.title} event={event} index={i} flip={i % 2 !== 0} showDetails={showDetails} />
         ))}
       </div>
     </section>

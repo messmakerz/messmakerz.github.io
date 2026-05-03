@@ -47,9 +47,10 @@ function GlobePin() {
 interface EventCardProps {
   event: (typeof internationalEvents)[0];
   index: number;
+  showDetails?: boolean;
 }
 
-function EventCard({ event, index }: EventCardProps) {
+function EventCard({ event, index, showDetails = true }: EventCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
   const mediaRef = useRef<HTMLDivElement>(null);
   const infoRef = useRef<HTMLDivElement>(null);
@@ -176,6 +177,7 @@ function EventCard({ event, index }: EventCardProps) {
           </div>
 
           {/* Artists */}
+          {showDetails && (
           <div className="flex items-baseline justify-between border-b border-[var(--border)] pb-3">
             <dt style={{ fontSize: "0.68rem", letterSpacing: "0.15em", textTransform: "uppercase", color: "var(--text-subtle)" }}>
               Artists
@@ -184,6 +186,7 @@ function EventCard({ event, index }: EventCardProps) {
               {event.artists.join(", ")}
             </dd>
           </div>
+          )}
         </dl>
 
         {/* Location badge */}
@@ -206,7 +209,7 @@ function EventCard({ event, index }: EventCardProps) {
   );
 }
 
-export default function InternationalEvents({ sectionNumber = "05" }: { sectionNumber?: string }) {
+export default function InternationalEvents({ sectionNumber = "05", showDetails = false }: { sectionNumber?: string; showDetails?: boolean }) {
   const tagRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -228,7 +231,7 @@ export default function InternationalEvents({ sectionNumber = "05" }: { sectionN
 
       <div className="mt-12 px-6 md:px-14 lg:px-20">
         {internationalEvents.map((event, i) => (
-          <EventCard key={event.title} event={event} index={i} />
+          <EventCard key={event.title} event={event} index={i} showDetails={showDetails} />
         ))}
       </div>
     </section>
