@@ -165,7 +165,7 @@ export default function Hero() {
         aria-hidden="true"
         className="absolute pointer-events-none select-none"
         style={{
-          right: "-3%",
+          right: "8%",
           top: "50%",
           transform: "translateY(-50%)",
           width: "clamp(280px, 55vw, 780px)",
