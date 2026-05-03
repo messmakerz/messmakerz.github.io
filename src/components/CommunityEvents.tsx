@@ -192,7 +192,7 @@ function VideoMedia({ src }: { src: string }) {
 }
 
 // ─── Main component ────────────────────────────────────────────────────────────
-export default function CommunityEvents() {
+export default function CommunityEvents({ sectionNumber = "06" }: { sectionNumber?: string }) {
   const tagRef = useRef<HTMLDivElement>(null);
   const gridRef = useRef<HTMLDivElement>(null);
   const [activeVideo, setActiveVideo] = useState<{ src: string; title: string } | null>(null);
@@ -227,7 +227,7 @@ export default function CommunityEvents() {
     <>
       <section className="px-6 md:px-14 lg:px-20 py-4 md:py-8">
         <div ref={tagRef} className="flex items-center gap-3 mb-14 pt-10 border-t border-[var(--border)]">
-          <span style={{ fontFamily: "var(--font-display)", fontSize: "0.62rem", letterSpacing: "0.22em", color: "var(--text-subtle)" }}>06</span>
+          <span style={{ fontFamily: "var(--font-display)", fontSize: "0.62rem", letterSpacing: "0.22em", color: "var(--text-subtle)" }}>{sectionNumber}</span>
           <span style={{ fontSize: "0.62rem", color: "var(--border-strong)" }}>—</span>
           <span style={{ fontFamily: "var(--font-display)", fontSize: "0.62rem", letterSpacing: "0.22em", textTransform: "uppercase", color: "var(--text-subtle)" }}>Community Events</span>
         </div>
