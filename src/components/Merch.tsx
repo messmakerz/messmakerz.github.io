@@ -108,7 +108,7 @@ export default function Merch() {
             </div>
 
             {/* Info */}
-            <div className="pt-5 pb-8 pr-4">
+            <div className="pt-7 pb-8 pr-4">
               <div className="flex items-start justify-between gap-2">
                 <div>
                   <h3 style={{
