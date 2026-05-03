@@ -6,30 +6,43 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const mixes = [
-  { title: "MESSLIST 003: Jackie", url: "https://soundcloud.com/messmakerz/messlist-003-jackie" },
-  { title: "Nevos @ Mess Weekend 23.01.26", url: "https://soundcloud.com/messmakerz/nevos-mess-weekend-230126" },
-  { title: "Messy Sessions #10 - Dor Danino", url: "https://soundcloud.com/messmakerz/messy-sessions-10-dor-danino" },
-  { title: "MESSLIST 002: Toni B", url: "https://soundcloud.com/messmakerz/messlist-002-toni-b" },
-  { title: "MESSLIST 001: Yuvèe", url: "https://soundcloud.com/messmakerz/messlist-001-yuvee" },
-  { title: "Messy Sessions #8 - Mishell", url: "https://soundcloud.com/messmakerz/messy-sessions-8-mishell" },
-];
+const SC_RSS = "https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Ffeeds.soundcloud.com%2Fusers%2Fsoundcloud%3Ausers%3A1433197946%2Fsounds.rss&count=10";
 
 function buildEmbedUrl(trackUrl: string, autoPlay: boolean) {
   const encoded = encodeURIComponent(trackUrl);
   return `https://w.soundcloud.com/player/?url=${encoded}&color=%23DD3235&auto_play=${autoPlay}&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false`;
 }
 
+interface Mix { title: string; url: string; }
+
 export default function Mixes() {
   const tagRef = useRef<HTMLDivElement>(null);
   const listRef = useRef<HTMLDivElement>(null);
+  const [mixes, setMixes] = useState<Mix[]>([]);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [iframeKey, setIframeKey] = useState(0);
   const [embedUrl, setEmbedUrl] = useState(
     buildEmbedUrl("https://soundcloud.com/messmakerz", false)
   );
 
+  // Fetch tracks from SoundCloud RSS
   useEffect(() => {
+    fetch(SC_RSS)
+      .then(r => r.json())
+      .then(data => {
+        if (data.status === "ok") {
+          setMixes(data.items.map((item: { title: string; link: string }) => ({
+            title: item.title,
+            url: item.link,
+          })));
+        }
+      })
+      .catch(() => {});
+  }, []);
+
+  // GSAP animations (re-run when mixes load)
+  useEffect(() => {
+    if (mixes.length === 0) return;
     gsap.fromTo(tagRef.current,
       { opacity: 0 },
       { opacity: 1, duration: 0.7, ease: "power2.out", scrollTrigger: { trigger: tagRef.current, start: "top 95%" } }
@@ -42,7 +55,7 @@ export default function Mixes() {
           scrollTrigger: { trigger: listRef.current, start: "top 90%" } }
       );
     }
-  }, []);
+  }, [mixes]);
 
   const handleSelectMix = (index: number, url: string) => {
     setActiveIndex(index);
@@ -80,11 +93,17 @@ export default function Mixes() {
           const isActive = activeIndex === i;
           return (
             <button
-              key={mix.title}
+              key={mix.url}
               data-mix
               onClick={() => handleSelectMix(i, mix.url)}
-              className="w-full flex items-center justify-between py-4 border-b border-[var(--border)] group text-left"
-              style={{ background: "none", border: "none", borderBottom: "1px solid var(--border)", cursor: "pointer", padding: "1rem 0" }}
+              className="w-full flex items-center justify-between group text-left"
+              style={{
+                background: "none",
+                border: "none",
+                borderBottom: "1px solid var(--border)",
+                cursor: "pointer",
+                padding: "1rem 0",
+              }}
             >
               <div className="flex items-center gap-4">
                 <span style={{
@@ -97,21 +116,21 @@ export default function Mixes() {
                 }}>
                   {String(i + 1).padStart(2, "0")}
                 </span>
-                <span style={{
-                  fontFamily: "var(--font-display)",
-                  fontSize: "clamp(0.85rem, 1.4vw, 1rem)",
-                  fontWeight: isActive ? 500 : 300,
-                  color: isActive ? "var(--text)" : "var(--text)",
-                  letterSpacing: "0.01em",
-                  transition: "color 0.2s",
-                }}
-                className={isActive ? "" : "group-hover:text-[var(--red)]"}
+                <span
+                  style={{
+                    fontFamily: "var(--font-display)",
+                    fontSize: "clamp(0.85rem, 1.4vw, 1rem)",
+                    fontWeight: isActive ? 500 : 300,
+                    color: "var(--text)",
+                    letterSpacing: "0.01em",
+                    transition: "color 0.2s",
+                  }}
+                  className={isActive ? "" : "group-hover:text-[var(--red)]"}
                 >
                   {mix.title}
                 </span>
               </div>
 
-              {/* Active: pulsing bars / Inactive: play icon on hover */}
               {isActive ? (
                 <PlayingBars />
               ) : (
@@ -158,18 +177,9 @@ export default function Mixes() {
   );
 }
 
-/* Animated playing indicator — 3 bars bouncing */
 function PlayingBars() {
   return (
-    <span
-      style={{
-        display: "flex",
-        alignItems: "flex-end",
-        gap: "2px",
-        height: "14px",
-        flexShrink: 0,
-      }}
-    >
+    <span style={{ display: "flex", alignItems: "flex-end", gap: "2px", height: "14px", flexShrink: 0 }}>
       {[0, 1, 2].map((j) => (
         <span
           key={j}
@@ -182,12 +192,7 @@ function PlayingBars() {
           }}
         />
       ))}
-      <style>{`
-        @keyframes mixBar {
-          from { height: 4px; }
-          to   { height: 14px; }
-        }
-      `}</style>
+      <style>{`@keyframes mixBar { from { height: 4px; } to { height: 14px; } }`}</style>
     </span>
   );
 }
