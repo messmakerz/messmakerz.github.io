@@ -20,7 +20,7 @@ export const metadata = {
     type: "website",
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: "MESS Press Kit",
     description: "Official press kit for MESS — concept-driven events. Bold, sexy, uncompromising. Production based in Tel Aviv.",
   },
