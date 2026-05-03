@@ -1,5 +1,7 @@
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
+import WhoWeAre from "@/components/WhoWeAre";
+import Audience from "@/components/Audience";
 import CoreEvents from "@/components/CoreEvents";
 import PhotoBreak from "@/components/PhotoBreak";
 import CommunityEvents from "@/components/CommunityEvents";
@@ -7,11 +9,48 @@ import InternationalEvents from "@/components/InternationalEvents";
 import Vision from "@/components/Vision";
 import Footer from "@/components/Footer";
 
-export default function Home() {
+export const metadata = {
+  title: "MESS Press Kit",
+};
+
+export default function PressKit() {
   return (
     <main>
       <Header />
-      <Hero hideNewsletter />
+
+      {/* Press Kit label */}
+      <div
+        style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          right: 0,
+          zIndex: 100,
+          pointerEvents: "none",
+          display: "flex",
+          justifyContent: "center",
+          paddingTop: "18px",
+        }}
+      >
+        <span
+          style={{
+            fontFamily: "var(--font-display)",
+            fontSize: "0.55rem",
+            letterSpacing: "0.3em",
+            textTransform: "uppercase",
+            color: "var(--text-subtle)",
+            background: "var(--bg)",
+            padding: "4px 14px",
+            border: "1px solid var(--border)",
+          }}
+        >
+          Mess Press Kit
+        </span>
+      </div>
+
+      <Hero />
+      <WhoWeAre />
+      <Audience />
       <Vision />
       <CoreEvents />
       <PhotoBreak />

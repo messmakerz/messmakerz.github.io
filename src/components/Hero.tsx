@@ -111,7 +111,11 @@ function HeroNewsletter() {
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
-export default function Hero() {
+interface HeroProps {
+  hideNewsletter?: boolean;
+}
+
+export default function Hero({ hideNewsletter = false }: HeroProps) {
   const metaRef = useRef<HTMLDivElement>(null);
   const line1Ref = useRef<HTMLDivElement>(null);
   const line2Ref = useRef<HTMLDivElement>(null);
@@ -255,6 +259,7 @@ export default function Hero() {
 
         {/* Newsletter CTA */}
         <div ref={ctaRef} className="mt-12 md:mt-16">
+          {!hideNewsletter && (
           <div style={{ borderTop: "1px solid rgba(255,255,255,0.1)", paddingTop: "24px", display: "inline-block" }}>
             <p style={{
               fontFamily: "var(--font-display)",
@@ -268,6 +273,7 @@ export default function Hero() {
             </p>
             <HeroNewsletter />
           </div>
+          )}
         </div>
 
       </div>
