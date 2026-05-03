@@ -1,6 +1,8 @@
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import WhoWeAre from "@/components/WhoWeAre";
+import Mixes from "@/components/Mixes";
+import Merch from "@/components/Merch";
 import CoreEvents from "@/components/CoreEvents";
 import PhotoBreak from "@/components/PhotoBreak";
 import CommunityEvents from "@/components/CommunityEvents";
@@ -13,10 +15,12 @@ export default function Home() {
       <Header />
       <Hero />
       <WhoWeAre />
-      <CoreEvents sectionNumber="02" />
+      <Mixes />
+      <Merch />
+      <CoreEvents sectionNumber="04" />
       <PhotoBreak />
-      <InternationalEvents sectionNumber="03" />
-      <CommunityEvents sectionNumber="04" />
+      <InternationalEvents sectionNumber="05" />
+      <CommunityEvents sectionNumber="06" />
       <Footer />
       <div className="border-t border-[var(--border)] px-6 md:px-14 lg:px-20 py-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
         <span style={{ fontFamily: "var(--font-display)", fontSize: "0.6rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--text-subtle)" }}>

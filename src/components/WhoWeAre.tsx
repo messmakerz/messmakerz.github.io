@@ -44,6 +44,28 @@ export default function WhoWeAre() {
     );
   }, []);
 
+  // Mobile: autoplay video via IntersectionObserver (no hover available)
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v) return;
+    const isMobile = window.matchMedia("(pointer: coarse)").matches;
+    if (!isMobile) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setHovered(true);
+          v.play().catch(() => {});
+        } else {
+          setHovered(false);
+          v.pause();
+        }
+      },
+      { threshold: 0.4 }
+    );
+    observer.observe(v);
+    return () => observer.disconnect();
+  }, []);
+
   const handleMouseEnter = () => {
     setHovered(true);
     const v = videoRef.current;
