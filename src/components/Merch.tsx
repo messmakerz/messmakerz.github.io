@@ -136,6 +136,7 @@ function ProductCard({ p }: ProductCardProps) {
               letterSpacing: "-0.02em",
               color: "var(--text)",
               marginBottom: "4px",
+              paddingLeft: "10px",
             }}>
               {p.title}
             </h3>
