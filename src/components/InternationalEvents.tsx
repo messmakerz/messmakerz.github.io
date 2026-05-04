@@ -97,7 +97,7 @@ function EventCard({ event, index, showDetails = true }: EventCardProps) {
       {/* Video — natural size */}
       <div
         ref={mediaRef}
-        className="w-full md:w-[30%]"
+        className="w-full md:w-[18%]"
         style={{ overflow: "hidden", flexShrink: 0, clipPath: "inset(0 0 100% 0)" }}
       >
         <video
@@ -230,7 +230,7 @@ export default function InternationalEvents({ sectionNumber = "05", showDetails 
         </div>
       </div>
 
-      <div className="mt-12">
+      <div className="mt-12 px-6 md:px-14 lg:px-20">
         {internationalEvents.map((event, i) => (
           <EventCard key={event.title} event={event} index={i} showDetails={showDetails} />
         ))}
