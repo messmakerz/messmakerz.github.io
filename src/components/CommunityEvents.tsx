@@ -140,11 +140,8 @@ function VideoMedia({ src }: { src: string }) {
     const v = previewRef.current;
     if (!el || !v) return;
 
-    const isMobile = () => window.matchMedia("(hover: none)").matches;
-
     const observer = new IntersectionObserver(
       (entries) => {
-        if (!isMobile()) return;
         const entry = entries[0];
         if (entry.isIntersecting) {
           v.play().catch(() => {});
@@ -152,7 +149,7 @@ function VideoMedia({ src }: { src: string }) {
           v.pause();
         }
       },
-      { threshold: 0.5 }
+      { threshold: 0.3 }
     );
 
     observer.observe(el);
@@ -173,6 +170,7 @@ function VideoMedia({ src }: { src: string }) {
         className="grayscale group-hover:grayscale-0 transition-[filter] duration-500"
         style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }}
         muted
+        autoPlay
         playsInline
         loop
         preload="auto"

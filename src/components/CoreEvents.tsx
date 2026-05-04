@@ -100,6 +100,7 @@ function EventRow({ event, index, flip, showDetails = true }: EventRowProps) {
               src={`${base}/videos/${event.videoFile}`}
               style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }}
               muted
+              autoPlay
               playsInline
               loop
               preload="auto"
