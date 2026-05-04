@@ -5,22 +5,38 @@ import { gsap } from "gsap";
 
 const ADMIN_API = "https://mess-admin-prod.vercel.app";
 
+const inputStyle = (err: boolean): React.CSSProperties => ({
+  width: "100%",
+  background: err ? "rgba(180,30,30,0.15)" : "rgba(255,255,255,0.12)",
+  border: err ? "1px solid rgba(180,30,30,0.8)" : "1px solid rgba(255,255,255,0.5)",
+  outline: "none",
+  fontFamily: "var(--font-display)",
+  fontWeight: 300,
+  fontSize: "1rem",
+  color: "var(--text)",
+  padding: "14px 18px",
+  letterSpacing: "0.02em",
+  boxSizing: "border-box" as const,
+  transition: "border-color 0.2s, background 0.2s",
+});
+
 function HeroNewsletter() {
   const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email.includes("@")) return;
+    if (!email.includes("@") || !phone.trim()) return;
     setStatus("loading");
     try {
       const res = await fetch(`${ADMIN_API}/api/subscribe`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ email, phone: phone.trim() }),
       });
       setStatus(res.ok ? "success" : "error");
-      if (res.ok) setEmail("");
+      if (res.ok) { setEmail(""); setPhone(""); }
     } catch {
       setStatus("error");
     }
@@ -37,35 +53,31 @@ function HeroNewsletter() {
     );
   }
 
+  const hasErr = status === "error";
+
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: "10px", width: "min(100%, 520px)" }}>
-      <form onSubmit={handleSubmit} className="flex items-stretch">
+    <div style={{ display: "flex", flexDirection: "column", gap: "8px", width: "min(100%, 520px)" }}>
+      <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
         <input
           type="email"
           value={email}
-          onChange={(e) => { setEmail(e.target.value); if (status === "error") setStatus("idle"); }}
+          onChange={(e) => { setEmail(e.target.value); if (hasErr) setStatus("idle"); }}
           placeholder="your@email.com"
           required
-          style={{
-            flex: 1,
-            background: status === "error" ? "rgba(180,30,30,0.15)" : "rgba(255,255,255,0.12)",
-            border: status === "error" ? "1px solid rgba(180,30,30,0.8)" : "1px solid rgba(255,255,255,0.5)",
-            borderRight: "none",
-            outline: "none",
-            fontFamily: "var(--font-display)",
-            fontWeight: 300,
-            fontSize: "1rem",
-            color: "var(--text)",
-            padding: "17px 22px",
-            letterSpacing: "0.02em",
-            minWidth: 0,
-            transition: "border-color 0.2s, background 0.2s",
-          }}
+          style={inputStyle(hasErr)}
+        />
+        <input
+          type="tel"
+          value={phone}
+          onChange={(e) => { setPhone(e.target.value); if (hasErr) setStatus("idle"); }}
+          placeholder="+972 50 000 0000"
+          required
+          style={inputStyle(hasErr)}
         />
         <button
           type="submit"
           disabled={status === "loading"}
-          className="px-2 py-[7px] text-[0.44rem] md:px-9 md:py-[17px] md:text-[0.72rem]"
+          className="w-full py-[13px] text-[0.6rem] md:py-[15px] md:text-[0.72rem]"
           style={{
             fontFamily: "var(--font-display)",
             letterSpacing: "0.25em",
@@ -76,8 +88,6 @@ function HeroNewsletter() {
             cursor: status === "loading" ? "default" : "pointer",
             opacity: status === "loading" ? 0.6 : 1,
             transition: "opacity 0.2s, background 0.2s, color 0.2s",
-            whiteSpace: "nowrap",
-            flexShrink: 0,
           }}
           onMouseEnter={(e) => { if (status !== "loading") { e.currentTarget.style.background = "#fff"; e.currentTarget.style.color = "#0a0a0a"; }}}
           onMouseLeave={(e) => { e.currentTarget.style.background = "var(--red)"; e.currentTarget.style.color = "#fff"; }}
@@ -91,15 +101,8 @@ function HeroNewsletter() {
           ) : "Join the community"}
         </button>
       </form>
-      {status === "error" && (
-        <p style={{
-          fontFamily: "var(--font-display)",
-          fontSize: "0.62rem",
-          letterSpacing: "0.12em",
-          textTransform: "uppercase",
-          color: "rgba(200,60,60,0.9)",
-          margin: 0,
-        }}>
+      {hasErr && (
+        <p style={{ fontFamily: "var(--font-display)", fontSize: "0.62rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "rgba(200,60,60,0.9)", margin: 0 }}>
           Something went wrong — try again
         </p>
       )}
