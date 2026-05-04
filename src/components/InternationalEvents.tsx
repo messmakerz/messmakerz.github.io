@@ -90,35 +90,32 @@ function EventCard({ event, index, showDetails = true }: EventCardProps) {
   return (
     <div
       ref={cardRef}
-      className="grid grid-cols-1 md:grid-cols-[3fr_2fr] border-t border-[var(--border)]"
+      className="border-t border-[var(--border)]"
+      style={{ padding: "10px" }}
     >
-      {/* Video — landscape */}
+      <div className="flex flex-col md:flex-row md:items-start" style={{ gap: "10px" }}>
+      {/* Video — natural size */}
       <div
         ref={mediaRef}
-        className="relative w-full"
-        style={{ aspectRatio: "16/9", overflow: "hidden", contain: "paint", clipPath: "inset(0 0 100% 0)" }}
+        className="w-full md:w-[45%]"
+        style={{ overflow: "hidden", flexShrink: 0, clipPath: "inset(0 0 100% 0)" }}
       >
         <video
           ref={videoRef}
           src={`${base}/videos/${event.videoFile}`}
-          style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "contain", background: "var(--bg)" }}
+          style={{ display: "block", width: "100%", height: "auto" }}
           muted
           autoPlay
           playsInline
           loop
           preload="auto"
         />
-        {/* Subtle vignette */}
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{ background: "linear-gradient(to right, rgba(0,0,0,0.2) 0%, transparent 40%)" }}
-        />
       </div>
 
       {/* Info */}
       <div
         ref={infoRef}
-        className="flex flex-col justify-between p-8 md:pl-8 md:pr-12 md:py-10 border-l-0 md:border-l border-[var(--border)]"
+        className="flex flex-col justify-between flex-1"
         style={{ opacity: 0 }}
       >
         {/* Index + globe */}
@@ -208,6 +205,7 @@ function EventCard({ event, index, showDetails = true }: EventCardProps) {
           </span>
         </div>
       </div>
+      </div>
     </div>
   );
 }
@@ -232,7 +230,7 @@ export default function InternationalEvents({ sectionNumber = "05", showDetails 
         </div>
       </div>
 
-      <div className="mt-12 px-6 md:px-14 lg:px-20">
+      <div className="mt-12">
         {internationalEvents.map((event, i) => (
           <EventCard key={event.title} event={event} index={i} showDetails={showDetails} />
         ))}
