@@ -87,7 +87,7 @@ function VideoCard({ video, index, onOpen }: VideoCardProps) {
         <video
           ref={previewRef}
           src={`${base}/videos/${video.file}`}
-          className="absolute inset-0 w-full h-full object-cover grayscale group-hover:grayscale-0 transition-[filter] duration-500"
+          className="absolute inset-0 w-full h-full object-cover md:grayscale md:group-hover:grayscale-0 transition-[filter] duration-500"
           muted
           playsInline
           loop

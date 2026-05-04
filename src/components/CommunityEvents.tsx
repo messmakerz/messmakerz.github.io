@@ -167,7 +167,7 @@ function VideoMedia({ src }: { src: string }) {
       <video
         ref={previewRef}
         src={src}
-        className="grayscale group-hover:grayscale-0 transition-[filter] duration-500"
+        className="md:grayscale md:group-hover:grayscale-0 transition-[filter] duration-500"
         style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }}
         muted
         autoPlay
