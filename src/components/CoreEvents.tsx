@@ -68,13 +68,14 @@ function EventRow({ event, index, flip, showDetails = true }: EventRowProps) {
     }
   }, [event.videoFile]);
 
-  // Autoplay video on mobile when in view
+  // Autoplay video — try immediately + intersection fallback
   useEffect(() => {
     const v = videoRef.current;
     if (!v) return;
+    v.play().catch(() => {});
     const observer = new IntersectionObserver(
       ([entry]) => { entry.isIntersecting ? v.play().catch(() => {}) : v.pause(); },
-      { threshold: 0.3 }
+      { threshold: 0.1 }
     );
     observer.observe(v);
     return () => observer.disconnect();
@@ -170,6 +171,17 @@ function EventRow({ event, index, flip, showDetails = true }: EventRowProps) {
           >
             {event.title}
           </h3>
+          <p style={{
+            fontFamily: "var(--font-display)",
+            fontSize: "0.78rem",
+            letterSpacing: "0.12em",
+            textTransform: "uppercase",
+            color: "var(--red)",
+            fontWeight: 500,
+            marginTop: "0.5rem",
+          }}>
+            {event.date}
+          </p>
         </div>
 
         <dl
@@ -177,7 +189,6 @@ function EventRow({ event, index, flip, showDetails = true }: EventRowProps) {
           style={{ fontFamily: "var(--font-display)" }}
         >
           {[
-            { label: "Date", value: event.date, always: true },
             { label: "Tickets sold", value: event.tickets, always: false },
             { label: "Artists", value: event.booking, always: false },
           ].filter(item => item.always || showDetails).map(({ label, value }) => (

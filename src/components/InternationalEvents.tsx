@@ -101,7 +101,7 @@ function EventCard({ event, index, showDetails = true }: EventCardProps) {
         <video
           ref={videoRef}
           src={`${base}/videos/${event.videoFile}`}
-          style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "contain", background: "#000" }}
+          style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }}
           muted
           autoPlay
           playsInline
@@ -118,7 +118,7 @@ function EventCard({ event, index, showDetails = true }: EventCardProps) {
       {/* Info */}
       <div
         ref={infoRef}
-        className="flex flex-col justify-between p-8 md:p-12 border-l-0 md:border-l border-[var(--border)]"
+        className="flex flex-col justify-between p-8 md:pl-8 md:pr-12 md:py-10 border-l-0 md:border-l border-[var(--border)]"
         style={{ opacity: 0 }}
       >
         {/* Index + globe */}
