@@ -44,27 +44,6 @@ export default function WhoWeAre() {
     );
   }, []);
 
-  // Mobile: autoplay video via IntersectionObserver (no hover available)
-  useEffect(() => {
-    const v = videoRef.current;
-    if (!v) return;
-    const isMobile = window.matchMedia("(pointer: coarse)").matches;
-    if (!isMobile) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setHovered(true);
-          v.play().catch(() => {});
-        } else {
-          setHovered(false);
-          v.pause();
-        }
-      },
-      { threshold: 0.4 }
-    );
-    observer.observe(v);
-    return () => observer.disconnect();
-  }, []);
 
   const handleMouseEnter = () => {
     setHovered(true);
@@ -136,7 +115,7 @@ export default function WhoWeAre() {
       <div className="grid grid-cols-1 md:grid-cols-2 items-end">
         <div
           ref={imgRef}
-          className="hidden md:block relative overflow-hidden w-full"
+          className="relative overflow-hidden w-full"
           style={{ aspectRatio: "4/5", clipPath: "inset(0 0 100% 0)", cursor: "none" }}
           data-hide-cursor
           onMouseEnter={handleMouseEnter}
