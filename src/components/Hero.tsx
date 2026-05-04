@@ -65,21 +65,19 @@ function HeroNewsletter() {
         <button
           type="submit"
           disabled={status === "loading"}
+          className="px-4 py-3 text-[0.6rem] md:px-9 md:py-[17px] md:text-[0.72rem]"
           style={{
             fontFamily: "var(--font-display)",
-            fontSize: "0.72rem",
             letterSpacing: "0.25em",
             textTransform: "uppercase",
             color: "#fff",
             background: "var(--red)",
             border: "1px solid var(--red)",
             cursor: status === "loading" ? "default" : "pointer",
-            padding: "17px 36px",
             opacity: status === "loading" ? 0.6 : 1,
             transition: "opacity 0.2s, background 0.2s, color 0.2s",
             whiteSpace: "nowrap",
             flexShrink: 0,
-            minWidth: "110px",
           }}
           onMouseEnter={(e) => { if (status !== "loading") { e.currentTarget.style.background = "#fff"; e.currentTarget.style.color = "#0a0a0a"; }}}
           onMouseLeave={(e) => { e.currentTarget.style.background = "var(--red)"; e.currentTarget.style.color = "#fff"; }}
