@@ -97,7 +97,7 @@ function EventCard({ event, index, showDetails = true }: EventCardProps) {
       {/* Video — natural size */}
       <div
         ref={mediaRef}
-        className="w-full md:w-[45%]"
+        className="w-full md:w-[30%]"
         style={{ overflow: "hidden", flexShrink: 0, clipPath: "inset(0 0 100% 0)" }}
       >
         <video
@@ -116,7 +116,7 @@ function EventCard({ event, index, showDetails = true }: EventCardProps) {
       <div
         ref={infoRef}
         className="flex flex-col justify-between flex-1"
-        style={{ opacity: 0 }}
+        style={{ opacity: 0, paddingLeft: "10px" }}
       >
         {/* Index + globe */}
         <div className="flex items-center justify-between mb-8">
