@@ -136,7 +136,7 @@ export default function WhoWeAre() {
       <div className="grid grid-cols-1 md:grid-cols-2 items-end">
         <div
           ref={imgRef}
-          className="relative overflow-hidden w-full"
+          className="hidden md:block relative overflow-hidden w-full"
           style={{ aspectRatio: "4/5", clipPath: "inset(0 0 100% 0)", cursor: "none" }}
           data-hide-cursor
           onMouseEnter={handleMouseEnter}
