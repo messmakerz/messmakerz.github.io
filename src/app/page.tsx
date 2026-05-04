@@ -1,4 +1,5 @@
 import Header from "@/components/Header";
+import VideoAutoplay from "@/components/VideoAutoplay";
 import Hero from "@/components/Hero";
 import WhoWeAre from "@/components/WhoWeAre";
 import Mixes from "@/components/Mixes";
@@ -12,6 +13,7 @@ import Footer from "@/components/Footer";
 export default function Home() {
   return (
     <main>
+      <VideoAutoplay />
       <Header />
       <Hero />
       <WhoWeAre />
