@@ -90,10 +90,10 @@ function EventRow({ event, index, flip, showDetails = true }: EventRowProps) {
     >
       {/* Media */}
       <div
+        ref={imgRef}
         className="relative w-full"
-        style={{ aspectRatio: "4/3", direction: "ltr", overflow: "hidden", contain: "paint" }}
+        style={{ aspectRatio: "4/3", direction: "ltr", overflow: "hidden", contain: "paint", clipPath: "inset(0 0 100% 0)" }}
       >
-        <div ref={imgRef} className="absolute inset-0" style={{ clipPath: "inset(0 0 100% 0)" }}>
           {event.videoFile ? (
             <video
               ref={videoRef}
@@ -102,7 +102,7 @@ function EventRow({ event, index, flip, showDetails = true }: EventRowProps) {
               muted
               playsInline
               loop
-              preload="metadata"
+              preload="auto"
             />
           ) : (
             <Image
@@ -136,7 +136,6 @@ function EventRow({ event, index, flip, showDetails = true }: EventRowProps) {
               </span>
             </div>
           )}
-        </div>
       </div>
 
       {/* Info */}

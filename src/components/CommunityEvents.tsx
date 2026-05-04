@@ -175,7 +175,7 @@ function VideoMedia({ src }: { src: string }) {
         muted
         playsInline
         loop
-        preload="metadata"
+        preload="auto"
       />
       {/* Dark overlay */}
       <div className="absolute inset-0 bg-black/35 group-hover:bg-black/10 transition-colors duration-500 pointer-events-none" />

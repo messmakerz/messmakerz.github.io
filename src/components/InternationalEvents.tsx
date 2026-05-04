@@ -105,7 +105,7 @@ function EventCard({ event, index, showDetails = true }: EventCardProps) {
           muted
           playsInline
           loop
-          preload="metadata"
+          preload="auto"
         />
         {/* Subtle vignette */}
         <div
