@@ -41,33 +41,22 @@ interface ProductCardProps {
 }
 
 function ProductCard({ p }: ProductCardProps) {
-  const [hovered, setHovered] = useState(false);
+  const [playing, setPlaying] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
-  const playVideo = () => {
-    const v = videoRef.current;
-    if (!v) return;
-    v.currentTime = 0;
-    v.play().catch(() => {});
-  };
-
-  const pauseVideo = () => {
-    const v = videoRef.current;
-    if (v) v.pause();
-  };
-
-  // Mobile: autoplay via IntersectionObserver
+  // Autoplay when card enters viewport (all devices)
   useEffect(() => {
     const v = videoRef.current;
     if (!v) return;
-    const isMobile = window.matchMedia("(pointer: coarse)").matches;
-    if (!isMobile) return;
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) { setHovered(true); v.play().catch(() => {}); }
-        else { setHovered(false); v.pause(); }
+        if (entry.isIntersecting) {
+          v.play().catch(() => {});
+        } else {
+          v.pause();
+        }
       },
-      { threshold: 0.5 }
+      { threshold: 0.3 }
     );
     observer.observe(v);
     return () => observer.disconnect();
@@ -80,15 +69,13 @@ function ProductCard({ p }: ProductCardProps) {
       rel="noopener noreferrer"
       className="group border-t border-[var(--border)] md:border-l first:md:border-l-0 md:border-t-0"
       style={{ textDecoration: "none", display: "block" }}
-      onMouseEnter={() => { setHovered(true); playVideo(); }}
-      onMouseLeave={() => { setHovered(false); pauseVideo(); }}
     >
       {/* Media container */}
       <div
         className="relative overflow-hidden w-full"
         style={{ background: "#111", aspectRatio: "3/4" }}
       >
-        {/* Static image */}
+        {/* Static image — hidden once video plays */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={p.image}
@@ -98,25 +85,27 @@ function ProductCard({ p }: ProductCardProps) {
             width: "100%", height: "100%",
             objectFit: "contain",
             padding: "24px",
-            transition: "opacity 0.4s ease",
-            opacity: hovered ? 0 : 1,
+            transition: "opacity 0.5s ease",
+            opacity: playing ? 0 : 1,
           }}
         />
 
-        {/* 360° video */}
+        {/* 360° video — always visible when loaded */}
         <video
           ref={videoRef}
           src={p.video}
           muted
           playsInline
           loop
-          preload="metadata"
+          preload="auto"
+          onPlay={() => setPlaying(true)}
+          onPause={() => setPlaying(false)}
           style={{
             position: "absolute", inset: 0,
             width: "100%", height: "100%",
             objectFit: "cover",
-            transition: "opacity 0.4s ease",
-            opacity: hovered ? 1 : 0,
+            transition: "opacity 0.5s ease",
+            opacity: playing ? 1 : 0,
           }}
         />
 
