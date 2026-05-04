@@ -38,7 +38,7 @@ function HeroNewsletter() {
   }
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: "10px", maxWidth: "clamp(300px, 40vw, 520px)" }}>
+    <div style={{ display: "flex", flexDirection: "column", gap: "10px", width: "min(100%, 520px)" }}>
       <form onSubmit={handleSubmit} className="flex items-stretch">
         <input
           type="email"
@@ -48,8 +48,8 @@ function HeroNewsletter() {
           required
           style={{
             flex: 1,
-            background: status === "error" ? "rgba(180,30,30,0.08)" : "rgba(255,255,255,0.08)",
-            border: status === "error" ? "1px solid rgba(180,30,30,0.5)" : "1px solid rgba(255,255,255,0.22)",
+            background: status === "error" ? "rgba(180,30,30,0.15)" : "rgba(255,255,255,0.12)",
+            border: status === "error" ? "1px solid rgba(180,30,30,0.8)" : "1px solid rgba(255,255,255,0.5)",
             borderRight: "none",
             outline: "none",
             fontFamily: "var(--font-display)",
