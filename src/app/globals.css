@@ -32,7 +32,7 @@
   --bg-surface: #eae7df;
   --text: #0e0d0a;
   --text-muted: rgba(14, 13, 10, 0.52);
-  --text-subtle: rgba(14, 13, 10, 0.3);
+  --text-subtle: rgba(14, 13, 10, 0.55);
   --border: rgba(14, 13, 10, 0.1);
   --border-strong: rgba(14, 13, 10, 0.2);
   --card-bg: #e2dfd6;
@@ -45,7 +45,7 @@ html.dark {
   --bg-surface: #161512;
   --text: #f0ede4;
   --text-muted: rgba(240, 237, 228, 0.58);
-  --text-subtle: rgba(240, 237, 228, 0.3);
+  --text-subtle: rgba(240, 237, 228, 0.55);
   --border: rgba(240, 237, 228, 0.1);
   --border-strong: rgba(240, 237, 228, 0.2);
   --card-bg: #1a1917;

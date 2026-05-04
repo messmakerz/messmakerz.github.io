@@ -38,7 +38,7 @@ function HeroNewsletter() {
   }
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: "10px", maxWidth: "clamp(280px, 36vw, 460px)" }}>
+    <div style={{ display: "flex", flexDirection: "column", gap: "10px", maxWidth: "clamp(300px, 40vw, 520px)" }}>
       <form onSubmit={handleSubmit} className="flex items-stretch">
         <input
           type="email"
@@ -48,15 +48,15 @@ function HeroNewsletter() {
           required
           style={{
             flex: 1,
-            background: status === "error" ? "rgba(180,30,30,0.08)" : "rgba(255,255,255,0.05)",
-            border: status === "error" ? "1px solid rgba(180,30,30,0.5)" : "1px solid rgba(255,255,255,0.15)",
+            background: status === "error" ? "rgba(180,30,30,0.08)" : "rgba(255,255,255,0.08)",
+            border: status === "error" ? "1px solid rgba(180,30,30,0.5)" : "1px solid rgba(255,255,255,0.22)",
             borderRight: "none",
             outline: "none",
             fontFamily: "var(--font-display)",
             fontWeight: 300,
-            fontSize: "0.88rem",
+            fontSize: "1rem",
             color: "var(--text)",
-            padding: "14px 18px",
+            padding: "17px 22px",
             letterSpacing: "0.02em",
             minWidth: 0,
             transition: "border-color 0.2s, background 0.2s",
@@ -67,19 +67,19 @@ function HeroNewsletter() {
           disabled={status === "loading"}
           style={{
             fontFamily: "var(--font-display)",
-            fontSize: "0.65rem",
+            fontSize: "0.72rem",
             letterSpacing: "0.25em",
             textTransform: "uppercase",
             color: "#fff",
             background: "var(--red)",
             border: "1px solid var(--red)",
             cursor: status === "loading" ? "default" : "pointer",
-            padding: "14px 28px",
+            padding: "17px 36px",
             opacity: status === "loading" ? 0.6 : 1,
             transition: "opacity 0.2s, background 0.2s, color 0.2s",
             whiteSpace: "nowrap",
             flexShrink: 0,
-            minWidth: "90px",
+            minWidth: "110px",
           }}
           onMouseEnter={(e) => { if (status !== "loading") { e.currentTarget.style.background = "#fff"; e.currentTarget.style.color = "#0a0a0a"; }}}
           onMouseLeave={(e) => { e.currentTarget.style.background = "var(--red)"; e.currentTarget.style.color = "#fff"; }}
@@ -275,14 +275,15 @@ export default function Hero({ hideNewsletter = false }: HeroProps) {
         {/* Newsletter CTA */}
         <div ref={ctaRef} className="mt-12 md:mt-16">
           {!hideNewsletter && (
-          <div style={{ borderTop: "1px solid rgba(255,255,255,0.1)", paddingTop: "24px", display: "inline-block" }}>
+          <div style={{ borderTop: "1px solid rgba(255,255,255,0.15)", paddingTop: "28px", display: "inline-block" }}>
             <p style={{
               fontFamily: "var(--font-display)",
-              fontSize: "0.62rem",
-              letterSpacing: "0.22em",
+              fontSize: "0.82rem",
+              letterSpacing: "0.18em",
               textTransform: "uppercase",
-              color: "var(--text-subtle)",
-              marginBottom: "14px",
+              color: "var(--text-muted)",
+              marginBottom: "18px",
+              fontWeight: 400,
             }}>
               Be the first to know
             </p>
