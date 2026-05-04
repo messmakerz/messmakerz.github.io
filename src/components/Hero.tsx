@@ -90,7 +90,7 @@ function HeroNewsletter() {
               <span style={{ width: "3px", height: "3px", borderRadius: "50%", background: "currentColor", animation: "pulse 1s ease-in-out 0.2s infinite" }} />
               <span style={{ width: "3px", height: "3px", borderRadius: "50%", background: "currentColor", animation: "pulse 1s ease-in-out 0.4s infinite" }} />
             </span>
-          ) : "Join"}
+          ) : "Join the community"}
         </button>
       </form>
       {status === "error" && (
@@ -285,7 +285,7 @@ export default function Hero({ hideNewsletter = false }: HeroProps) {
               marginBottom: "18px",
               fontWeight: 400,
             }}>
-              Be the first to know
+              Sign up here to be the first to know
             </p>
             <HeroNewsletter />
           </div>
