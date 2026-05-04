@@ -98,7 +98,7 @@ function EventCard({ event, index, showDetails = true }: EventCardProps) {
       <div
         ref={mediaRef}
         className="w-full md:w-[18%]"
-        style={{ overflow: "hidden", flexShrink: 0, clipPath: "inset(0 0 100% 0)" }}
+        style={{ flexShrink: 0, clipPath: "inset(0 0 100% 0)" }}
       >
         <video
           ref={videoRef}
