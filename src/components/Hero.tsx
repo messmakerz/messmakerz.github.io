@@ -56,15 +56,15 @@ function HeroNewsletter() {
   const hasErr = status === "error";
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: "8px", width: "min(100%, 520px)" }}>
-      <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+    <div style={{ width: "min(100%, 620px)" }}>
+      <form onSubmit={handleSubmit} style={{ display: "flex", gap: "0px" }}>
         <input
           type="email"
           value={email}
           onChange={(e) => { setEmail(e.target.value); if (hasErr) setStatus("idle"); }}
           placeholder="your@email.com"
           required
-          style={inputStyle(hasErr)}
+          style={{ ...inputStyle(hasErr), flex: "1 1 0", minWidth: 0 }}
         />
         <input
           type="tel"
@@ -72,16 +72,19 @@ function HeroNewsletter() {
           onChange={(e) => { setPhone(e.target.value); if (hasErr) setStatus("idle"); }}
           placeholder="+972 50 000 0000"
           required
-          style={inputStyle(hasErr)}
+          style={{ ...inputStyle(hasErr), flex: "0 1 160px", minWidth: 0, borderLeft: "none" }}
         />
         <button
           type="submit"
           disabled={status === "loading"}
-          className="w-full py-[13px] text-[0.6rem] md:py-[15px] md:text-[0.72rem]"
           style={{
+            flexShrink: 0,
+            padding: "0 20px",
             fontFamily: "var(--font-display)",
+            fontSize: "0.6rem",
             letterSpacing: "0.25em",
             textTransform: "uppercase",
+            whiteSpace: "nowrap",
             color: "#fff",
             background: "var(--red)",
             border: "1px solid var(--red)",
@@ -93,16 +96,16 @@ function HeroNewsletter() {
           onMouseLeave={(e) => { e.currentTarget.style.background = "var(--red)"; e.currentTarget.style.color = "#fff"; }}
         >
           {status === "loading" ? (
-            <span style={{ display: "inline-flex", gap: "3px", alignItems: "center", justifyContent: "center" }}>
+            <span style={{ display: "inline-flex", gap: "3px", alignItems: "center" }}>
               <span style={{ width: "3px", height: "3px", borderRadius: "50%", background: "currentColor", animation: "pulse 1s ease-in-out infinite" }} />
               <span style={{ width: "3px", height: "3px", borderRadius: "50%", background: "currentColor", animation: "pulse 1s ease-in-out 0.2s infinite" }} />
               <span style={{ width: "3px", height: "3px", borderRadius: "50%", background: "currentColor", animation: "pulse 1s ease-in-out 0.4s infinite" }} />
             </span>
-          ) : "Join the community"}
+          ) : "Join"}
         </button>
       </form>
       {hasErr && (
-        <p style={{ fontFamily: "var(--font-display)", fontSize: "0.62rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "rgba(200,60,60,0.9)", margin: 0 }}>
+        <p style={{ fontFamily: "var(--font-display)", fontSize: "0.62rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "rgba(200,60,60,0.9)", margin: "6px 0 0" }}>
           Something went wrong — try again
         </p>
       )}
