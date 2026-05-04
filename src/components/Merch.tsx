@@ -14,7 +14,7 @@ const products = [
     description: "Round Neck T-shirt, Oversized Fit",
     url: "https://www.wooooof.com/product/mess",
     image: "https://cdn.shopify.com/s/files/1/0777/6688/5560/files/MESS_T-SHIRT_front_d682bb7b-5c0e-4d69-b1e0-04e6b0dbb5d4.png?v=1730303352",
-    video: "https://cdn.shopify.com/videos/c/o/v/edea78717dd3402fbca88197480e60bf.mp4",
+    video: "https://cdn.shopify.com/videos/c/o/v/8513d7e22a454d54bc8d668240f1726d.mp4",
   },
   {
     title: "MESS vol.2",
@@ -23,7 +23,7 @@ const products = [
     description: "Round Neck T-shirt, Oversized Fit",
     url: "https://www.wooooof.com/product/mess-tee",
     image: "https://cdn.shopify.com/s/files/1/0777/6688/5560/files/MESS_T-SHIRT_front_1_7bb71ecf-733e-4e29-8130-b2b185b87003.png?v=1769117231",
-    video: "https://cdn.shopify.com/videos/c/o/v/c9b31c1f8a8e4074935b1b5044d44bf6.mp4",
+    video: "https://cdn.shopify.com/videos/c/o/v/2584849c25364b5cb04190c0e1ddb188.mp4",
   },
   {
     title: "MESS Long Sleeve",
@@ -32,7 +32,7 @@ const products = [
     description: "Round Neck Long Sleeve, Oversized Fit",
     url: "https://www.wooooof.com/product/mess-long-sleeve",
     image: "https://cdn.shopify.com/s/files/1/0777/6688/5560/files/mess_new_shirt_-_Long_Shirt_Black_front_857107f5-4346-42e5-9b40-cde550337d3f.png?v=1769117245",
-    video: "https://cdn.shopify.com/videos/c/o/v/ae1cc71d33e74f6b9c0c488dfa742cc2.mp4",
+    video: "https://cdn.shopify.com/videos/c/o/v/5f07f7e7536e4513a27fab611cbb5822.mp4",
   },
 ];
 
