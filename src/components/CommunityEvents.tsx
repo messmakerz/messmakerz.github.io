@@ -205,7 +205,7 @@ export default function CommunityEvents({ sectionNumber = "06", showDetails = fa
   useEffect(() => {
     gsap.fromTo(tagRef.current,
       { opacity: 0 },
-      { opacity: 1, duration: 0.7, ease: "power2.out", scrollTrigger: { trigger: tagRef.current, start: "top 95%", toggleActions: "play reverse play reverse" } }
+      { opacity: 1, duration: 0.7, ease: "power2.out", scrollTrigger: { trigger: tagRef.current, start: "top 95%", toggleActions: "play none none none" } }
     );
 
     const cards = gridRef.current?.querySelectorAll(".com-card");
@@ -217,7 +217,7 @@ export default function CommunityEvents({ sectionNumber = "06", showDetails = fa
           stagger: 0.1,
           duration: 0.9,
           ease: "power3.out",
-          scrollTrigger: { trigger: gridRef.current, start: "top 95%", toggleActions: "play reverse play reverse" },
+          scrollTrigger: { trigger: gridRef.current, start: "top 95%", toggleActions: "play none none none" },
         }
       );
     }

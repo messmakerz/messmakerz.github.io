@@ -21,7 +21,7 @@ export default function WhoWeAre() {
   const [hovered, setHovered] = useState(false);
 
   useEffect(() => {
-    const st = { start: "top 95%", toggleActions: "play reverse play reverse" };
+    const st = { start: "top 95%", toggleActions: "play none none none" };
 
     gsap.fromTo(tagRef.current,
       { opacity: 0 },

@@ -57,7 +57,7 @@ function EventCard({ event, index, showDetails = true }: EventCardProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
-    const st = { trigger: cardRef.current, start: "top 90%", toggleActions: "play reverse play reverse" };
+    const st = { trigger: cardRef.current, start: "top 90%", toggleActions: "play none none none" };
 
     gsap.fromTo(mediaRef.current,
       { clipPath: "inset(0 0 100% 0)" },
@@ -93,23 +93,25 @@ function EventCard({ event, index, showDetails = true }: EventCardProps) {
       className="grid grid-cols-1 md:grid-cols-[3fr_2fr] border-t border-[var(--border)]"
     >
       {/* Video — landscape */}
-      <div className="relative w-full" style={{ aspectRatio: "16/9", overflow: "hidden", contain: "paint" }}>
-        <div ref={mediaRef} className="absolute inset-0" style={{ clipPath: "inset(0 0 100% 0)" }}>
-          <video
-            ref={videoRef}
-            src={`${base}/videos/${event.videoFile}`}
-            style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }}
-            muted
-            playsInline
-            loop
-            preload="metadata"
-          />
-          {/* Subtle vignette */}
-          <div
-            className="absolute inset-0 pointer-events-none"
-            style={{ background: "linear-gradient(to right, rgba(0,0,0,0.2) 0%, transparent 40%)" }}
-          />
-        </div>
+      <div
+        ref={mediaRef}
+        className="relative w-full"
+        style={{ aspectRatio: "16/9", overflow: "hidden", contain: "paint", clipPath: "inset(0 0 100% 0)" }}
+      >
+        <video
+          ref={videoRef}
+          src={`${base}/videos/${event.videoFile}`}
+          style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }}
+          muted
+          playsInline
+          loop
+          preload="metadata"
+        />
+        {/* Subtle vignette */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{ background: "linear-gradient(to right, rgba(0,0,0,0.2) 0%, transparent 40%)" }}
+        />
       </div>
 
       {/* Info */}

@@ -37,7 +37,7 @@ function EventRow({ event, index, flip, showDetails = true }: EventRowProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
-    const st = { trigger: rowRef.current, start: "top 95%", toggleActions: "play reverse play reverse" };
+    const st = { trigger: rowRef.current, start: "top 95%", toggleActions: "play none none none" };
 
     gsap.fromTo(imgRef.current,
       { clipPath: "inset(0 0 100% 0)" },

@@ -10,7 +10,7 @@ const SC_RSS = "https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Ffeeds
 
 function buildEmbedUrl(trackUrl: string, autoPlay: boolean) {
   const encoded = encodeURIComponent(trackUrl);
-  return `https://w.soundcloud.com/player/?url=${encoded}&color=%23DD3235&auto_play=${autoPlay}&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false`;
+  return `https://w.soundcloud.com/player/?url=${encoded}&color=%23DD3235&auto_play=${autoPlay}&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false&show_artwork=false`;
 }
 
 interface Mix { title: string; url: string; }
@@ -107,7 +107,7 @@ export default function Mixes() {
                 borderBottom: "1px solid var(--border)",
                 borderRight: "1px solid var(--border)",
                 cursor: "pointer",
-                padding: "1rem 1rem 1rem 0",
+                padding: "1rem 1rem 1rem 10px",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "space-between",
