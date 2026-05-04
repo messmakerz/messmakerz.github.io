@@ -65,7 +65,7 @@ function HeroNewsletter() {
         <button
           type="submit"
           disabled={status === "loading"}
-          className="px-3 py-[10px] text-[0.52rem] md:px-9 md:py-[17px] md:text-[0.72rem]"
+          className="px-2 py-[7px] text-[0.44rem] md:px-9 md:py-[17px] md:text-[0.72rem]"
           style={{
             fontFamily: "var(--font-display)",
             letterSpacing: "0.25em",
