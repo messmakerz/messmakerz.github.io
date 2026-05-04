@@ -73,8 +73,8 @@ export default function Mixes() {
         <span style={{ fontFamily: "var(--font-display)", fontSize: "0.62rem", letterSpacing: "0.22em", textTransform: "uppercase", color: "var(--text-subtle)" }}>Mixes</span>
       </div>
 
-      {/* SC Player */}
-      <div className="mb-12" style={{ borderRadius: 0, overflow: "hidden" }}>
+      {/* SC Player — dark via CSS filter */}
+      <div className="mb-12" style={{ overflow: "hidden", filter: "invert(1) hue-rotate(180deg)" }}>
         <iframe
           key={iframeKey}
           width="100%"
@@ -87,8 +87,12 @@ export default function Mixes() {
         />
       </div>
 
-      {/* Track list */}
-      <div ref={listRef} className="space-y-0">
+      {/* Track list — 3 columns on md+ */}
+      <div
+        ref={listRef}
+        className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3"
+        style={{ borderTop: "1px solid var(--border)" }}
+      >
         {mixes.map((mix, i) => {
           const isActive = activeIndex === i;
           return (
@@ -96,22 +100,27 @@ export default function Mixes() {
               key={mix.url}
               data-mix
               onClick={() => handleSelectMix(i, mix.url)}
-              className="w-full flex items-center justify-between group text-left"
+              className="group text-left"
               style={{
                 background: "none",
                 border: "none",
                 borderBottom: "1px solid var(--border)",
+                borderRight: "1px solid var(--border)",
                 cursor: "pointer",
-                padding: "1rem 0",
+                padding: "1rem 1rem 1rem 0",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                gap: "8px",
               }}
             >
-              <div className="flex items-center gap-4">
+              <div className="flex items-center gap-3 min-w-0">
                 <span style={{
                   fontFamily: "var(--font-display)",
                   fontSize: "0.6rem",
                   letterSpacing: "0.18em",
                   color: isActive ? "var(--red)" : "var(--text-subtle)",
-                  minWidth: "1.5rem",
+                  flexShrink: 0,
                   transition: "color 0.2s",
                 }}>
                   {String(i + 1).padStart(2, "0")}
@@ -119,11 +128,14 @@ export default function Mixes() {
                 <span
                   style={{
                     fontFamily: "var(--font-display)",
-                    fontSize: "clamp(0.85rem, 1.4vw, 1rem)",
+                    fontSize: "0.85rem",
                     fontWeight: isActive ? 500 : 300,
                     color: "var(--text)",
                     letterSpacing: "0.01em",
                     transition: "color 0.2s",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    whiteSpace: "nowrap",
                   }}
                   className={isActive ? "" : "group-hover:text-[var(--red)]"}
                 >
@@ -131,17 +143,19 @@ export default function Mixes() {
                 </span>
               </div>
 
-              {isActive ? (
-                <PlayingBars />
-              ) : (
-                <svg
-                  width="14" height="14" viewBox="0 0 14 14" fill="none"
-                  className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex-shrink-0"
-                  style={{ color: "var(--red)" }}
-                >
-                  <path d="M3 1L13 7L3 13V1Z" fill="currentColor"/>
-                </svg>
-              )}
+              <span style={{ flexShrink: 0 }}>
+                {isActive ? (
+                  <PlayingBars />
+                ) : (
+                  <svg
+                    width="12" height="12" viewBox="0 0 14 14" fill="none"
+                    className="opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+                    style={{ color: "var(--red)" }}
+                  >
+                    <path d="M3 1L13 7L3 13V1Z" fill="currentColor"/>
+                  </svg>
+                )}
+              </span>
             </button>
           );
         })}
