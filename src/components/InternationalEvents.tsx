@@ -13,7 +13,7 @@ const internationalEvents = [
     title: "MESS WEEKEND",
     dates: "January 22–25",
     location: "Gudauri, Georgia",
-    artists: ["Club De Combat", "Mishell"],
+    artists: ["Club De Combat"],
     videoFile: "mess-weekend.mp4",
   },
 ];

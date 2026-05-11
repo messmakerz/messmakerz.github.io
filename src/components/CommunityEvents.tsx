@@ -48,7 +48,7 @@ const communityEvents = [
     title: "MESS BAKERY RAVE",
     date: "Sep 2025",
     tickets: "200",
-    booking: "Mishell",
+    booking: "",
     type: "video" as const,
     video: `${base}/videos/mess-roldain.mp4`,
     slug: null,
