@@ -62,7 +62,7 @@ export default function PressKit() {
         </span>
       </div>
 
-      <Hero />
+      <Hero hideNewsletter />
       <WhoWeAre />
       <Audience />
       <Vision />
