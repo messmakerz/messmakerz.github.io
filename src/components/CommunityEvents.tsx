@@ -30,7 +30,7 @@ const communityEvents = [
     title: "MESSY SESSIONS",
     date: "5 sessions / year",
     tickets: "100 each",
-    booking: "Jenia Tarso",
+    booking: "Jenia Tarsol",
     type: "video" as const,
     video: `${base}/videos/messy-sessions.mp4`,
     slug: null,
