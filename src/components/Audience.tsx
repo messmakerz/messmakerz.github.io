@@ -10,14 +10,15 @@ gsap.registerPlugin(ScrollTrigger);
 
 const stats = [
   { value: "55%", label: "Female audience" },
-  { value: "09", label: "Events produced" },
+  { value: "26", label: "Events produced" },
   { value: "3,800+", label: "Tickets sold" },
+  { value: "29.7", label: "Average age" },
 ];
 
 const bars = [
-  { label: "2023", value: 8, color: "var(--border-strong)" },
-  { label: "2024", value: 12, color: "var(--red)" },
-  { label: "2025", value: 18, color: "var(--text)" },
+  { label: "2023", value: 6, color: "var(--border-strong)" },
+  { label: "2024", value: 8, color: "var(--red)" },
+  { label: "2025", value: 12, color: "var(--text)" },
 ];
 const MAX = Math.max(...bars.map((b) => b.value));
 
@@ -69,9 +70,9 @@ export default function Audience() {
       </div>
 
       {/* Key stats */}
-      <div ref={statsRef} className="grid grid-cols-1 sm:grid-cols-3 gap-px mb-20" style={{ background: "var(--border)" }}>
+      <div ref={statsRef} className="grid grid-cols-2 sm:grid-cols-4 gap-px mb-20" style={{ background: "var(--border)" }}>
         {stats.map((s) => (
-          <div key={s.label} className="stat-item flex sm:block items-center justify-between py-6 px-6 sm:py-10 sm:px-4 md:px-10" style={{ background: "var(--bg)" }}>
+          <div key={s.label} className="stat-item py-6 px-4 sm:py-10 sm:px-6 md:px-8" style={{ background: "var(--bg)" }}>
             <div style={{ fontFamily: "var(--font-display)", fontWeight: 300, fontSize: "clamp(1.8rem, 4.5vw, 4rem)", letterSpacing: "-0.04em", lineHeight: 1, color: "var(--text)", marginBottom: "0" }} className="sm:mb-2">
               {s.value}
             </div>
