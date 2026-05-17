@@ -23,11 +23,12 @@ const inputStyle = (err: boolean): React.CSSProperties => ({
 function HeroNewsletter() {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+  const [consent, setConsent] = useState(false);
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email.includes("@") || !phone.trim()) return;
+    if (!email.includes("@") || !phone.trim() || !consent) return;
     setStatus("loading");
     try {
       const res = await fetch(`${ADMIN_API}/api/subscribe`, {
@@ -36,7 +37,7 @@ function HeroNewsletter() {
         body: JSON.stringify({ email, phone: phone.trim() }),
       });
       setStatus(res.ok ? "success" : "error");
-      if (res.ok) { setEmail(""); setPhone(""); }
+      if (res.ok) { setEmail(""); setPhone(""); setConsent(false); }
     } catch {
       setStatus("error");
     }
@@ -54,58 +55,103 @@ function HeroNewsletter() {
   }
 
   const hasErr = status === "error";
+  const canSubmit = consent && status !== "loading";
 
   return (
     <div style={{ width: "min(100%, 620px)" }}>
-      <form onSubmit={handleSubmit} style={{ display: "flex", gap: "0px" }}>
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => { setEmail(e.target.value); if (hasErr) setStatus("idle"); }}
-          placeholder="your@email.com"
-          required
-          style={{ ...inputStyle(hasErr), flex: "1 1 0", minWidth: 0 }}
-        />
-        <input
-          type="tel"
-          value={phone}
-          onChange={(e) => { setPhone(e.target.value); if (hasErr) setStatus("idle"); }}
-          placeholder="+972 50 000 0000"
-          required
-          style={{ ...inputStyle(hasErr), flex: "0 1 160px", minWidth: 0, borderLeft: "none" }}
-        />
-        <button
-          type="submit"
-          disabled={status === "loading"}
-          style={{
-            flexShrink: 0,
-            padding: "0 20px",
+      <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "0" }}>
+        {/* Inputs row */}
+        <div style={{ display: "flex" }}>
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => { setEmail(e.target.value); if (hasErr) setStatus("idle"); }}
+            placeholder="your@email.com"
+            required
+            style={{ ...inputStyle(hasErr), flex: "1 1 0", minWidth: 0 }}
+          />
+          <input
+            type="tel"
+            value={phone}
+            onChange={(e) => { setPhone(e.target.value); if (hasErr) setStatus("idle"); }}
+            placeholder="+972 50 000 0000"
+            required
+            style={{ ...inputStyle(hasErr), flex: "0 1 160px", minWidth: 0, borderLeft: "none" }}
+          />
+          <button
+            type="submit"
+            disabled={!canSubmit}
+            style={{
+              flexShrink: 0,
+              padding: "0 20px",
+              fontFamily: "var(--font-display)",
+              fontSize: "0.6rem",
+              letterSpacing: "0.25em",
+              textTransform: "uppercase",
+              whiteSpace: "nowrap",
+              color: "#fff",
+              background: canSubmit ? "var(--red)" : "rgba(200,41,58,0.35)",
+              border: `1px solid ${canSubmit ? "var(--red)" : "rgba(200,41,58,0.35)"}`,
+              cursor: canSubmit ? "pointer" : "default",
+              transition: "opacity 0.2s, background 0.2s, color 0.2s, border-color 0.2s",
+            }}
+            onMouseEnter={(e) => { if (canSubmit) { e.currentTarget.style.background = "#fff"; e.currentTarget.style.color = "#0a0a0a"; e.currentTarget.style.borderColor = "#fff"; }}}
+            onMouseLeave={(e) => { if (canSubmit) { e.currentTarget.style.background = "var(--red)"; e.currentTarget.style.color = "#fff"; e.currentTarget.style.borderColor = "var(--red)"; }}}
+          >
+            {status === "loading" ? (
+              <span style={{ display: "inline-flex", gap: "3px", alignItems: "center" }}>
+                <span style={{ width: "3px", height: "3px", borderRadius: "50%", background: "currentColor", animation: "pulse 1s ease-in-out infinite" }} />
+                <span style={{ width: "3px", height: "3px", borderRadius: "50%", background: "currentColor", animation: "pulse 1s ease-in-out 0.2s infinite" }} />
+                <span style={{ width: "3px", height: "3px", borderRadius: "50%", background: "currentColor", animation: "pulse 1s ease-in-out 0.4s infinite" }} />
+              </span>
+            ) : "Join"}
+          </button>
+        </div>
+
+        {/* Consent checkbox */}
+        <label style={{ display: "flex", alignItems: "flex-start", gap: "10px", marginTop: "12px", cursor: "pointer" }}>
+          <div style={{ position: "relative", flexShrink: 0, marginTop: "1px" }}>
+            <input
+              type="checkbox"
+              checked={consent}
+              onChange={(e) => setConsent(e.target.checked)}
+              required
+              style={{ position: "absolute", opacity: 0, width: "14px", height: "14px", cursor: "pointer" }}
+            />
+            <div style={{
+              width: "14px",
+              height: "14px",
+              border: `1px solid ${consent ? "var(--red)" : "rgba(255,255,255,0.3)"}`,
+              background: consent ? "var(--red)" : "transparent",
+              transition: "background 0.15s, border-color 0.15s",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}>
+              {consent && (
+                <svg width="8" height="6" viewBox="0 0 8 6" fill="none">
+                  <path d="M1 3L3 5L7 1" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              )}
+            </div>
+          </div>
+          <span style={{
             fontFamily: "var(--font-display)",
             fontSize: "0.6rem",
-            letterSpacing: "0.25em",
-            textTransform: "uppercase",
-            whiteSpace: "nowrap",
-            color: "#fff",
-            background: "var(--red)",
-            border: "1px solid var(--red)",
-            cursor: status === "loading" ? "default" : "pointer",
-            opacity: status === "loading" ? 0.6 : 1,
-            transition: "opacity 0.2s, background 0.2s, color 0.2s",
-          }}
-          onMouseEnter={(e) => { if (status !== "loading") { e.currentTarget.style.background = "#fff"; e.currentTarget.style.color = "#0a0a0a"; }}}
-          onMouseLeave={(e) => { e.currentTarget.style.background = "var(--red)"; e.currentTarget.style.color = "#fff"; }}
-        >
-          {status === "loading" ? (
-            <span style={{ display: "inline-flex", gap: "3px", alignItems: "center" }}>
-              <span style={{ width: "3px", height: "3px", borderRadius: "50%", background: "currentColor", animation: "pulse 1s ease-in-out infinite" }} />
-              <span style={{ width: "3px", height: "3px", borderRadius: "50%", background: "currentColor", animation: "pulse 1s ease-in-out 0.2s infinite" }} />
-              <span style={{ width: "3px", height: "3px", borderRadius: "50%", background: "currentColor", animation: "pulse 1s ease-in-out 0.4s infinite" }} />
-            </span>
-          ) : "Join"}
-        </button>
+            letterSpacing: "0.08em",
+            lineHeight: 1.6,
+            color: "rgba(255,255,255,0.45)",
+          }}>
+            אני מאשר/ת קבלת ניוזלטר, עדכונים וחומר שיווקי למייל.{" "}
+            <a href="/privacy" style={{ color: "rgba(255,255,255,0.55)", textDecoration: "underline", textUnderlineOffset: "2px" }}>מדיניות פרטיות</a>
+            {" "}·{" "}
+            <a href="/terms" style={{ color: "rgba(255,255,255,0.55)", textDecoration: "underline", textUnderlineOffset: "2px" }}>תקנון</a>
+          </span>
+        </label>
       </form>
+
       {hasErr && (
-        <p style={{ fontFamily: "var(--font-display)", fontSize: "0.62rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "rgba(200,60,60,0.9)", margin: "6px 0 0" }}>
+        <p style={{ fontFamily: "var(--font-display)", fontSize: "0.62rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "rgba(200,60,60,0.9)", margin: "8px 0 0" }}>
           Something went wrong — try again
         </p>
       )}
