@@ -30,6 +30,8 @@ export default function AdminPage() {
   const [imageAlt, setImageAlt] = useState("");
   const [showImagePanel, setShowImagePanel] = useState(false);
   const [imageError, setImageError] = useState(false);
+  const [lastRefreshed, setLastRefreshed] = useState<Date | null>(null);
+  const [secondsAgo, setSecondsAgo] = useState(0);
 
   const fetchContacts = useCallback(async (pw: string) => {
     const res = await fetch(`${API}/subscribers`, {
@@ -38,7 +40,18 @@ export default function AdminPage() {
     if (res.status === 401) { setAuthed(false); return; }
     const data = await res.json();
     setContacts(data.data || []);
+    setLastRefreshed(new Date());
+    setSecondsAgo(0);
   }, []);
+
+  // Tick the "X seconds ago" counter every second
+  useEffect(() => {
+    if (!lastRefreshed) return;
+    const tick = setInterval(() => {
+      setSecondsAgo(Math.floor((Date.now() - lastRefreshed.getTime()) / 1000));
+    }, 1000);
+    return () => clearInterval(tick);
+  }, [lastRefreshed]);
 
   const login = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -92,7 +105,7 @@ export default function AdminPage() {
 
   useEffect(() => {
     if (authed) {
-      const interval = setInterval(() => fetchContacts(password), 30000);
+      const interval = setInterval(() => fetchContacts(password), 5000);
       return () => clearInterval(interval);
     }
   }, [authed, password, fetchContacts]);
@@ -160,12 +173,19 @@ export default function AdminPage() {
             <span style={{ fontSize: 22, fontWeight: 300, color: "#e8e8e8", lineHeight: 1 }}>{active.length}</span>
             <span style={{ fontSize: 9, letterSpacing: "0.15em", textTransform: "uppercase", color: "#444", marginLeft: 8 }}>subscribers</span>
           </div>
-          <button
-            onClick={() => fetchContacts(password)}
-            style={{ fontSize: 9, letterSpacing: "0.2em", textTransform: "uppercase", color: "#444", background: "none", border: "none", cursor: "pointer", fontFamily: FONT, transition: "color 0.2s", padding: 0 }}
-            onMouseEnter={(e) => e.currentTarget.style.color = "#e8e8e8"}
-            onMouseLeave={(e) => e.currentTarget.style.color = "#444"}
-          >Refresh</button>
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 4 }}>
+            <button
+              onClick={() => fetchContacts(password)}
+              style={{ fontSize: 9, letterSpacing: "0.2em", textTransform: "uppercase", color: "#444", background: "none", border: "none", cursor: "pointer", fontFamily: FONT, transition: "color 0.2s", padding: 0 }}
+              onMouseEnter={(e) => e.currentTarget.style.color = "#e8e8e8"}
+              onMouseLeave={(e) => e.currentTarget.style.color = "#444"}
+            >Refresh</button>
+            {lastRefreshed && (
+              <span style={{ fontSize: 8, letterSpacing: "0.1em", color: "#2a2a2a", textTransform: "uppercase" }}>
+                {secondsAgo < 5 ? "just now" : `${secondsAgo}s ago`}
+              </span>
+            )}
+          </div>
         </div>
       </header>
 
