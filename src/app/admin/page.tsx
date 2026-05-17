@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect, useCallback } from "react";
 
-const API = "https://mess-admin-prod.vercel.app/api";
+const API = "https://mess-admin-seven.vercel.app/api";
 const FONT = "'Helvetica Neue', sans-serif";
 const RED = "#c0392b";
 
