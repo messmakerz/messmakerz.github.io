@@ -37,16 +37,28 @@ function EventRow({ event, index, flip, showDetails = true }: EventRowProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
-    const st = { trigger: rowRef.current, start: "top 95%", toggleActions: "play none none none" };
+    const st = {
+      trigger: rowRef.current,
+      start: "top 100%",
+      toggleActions: "play none none none" as const,
+      onEnter: () => {},
+    };
 
-    gsap.fromTo(imgRef.current,
+    const clipAnim = gsap.fromTo(imgRef.current,
       { clipPath: "inset(0 0 100% 0)" },
       { clipPath: "inset(0 0 0% 0)", duration: 1.1, ease: "power3.out", scrollTrigger: st }
     );
-    gsap.fromTo(infoRef.current,
+    const infoAnim = gsap.fromTo(infoRef.current,
       { y: 30, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.9, ease: "power3.out", scrollTrigger: { ...st, start: "top 92%" } }
+      { y: 0, opacity: 1, duration: 0.9, ease: "power3.out", scrollTrigger: { ...st, start: "top 100%" } }
     );
+
+    // If element is already in view on mount, play immediately
+    const rect = rowRef.current?.getBoundingClientRect();
+    if (rect && rect.top < window.innerHeight) {
+      clipAnim.play(0);
+      infoAnim.play(0);
+    }
 
     if (!event.videoFile) {
       // Parallax: inner image drifts as you scroll past
