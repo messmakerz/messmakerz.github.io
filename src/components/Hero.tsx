@@ -166,7 +166,6 @@ interface HeroProps {
 }
 
 export default function Hero({ hideNewsletter = false }: HeroProps) {
-  const metaRef = useRef<HTMLDivElement>(null);
   const line1Ref = useRef<HTMLDivElement>(null);
   const line2Ref = useRef<HTMLDivElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
@@ -196,7 +195,7 @@ export default function Hero({ hideNewsletter = false }: HeroProps) {
   }, []);
 
   useEffect(() => {
-    const els = [metaRef.current, line1Ref.current, line2Ref.current, ctaRef.current];
+    const els = [line1Ref.current, line2Ref.current, ctaRef.current];
     gsap.killTweensOf(els);
     gsap.set(els, { opacity: 0 });
     gsap.set([line1Ref.current, line2Ref.current], { y: 28 });
@@ -206,7 +205,6 @@ export default function Hero({ hideNewsletter = false }: HeroProps) {
     tl
       .to(line1Ref.current, { opacity: 1, y: 0, duration: 1.1 }, 0.35)
       .to(line2Ref.current, { opacity: 1, y: 0, duration: 1.1 }, 0.5)
-      .to(metaRef.current, { opacity: 1, duration: 0.8 }, 0.55)
       .to(ctaRef.current, { opacity: 1, y: 0, duration: 0.8 }, 0.75);
   }, []);
 
