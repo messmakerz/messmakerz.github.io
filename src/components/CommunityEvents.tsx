@@ -61,14 +61,12 @@ const communityEvents: CommunityEvent[] = [
     video: `${base}/videos/mess-roldain.mp4`,
     slug: null,
   },
-  // TODO: replace /public/mess-running-rave.jpg (placeholder) with the real thumbnail (image or clip).
   {
     title: "MESS RUNNING RAVE",
     date: "June 2026",
     tickets: "300",
     booking: "",
-    video: "",
-    image: `${base}/mess-running-rave.jpg`,
+    video: `${base}/videos/mess-running-rave.mp4`,
     slug: null,
   },
 ];
