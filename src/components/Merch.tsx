@@ -51,6 +51,7 @@ const products: Product[] = [
     description: "Sleeveless Tee, Oversized Fit",
     url: "https://www.wooooof.com/product/mess-vol-3",
     image: "https://cdn.shopify.com/s/files/1/0777/6688/5560/files/IMG-3931.png?v=1781787827",
+    video: "https://cdn.shopify.com/videos/c/vp/15c111c6e713483dae87c60ab9af7e6e/15c111c6e713483dae87c60ab9af7e6e.SD-480p-0.9Mbps-86866288.mp4",
   },
   {
     title: "MESS vol.2 Sleeveless",
@@ -59,6 +60,7 @@ const products: Product[] = [
     description: "Sleeveless Tee, Oversized Fit",
     url: "https://www.wooooof.com/product/mess-vol-2-sleeveless",
     image: "https://cdn.shopify.com/s/files/1/0777/6688/5560/files/IMG-3937.png?v=1782042947",
+    video: "https://cdn.shopify.com/videos/c/vp/f7005d350818459fb2b728a516214c3e/f7005d350818459fb2b728a516214c3e.SD-480p-0.9Mbps-87058868.mp4",
   },
 ];
 

@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
-import MoltenWordmark from "./MoltenWordmark";
 
 const ADMIN_API = "https://mess-admin-seven.vercel.app";
 
@@ -226,19 +225,21 @@ export default function Hero({ hideNewsletter = false }: HeroProps) {
         playsInline
       />
 
-      {/* MESS wordmark overlay — molten lava shader through the letters, right side, behind content */}
-      <div
+      {/* MESS logo overlay — right side, behind content */}
+      <img
+        src={`${base}/mess-small-logo.svg`}
+        alt=""
         aria-hidden="true"
         className="absolute pointer-events-none select-none"
         style={{
           right: "40px",
           top: "50%",
           transform: "translateY(-50%)",
+          width: "clamp(280px, 55vw, 780px)",
+          opacity: 0.18,
           zIndex: 5,
         }}
-      >
-        <MoltenWordmark width="clamp(280px, 52vw, 720px)" opacity={0.55} />
-      </div>
+      />
 
       {/* Gradient overlay */}
       <div
