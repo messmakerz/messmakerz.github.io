@@ -21,6 +21,8 @@ const coreEvents = [
   { title: "LIVE FROM HELL", date: "March 2025", tickets: "1,000", booking: "Omri., Garden City Movement", slug: "live-from-hell", coverPhoto: undefined, coverSlug: undefined, videoFile: "live-from-hell.mp4" },
   { title: "A TRIBE CALLED MESS", date: "Aug 2025", tickets: "800", booking: "Darco Genish", slug: "tribe-called-mess", coverPhoto: undefined, coverSlug: undefined, videoFile: "tribe-called-mess.mp4" },
   { title: "MESS JUNGLE TRIP", date: "Oct 2025", tickets: "1,200", booking: "Cour T, Kino Todo", slug: "mess-jungle-trip", coverPhoto: undefined, coverSlug: undefined, videoFile: "mess-jungle-trip.mp4" },
+  // TODO: replace /public/videos/mess-disco-ball.mp4 (placeholder) with the real thumbnail clip. Add `slug: "mess-disco-ball"` + a lib/events entry once the photo album is in public/events/mess-disco-ball/.
+  { title: "MESS DISCO BALL", date: "June 2026", tickets: "800", booking: "Yamagucci, Broken Hill", slug: undefined, coverPhoto: undefined, coverSlug: undefined, videoFile: "mess-disco-ball.mp4" },
 ];
 
 interface EventRowProps {

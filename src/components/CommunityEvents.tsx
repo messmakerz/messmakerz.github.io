@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Link from "next/link";
+import Image from "next/image";
 
 function ArrowUpRight() {
   return (
@@ -25,13 +26,22 @@ gsap.registerPlugin(ScrollTrigger);
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
-const communityEvents = [
+interface CommunityEvent {
+  title: string;
+  date: string;
+  tickets: string;
+  booking: string;
+  video: string;
+  image?: string;
+  slug: string | null;
+}
+
+const communityEvents: CommunityEvent[] = [
   {
     title: "MESSY SESSIONS",
     date: "5 sessions / year",
     tickets: "100 each",
     booking: "Jenia Tarsol",
-    type: "video" as const,
     video: `${base}/videos/messy-sessions.mp4`,
     slug: null,
   },
@@ -40,7 +50,6 @@ const communityEvents = [
     date: "May 2025",
     tickets: "150",
     booking: "O.I, N.O.Y",
-    type: "video" as const,
     video: `${base}/videos/mess-gala.mp4`,
     slug: "mess-gala",
   },
@@ -49,8 +58,17 @@ const communityEvents = [
     date: "Sep 2025",
     tickets: "200",
     booking: "",
-    type: "video" as const,
     video: `${base}/videos/mess-roldain.mp4`,
+    slug: null,
+  },
+  // TODO: replace /public/mess-running-rave.jpg (placeholder) with the real thumbnail (image or clip).
+  {
+    title: "MESS RUNNING RAVE",
+    date: "June 2026",
+    tickets: "300",
+    booking: "",
+    video: "",
+    image: `${base}/mess-running-rave.jpg`,
     slug: null,
   },
 ];
@@ -189,6 +207,25 @@ function VideoMedia({ src }: { src: string }) {
   );
 }
 
+// ─── Image card media (placeholder / non-video events) ──────────────────────────
+function ImageMedia({ src, alt }: { src: string; alt: string }) {
+  return (
+    <div
+      className="relative w-full"
+      style={{ aspectRatio: "3/4", overflow: "hidden", transform: "translateZ(0)" }}
+    >
+      <Image
+        src={src}
+        alt={alt}
+        fill
+        className="md:grayscale md:group-hover:grayscale-0 transition-[filter] duration-500"
+        style={{ objectFit: "cover" }}
+      />
+      <div className="absolute inset-0 bg-black/35 group-hover:bg-black/10 transition-colors duration-500 pointer-events-none" />
+    </div>
+  );
+}
+
 // ─── Main component ────────────────────────────────────────────────────────────
 export default function CommunityEvents({ sectionNumber = "06", showDetails = false }: { sectionNumber?: string; showDetails?: boolean }) {
   const tagRef = useRef<HTMLDivElement>(null);
@@ -232,19 +269,24 @@ export default function CommunityEvents({ sectionNumber = "06", showDetails = fa
 
         <div ref={gridRef} className="grid grid-cols-1 sm:grid-cols-3 gap-px" style={{ background: "var(--border)" }}>
           {communityEvents.map((event, i) => {
+            const clickable = Boolean(event.slug) || (!event.image && event.video !== "");
             const cardInner = (
               <article
                 key={event.title}
-                className={`com-card group overflow-hidden${event.type === "video" ? " cursor-none" : event.slug ? " cursor-none" : ""}`}
+                className={`com-card group overflow-hidden${clickable ? " cursor-none" : ""}`}
                 style={{ background: "var(--bg)" }}
                 onClick={() => {
-                  if (event.type === "video" && !event.slug) {
+                  if (!event.image && event.video && !event.slug) {
                     setActiveVideo({ src: event.video, title: event.title });
                   }
                 }}
               >
                 {/* Media */}
-                <VideoMedia src={event.video} />
+                {event.image ? (
+                  <ImageMedia src={event.image} alt={event.title} />
+                ) : (
+                  <VideoMedia src={event.video} />
+                )}
 
                 {/* Info */}
                 <div className="p-6 md:p-8 border-t border-[var(--border)]" style={{ fontFamily: "var(--font-display)" }}>
