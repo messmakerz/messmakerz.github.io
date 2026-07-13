@@ -142,10 +142,10 @@ function HeroNewsletter() {
             lineHeight: 1.6,
             color: "rgba(255,255,255,0.45)",
           }}>
-            אני מאשר/ת קבלת ניוזלטר, עדכונים וחומר שיווקי למייל.{" "}
-            <a href="/privacy" style={{ color: "rgba(255,255,255,0.55)", textDecoration: "underline", textUnderlineOffset: "2px" }}>מדיניות פרטיות</a>
+            I agree to receive the newsletter, updates and marketing emails.{" "}
+            <a href="/privacy" style={{ color: "rgba(255,255,255,0.55)", textDecoration: "underline", textUnderlineOffset: "2px" }}>Privacy Policy</a>
             {" "}·{" "}
-            <a href="/terms" style={{ color: "rgba(255,255,255,0.55)", textDecoration: "underline", textUnderlineOffset: "2px" }}>תקנון</a>
+            <a href="/terms" style={{ color: "rgba(255,255,255,0.55)", textDecoration: "underline", textUnderlineOffset: "2px" }}>Terms</a>
           </span>
         </label>
       </form>
