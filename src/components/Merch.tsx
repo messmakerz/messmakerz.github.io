@@ -6,7 +6,17 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const products = [
+interface Product {
+  title: string;
+  badge: string;
+  price: string;
+  description: string;
+  url: string;
+  image: string;
+  video?: string;
+}
+
+const products: Product[] = [
   {
     title: "MESS vol.1",
     badge: "LIMITED",
@@ -34,10 +44,26 @@ const products = [
     image: "https://cdn.shopify.com/s/files/1/0777/6688/5560/files/mess_new_shirt_-_Long_Shirt_Black_front_857107f5-4346-42e5-9b40-cde550337d3f.png?v=1769117245",
     video: "https://cdn.shopify.com/videos/c/o/v/5f07f7e7536e4513a27fab611cbb5822.mp4",
   },
+  {
+    title: "MESS vol.3 Sleeveless",
+    badge: "NEW",
+    price: "₪250",
+    description: "Sleeveless Tee, Oversized Fit",
+    url: "https://www.wooooof.com/product/mess-vol-3",
+    image: "https://cdn.shopify.com/s/files/1/0777/6688/5560/files/IMG-3931.png?v=1781787827",
+  },
+  {
+    title: "MESS vol.2 Sleeveless",
+    badge: "NEW",
+    price: "₪250",
+    description: "Sleeveless Tee, Oversized Fit",
+    url: "https://www.wooooof.com/product/mess-vol-2-sleeveless",
+    image: "https://cdn.shopify.com/s/files/1/0777/6688/5560/files/IMG-3937.png?v=1782042947",
+  },
 ];
 
 interface ProductCardProps {
-  p: typeof products[number];
+  p: Product;
 }
 
 function ProductCard({ p }: ProductCardProps) {
@@ -90,24 +116,26 @@ function ProductCard({ p }: ProductCardProps) {
           }}
         />
 
-        {/* 360° video — always visible when loaded */}
-        <video
-          ref={videoRef}
-          src={p.video}
-          muted
-          playsInline
-          loop
-          preload="auto"
-          onPlay={() => setPlaying(true)}
-          onPause={() => setPlaying(false)}
-          style={{
-            position: "absolute", inset: 0,
-            width: "100%", height: "100%",
-            objectFit: "cover",
-            transition: "opacity 0.5s ease",
-            opacity: playing ? 1 : 0,
-          }}
-        />
+        {/* 360° video — always visible when loaded (products with a video only) */}
+        {p.video && (
+          <video
+            ref={videoRef}
+            src={p.video}
+            muted
+            playsInline
+            loop
+            preload="auto"
+            onPlay={() => setPlaying(true)}
+            onPause={() => setPlaying(false)}
+            style={{
+              position: "absolute", inset: 0,
+              width: "100%", height: "100%",
+              objectFit: "cover",
+              transition: "opacity 0.5s ease",
+              opacity: playing ? 1 : 0,
+            }}
+          />
+        )}
 
         {/* Badge */}
         <span style={{
