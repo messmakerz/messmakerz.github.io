@@ -116,7 +116,7 @@ export default function WhoWeAre() {
         <div
           ref={imgRef}
           className="relative overflow-hidden w-full"
-          style={{ aspectRatio: "4/5", clipPath: "inset(0 0 100% 0)", cursor: "none" }}
+          style={{ aspectRatio: "4/5", cursor: "none" }}
           data-hide-cursor
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}

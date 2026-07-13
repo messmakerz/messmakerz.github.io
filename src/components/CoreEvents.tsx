@@ -107,7 +107,7 @@ function EventRow({ event, index, flip, showDetails = true }: EventRowProps) {
       <div
         ref={imgRef}
         className="relative w-full"
-        style={{ aspectRatio: "4/3", direction: "ltr", overflow: "hidden", contain: "paint", clipPath: "inset(0 0 100% 0)" }}
+        style={{ aspectRatio: "4/3", direction: "ltr", overflow: "hidden", contain: "paint" }}
       >
           {event.videoFile ? (
             <video

@@ -48,6 +48,15 @@ export default function LoadingScreen() {
       },
     }, "-=0.15");
 
+    // Failsafe: GSAP runs on requestAnimationFrame, which browsers suspend in
+    // background tabs (and it never runs at all if a chunk fails to load).
+    // Never trap the user behind the overlay — force-clear after 4s.
+    const failsafe = setTimeout(() => {
+      document.body.style.overflow = "";
+      setDone(true);
+    }, 4000);
+
+    return () => clearTimeout(failsafe);
   }, []);
 
   if (done) return null;
