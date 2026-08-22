@@ -5,25 +5,30 @@ import { gsap } from "gsap";
 
 const ADMIN_API = "https://mess-admin-seven.vercel.app";
 
-const inputStyle = (err: boolean): React.CSSProperties => ({
-  width: "100%",
-  background: err ? "rgba(180,30,30,0.15)" : "rgba(255,255,255,0.12)",
-  border: err ? "1px solid rgba(180,30,30,0.8)" : "1px solid rgba(255,255,255,0.5)",
+const base = process.env.NEXT_PUBLIC_BASE_PATH || "";
+
+/* Minimal, editorial newsletter: one hairline rule carries the whole form.
+   Transparent fields, a thin divider, and the CTA as micro-type at the end —
+   no boxes, no fills. The rule brightens on focus-within. */
+const fieldStyle: React.CSSProperties = {
+  background: "transparent",
+  border: "none",
   outline: "none",
   fontFamily: "var(--font-display)",
   fontWeight: 300,
-  fontSize: "1rem",
+  fontSize: "0.95rem",
   color: "var(--text)",
-  padding: "14px 18px",
-  letterSpacing: "0.02em",
-  boxSizing: "border-box" as const,
-  transition: "border-color 0.2s, background 0.2s",
-});
+  padding: "16px 4px",
+  letterSpacing: "0.01em",
+  minWidth: 0,
+  boxSizing: "border-box",
+};
 
 function HeroNewsletter() {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [consent, setConsent] = useState(false);
+  const [focused, setFocused] = useState(false);
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -45,9 +50,9 @@ function HeroNewsletter() {
 
   if (status === "success") {
     return (
-      <div className="flex items-center gap-3" style={{ padding: "14px 0" }}>
-        <span className="w-2 h-2 rounded-full bg-[var(--red)]" style={{ flexShrink: 0 }} />
-        <span style={{ fontFamily: "var(--font-display)", fontSize: "0.75rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--text)" }}>
+      <div className="flex items-center justify-center gap-3" style={{ minHeight: "108px" }}>
+        <span className="w-1.5 h-1.5 rounded-full bg-[var(--red)]" style={{ flexShrink: 0 }} />
+        <span style={{ fontFamily: "var(--font-display)", fontSize: "0.7rem", letterSpacing: "0.24em", textTransform: "uppercase", color: "var(--text-muted)" }}>
           You&apos;re in. We&apos;ll be in touch.
         </span>
       </div>
@@ -56,47 +61,65 @@ function HeroNewsletter() {
 
   const hasErr = status === "error";
   const canSubmit = consent && status !== "loading";
+  const rule = `1px solid ${hasErr ? "rgba(200,60,60,0.85)" : focused ? "rgba(255,255,255,0.62)" : "rgba(255,255,255,0.28)"}`;
 
   return (
-    <div style={{ width: "min(100%, 620px)" }}>
-      <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "0" }}>
-        {/* Inputs row */}
-        <div style={{ display: "flex" }}>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => { setEmail(e.target.value); if (hasErr) setStatus("idle"); }}
-            placeholder="your@email.com"
-            required
-            style={{ ...inputStyle(hasErr), flex: "1 1 0", minWidth: 0 }}
-          />
-          <input
-            type="tel"
-            value={phone}
-            onChange={(e) => { setPhone(e.target.value); if (hasErr) setStatus("idle"); }}
-            placeholder="+972 50 000 0000"
-            required
-            style={{ ...inputStyle(hasErr), flex: "0 1 160px", minWidth: 0, borderLeft: "none" }}
-          />
-          <button
+    <div style={{ width: "min(100%, 520px)", margin: "0 auto" }}>
+      <form onSubmit={handleSubmit}>
+        {/* One rule, three fields */}
+        <div
+          className="flex flex-wrap items-stretch"
+          onFocus={() => setFocused(true)}
+          onBlur={() => setFocused(false)}
+        >
+          {/* Two rule-groups: side by side they read as one continuous line;
+              on mobile they wrap into two rules so the email stays readable. */}
+          <div style={{ flex: "3 1 220px", display: "flex", borderBottom: rule, transition: "border-color 0.3s ease" }}>
+            <input
+              type="email"
+              aria-label="Email address"
+              value={email}
+              onChange={(e) => { setEmail(e.target.value); if (hasErr) setStatus("idle"); }}
+              placeholder="Email"
+              required
+              style={{ ...fieldStyle, flex: "1 1 0" }}
+            />
+          </div>
+          <div style={{ flex: "1 1 240px", display: "flex", alignItems: "stretch", borderBottom: rule, transition: "border-color 0.3s ease" }}>
+            <span aria-hidden="true" className="hidden md:block" style={{ width: "1px", background: "rgba(255,255,255,0.16)", margin: "14px 16px", flexShrink: 0 }} />
+            <input
+              type="tel"
+              aria-label="Phone number"
+              value={phone}
+              onChange={(e) => { setPhone(e.target.value); if (hasErr) setStatus("idle"); }}
+              placeholder="Phone"
+              required
+              style={{ ...fieldStyle, flex: "1 1 auto" }}
+            />
+            <button
             type="submit"
             disabled={!canSubmit}
+            className="group/join"
             style={{
               flexShrink: 0,
-              padding: "0 20px",
+              display: "flex",
+              alignItems: "center",
+              gap: "8px",
+              padding: "0 2px 0 20px",
+              background: "transparent",
+              border: "none",
               fontFamily: "var(--font-display)",
-              fontSize: "0.6rem",
-              letterSpacing: "0.25em",
+              fontSize: "0.62rem",
+              fontWeight: 500,
+              letterSpacing: "0.26em",
               textTransform: "uppercase",
               whiteSpace: "nowrap",
-              color: "#fff",
-              background: canSubmit ? "var(--red)" : "rgba(200,41,58,0.35)",
-              border: `1px solid ${canSubmit ? "var(--red)" : "rgba(200,41,58,0.35)"}`,
+              color: canSubmit ? "var(--red)" : "rgba(255,255,255,0.25)",
               cursor: canSubmit ? "pointer" : "default",
-              transition: "opacity 0.2s, background 0.2s, color 0.2s, border-color 0.2s",
+              transition: "color 0.25s",
             }}
-            onMouseEnter={(e) => { if (canSubmit) { e.currentTarget.style.background = "#fff"; e.currentTarget.style.color = "#0a0a0a"; e.currentTarget.style.borderColor = "#fff"; }}}
-            onMouseLeave={(e) => { if (canSubmit) { e.currentTarget.style.background = "var(--red)"; e.currentTarget.style.color = "#fff"; e.currentTarget.style.borderColor = "var(--red)"; }}}
+            onMouseEnter={(e) => { if (canSubmit) e.currentTarget.style.color = "var(--text)"; }}
+            onMouseLeave={(e) => { if (canSubmit) e.currentTarget.style.color = "var(--red)"; }}
           >
             {status === "loading" ? (
               <span style={{ display: "inline-flex", gap: "3px", alignItems: "center" }}>
@@ -104,54 +127,64 @@ function HeroNewsletter() {
                 <span style={{ width: "3px", height: "3px", borderRadius: "50%", background: "currentColor", animation: "pulse 1s ease-in-out 0.2s infinite" }} />
                 <span style={{ width: "3px", height: "3px", borderRadius: "50%", background: "currentColor", animation: "pulse 1s ease-in-out 0.4s infinite" }} />
               </span>
-            ) : "Join"}
-          </button>
+            ) : (
+              <>
+                Join
+                <svg width="11" height="9" viewBox="0 0 11 9" fill="none" aria-hidden="true"
+                  className="transition-transform duration-300 group-hover/join:translate-x-1">
+                  <path d="M0.5 4.5H9.5M9.5 4.5L6 1M9.5 4.5L6 8" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </>
+            )}
+            </button>
+          </div>
         </div>
 
-        {/* Consent checkbox */}
-        <label style={{ display: "flex", alignItems: "flex-start", gap: "10px", marginTop: "12px", cursor: "pointer" }}>
-          <div style={{ position: "relative", flexShrink: 0, marginTop: "1px" }}>
+        {/* Consent — quiet, but a real 44px-tall target */}
+        <label className="flex items-start justify-center gap-2.5 cursor-pointer" style={{ marginTop: "16px", padding: "6px 0" }}>
+          <span style={{ position: "relative", flexShrink: 0, marginTop: "2px", display: "block" }}>
             <input
               type="checkbox"
               checked={consent}
               onChange={(e) => setConsent(e.target.checked)}
               required
-              style={{ position: "absolute", opacity: 0, width: "14px", height: "14px", cursor: "pointer" }}
+              style={{ position: "absolute", opacity: 0, width: "13px", height: "13px", cursor: "pointer" }}
             />
-            <div style={{
-              width: "14px",
-              height: "14px",
-              border: `1px solid ${consent ? "var(--red)" : "rgba(255,255,255,0.3)"}`,
-              background: consent ? "var(--red)" : "transparent",
-              transition: "background 0.15s, border-color 0.15s",
+            <span style={{
+              width: "13px",
+              height: "13px",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
+              border: `1px solid ${consent ? "var(--red)" : "rgba(255,255,255,0.28)"}`,
+              background: consent ? "var(--red)" : "transparent",
+              transition: "background 0.18s, border-color 0.18s",
             }}>
               {consent && (
-                <svg width="8" height="6" viewBox="0 0 8 6" fill="none">
-                  <path d="M1 3L3 5L7 1" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                <svg width="8" height="6" viewBox="0 0 8 6" fill="none" aria-hidden="true">
+                  <path d="M1 3L3 5L7 1" stroke="#fff" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               )}
-            </div>
-          </div>
+            </span>
+          </span>
           <span style={{
             fontFamily: "var(--font-display)",
-            fontSize: "0.6rem",
-            letterSpacing: "0.08em",
-            lineHeight: 1.6,
-            color: "rgba(255,255,255,0.45)",
+            fontSize: "0.58rem",
+            letterSpacing: "0.06em",
+            lineHeight: 1.7,
+            color: "rgba(255,255,255,0.38)",
+            textAlign: "left",
           }}>
             I agree to receive the newsletter, updates and marketing emails.{" "}
-            <a href="/privacy" style={{ color: "rgba(255,255,255,0.55)", textDecoration: "underline", textUnderlineOffset: "2px" }}>Privacy Policy</a>
+            <a href="/privacy" style={{ color: "rgba(255,255,255,0.5)", textDecoration: "underline", textUnderlineOffset: "2px" }}>Privacy Policy</a>
             {" "}·{" "}
-            <a href="/terms" style={{ color: "rgba(255,255,255,0.55)", textDecoration: "underline", textUnderlineOffset: "2px" }}>Terms</a>
+            <a href="/terms" style={{ color: "rgba(255,255,255,0.5)", textDecoration: "underline", textUnderlineOffset: "2px" }}>Terms</a>
           </span>
         </label>
       </form>
 
       {hasErr && (
-        <p style={{ fontFamily: "var(--font-display)", fontSize: "0.62rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "rgba(200,60,60,0.9)", margin: "8px 0 0" }}>
+        <p style={{ fontFamily: "var(--font-display)", fontSize: "0.6rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "rgba(200,60,60,0.9)", margin: "10px 0 0" }}>
           Something went wrong — try again
         </p>
       )}
@@ -159,15 +192,12 @@ function HeroNewsletter() {
   );
 }
 
-const base = process.env.NEXT_PUBLIC_BASE_PATH || "";
-
 interface HeroProps {
   hideNewsletter?: boolean;
 }
 
 export default function Hero({ hideNewsletter = false }: HeroProps) {
-  const line1Ref = useRef<HTMLDivElement>(null);
-  const line2Ref = useRef<HTMLDivElement>(null);
+  const logoRef = useRef<HTMLImageElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
   const bgVideoRef = useRef<HTMLVideoElement>(null);
 
@@ -177,7 +207,6 @@ export default function Hero({ hideNewsletter = false }: HeroProps) {
 
     const tryPlay = () => { v.play().catch(() => {}); };
 
-    // Try immediately and on metadata loaded
     tryPlay();
     v.addEventListener("loadedmetadata", tryPlay);
     v.addEventListener("canplay", tryPlay);
@@ -195,24 +224,20 @@ export default function Hero({ hideNewsletter = false }: HeroProps) {
   }, []);
 
   useEffect(() => {
-    const els = [line1Ref.current, line2Ref.current, ctaRef.current];
-    gsap.killTweensOf(els);
-    gsap.set(els, { opacity: 0 });
-    gsap.set([line1Ref.current, line2Ref.current], { y: 28 });
-    gsap.set(ctaRef.current, { y: 16 });
-
+    // fromTo (not set + to) so the markup stays visible if JS never runs
     const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
-    tl
-      .to(line1Ref.current, { opacity: 1, y: 0, duration: 1.1 }, 0.35)
-      .to(line2Ref.current, { opacity: 1, y: 0, duration: 1.1 }, 0.5)
-      .to(ctaRef.current, { opacity: 1, y: 0, duration: 0.8 }, 0.75);
+    tl.fromTo(logoRef.current,
+      { opacity: 0, y: 18, scale: 0.96 },
+      { opacity: 1, y: 0, scale: 1, duration: 1.2 }, 0.25
+    );
+    if (ctaRef.current) {
+      tl.fromTo(ctaRef.current, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.9 }, 0.75);
+    }
+    return () => { tl.kill(); };
   }, []);
 
   return (
-    <section
-      className="relative overflow-hidden"
-      style={{ background: "var(--bg)" }}
-    >
+    <section className="relative overflow-hidden" style={{ background: "var(--bg)" }}>
       {/* Video bg */}
       <video
         ref={bgVideoRef}
@@ -225,105 +250,47 @@ export default function Hero({ hideNewsletter = false }: HeroProps) {
         playsInline
       />
 
-      {/* MESS logo overlay — right side, behind content */}
-      <img
-        src={`${base}/mess-small-logo.svg`}
-        alt=""
-        aria-hidden="true"
-        className="absolute pointer-events-none select-none"
-        style={{
-          right: "40px",
-          top: "50%",
-          transform: "translateY(-50%)",
-          width: "clamp(280px, 55vw, 780px)",
-          opacity: 0.18,
-          zIndex: 5,
-        }}
-      />
-
-      {/* Gradient overlay */}
+      {/* Vignette + top/bottom fade for legibility */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "linear-gradient(to bottom, var(--bg) 0%, transparent 20%, transparent 55%, var(--bg) 100%)",
+            "radial-gradient(120% 85% at 50% 45%, transparent 30%, rgba(0,0,0,0.45) 100%), linear-gradient(to bottom, var(--bg) 0%, transparent 22%, transparent 62%, var(--bg) 100%)",
         }}
       />
 
+      {/* Content — centered stack */}
+      <div
+        className="relative z-10 flex flex-col items-center justify-center text-center px-6 md:px-14 pt-28 md:pt-32 pb-8 md:pb-20 min-h-[80dvh] md:min-h-[100dvh]"
+      >
+        {/* MESS logo */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          ref={logoRef}
+          src={`${base}/mess-small-logo.svg`}
+          alt="MESS"
+          draggable={false}
+          className="select-none"
+          style={{ width: "clamp(280px, 48vw, 620px)", height: "auto" }}
+        />
 
 
-{/* Content */}
-      <div className="relative z-10 px-6 md:px-14 lg:px-20 pt-28 md:pt-36 pb-14 md:pb-20">
-
-        {/* Display type */}
-        <div
-          ref={line1Ref}
-          style={{
-            fontFamily: "var(--font-display)",
-            fontWeight: 700,
-            fontSize: "clamp(3rem, 9.5vw, 10.5rem)",
-            lineHeight: 0.88,
-            letterSpacing: "-0.04em",
-            color: "var(--text)",
-          }}
-        >
-          CONCEPT-DRIVEN
-        </div>
-
-        <div ref={line2Ref} className="relative">
-          <div
-            style={{
-              fontFamily: "var(--font-display)",
-              fontWeight: 700,
-              fontSize: "clamp(3rem, 9.5vw, 10.5rem)",
-              lineHeight: 0.88,
-              letterSpacing: "-0.04em",
-              color: "var(--text)",
-            }}
-          >
-            EVENTS.
-          </div>
-
-          {/* Tagline */}
-          <p
-            className="mt-4 md:mt-0 md:absolute md:bottom-[0.4em] md:right-0"
-            style={{
-              fontFamily: "var(--font-display)",
-              fontWeight: 300,
-              fontSize: "clamp(0.72rem, 1.1vw, 0.88rem)",
-              lineHeight: 1.65,
-              letterSpacing: "0.01em",
-              color: "var(--text-subtle)",
-              maxWidth: "24ch",
-              textAlign: "right",
-            }}
-          >
-            Bold, sexy, uncompromising.
-            <br />
-            Production based in Tel Aviv.
-          </p>
-        </div>
-
-        {/* Newsletter CTA */}
-        <div ref={ctaRef} className="mt-12 md:mt-16">
-          {!hideNewsletter && (
-          <div style={{ borderTop: "1px solid rgba(255,255,255,0.15)", paddingTop: "28px", display: "inline-block" }}>
+        {/* Newsletter */}
+        {!hideNewsletter && (
+          <div ref={ctaRef} className="w-full" style={{ marginTop: "clamp(48px, 8vh, 96px)" }}>
             <p style={{
               fontFamily: "var(--font-display)",
-              fontSize: "0.82rem",
-              letterSpacing: "0.18em",
+              fontSize: "0.58rem",
+              letterSpacing: "0.3em",
               textTransform: "uppercase",
               color: "var(--text-muted)",
-              marginBottom: "18px",
-              fontWeight: 400,
+              marginBottom: "20px",
             }}>
-              Sign up here to be the first to know
+              Be the first to know
             </p>
             <HeroNewsletter />
           </div>
-          )}
-        </div>
-
+        )}
       </div>
     </section>
   );

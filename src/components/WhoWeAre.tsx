@@ -84,7 +84,7 @@ export default function WhoWeAre() {
   };
 
   return (
-    <section ref={sectionRef} className="py-16 md:py-24">
+    <section ref={sectionRef} className="pt-8 md:pt-24 pb-16 md:pb-24">
 
       {/* Section tag + heading — padded */}
       <div className="px-6 md:px-14 lg:px-20">
