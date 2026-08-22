@@ -8,14 +8,6 @@ import Link from "next/link";
 
 gsap.registerPlugin(ScrollTrigger);
 
-function ArrowUpRight() {
-  return (
-    <svg width="9" height="9" viewBox="0 0 9 9" fill="none" aria-hidden="true" style={{ display: "inline-block", verticalAlign: "middle" }}>
-      <path d="M1.5 7.5L7.5 1.5M7.5 1.5H2.5M7.5 1.5V6.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
-    </svg>
-  );
-}
-
 function CloseIcon() {
   return (
     <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true" style={{ display: "inline-block", verticalAlign: "middle" }}>
@@ -188,7 +180,7 @@ export default function Gallery() {
               }}
               className="hover:text-[var(--text)] transition-colors"
             >
-              <span className="flex items-center gap-1.5">View all <ArrowUpRight /></span>
+              <span>View all</span>
             </Link>
           </div>
         </div>

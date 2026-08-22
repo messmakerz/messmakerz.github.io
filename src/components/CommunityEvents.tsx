@@ -6,14 +6,6 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Link from "next/link";
 import Image from "next/image";
 
-function ArrowUpRight() {
-  return (
-    <svg width="9" height="9" viewBox="0 0 9 9" fill="none" aria-hidden="true" style={{ display: "inline-block", verticalAlign: "middle" }}>
-      <path d="M1.5 7.5L7.5 1.5M7.5 1.5H2.5M7.5 1.5V6.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
-    </svg>
-  );
-}
-
 function CloseIcon() {
   return (
     <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true" style={{ display: "inline-block", verticalAlign: "middle" }}>
@@ -307,7 +299,7 @@ export default function CommunityEvents({ sectionNumber = "06", showDetails = fa
                       className="mt-6 inline-block translate-x-0 group-hover:translate-x-1 transition-transform duration-300"
                       style={{ fontSize: "0.62rem", letterSpacing: "0.22em", textTransform: "uppercase", color: "var(--text-subtle)" }}
                     >
-                      <span className="flex items-center gap-1.5">View photos <ArrowUpRight /></span>
+                      <span>View photos</span>
                     </span>
                   )}
                 </div>

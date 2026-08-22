@@ -6,14 +6,6 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
 import Link from "next/link";
 
-function ArrowUpRight() {
-  return (
-    <svg width="9" height="9" viewBox="0 0 9 9" fill="none" aria-hidden="true" style={{ display: "inline-block", verticalAlign: "middle" }}>
-      <path d="M1.5 7.5L7.5 1.5M7.5 1.5H2.5M7.5 1.5V6.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
-    </svg>
-  );
-}
-
 gsap.registerPlugin(ScrollTrigger);
 
 const coreEvents = [
@@ -224,7 +216,7 @@ function EventRow({ event, index, flip, showDetails = true }: EventRowProps) {
               color: "var(--text-subtle)",
             }}
           >
-            <span className="flex items-center gap-1.5">View photos <ArrowUpRight /></span>
+            <span>View photos</span>
           </span>
         )}
       </div>

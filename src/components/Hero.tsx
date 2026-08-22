@@ -128,13 +128,7 @@ function HeroNewsletter() {
                 <span style={{ width: "3px", height: "3px", borderRadius: "50%", background: "currentColor", animation: "pulse 1s ease-in-out 0.4s infinite" }} />
               </span>
             ) : (
-              <>
-                Join
-                <svg width="11" height="9" viewBox="0 0 11 9" fill="none" aria-hidden="true"
-                  className="transition-transform duration-300 group-hover/join:translate-x-1">
-                  <path d="M0.5 4.5H9.5M9.5 4.5L6 1M9.5 4.5L6 8" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </>
+              "Join"
             )}
             </button>
           </div>

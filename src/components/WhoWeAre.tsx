@@ -17,7 +17,6 @@ export default function WhoWeAre() {
   const bodyRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const cursorRef = useRef<HTMLDivElement>(null);
-  const arrowRef = useRef<SVGSVGElement>(null);
   const [hovered, setHovered] = useState(false);
 
   useEffect(() => {
@@ -65,7 +64,6 @@ export default function WhoWeAre() {
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const el = cursorRef.current;
-    const arrowEl = arrowRef.current;
     if (!el) return;
     const rect = e.currentTarget.getBoundingClientRect();
     const x = e.clientX - rect.left;
@@ -74,13 +72,6 @@ export default function WhoWeAre() {
     el.style.top = `${y}px`;
     el.style.opacity = "1";
 
-    // Point arrow toward Mishell's face (approx top-center of image)
-    if (arrowEl) {
-      const faceX = rect.width * 0.5;
-      const faceY = rect.height * 0.18;
-      const angle = Math.atan2(faceY - y, faceX - x) * (180 / Math.PI);
-      arrowEl.style.transform = `rotate(${angle}deg)`;
-    }
   };
 
   return (
@@ -149,10 +140,6 @@ export default function WhoWeAre() {
               transition: "opacity 0.2s ease",
             }}
           >
-            {/* Arrow */}
-            <svg ref={arrowRef} width="18" height="18" viewBox="0 0 18 18" fill="none" style={{ flexShrink: 0, transition: "transform 0.08s linear" }}>
-              <path d="M2 2L16 9L2 16V2Z" fill="white" />
-            </svg>
             <span style={{
               fontFamily: "var(--font-display)",
               fontSize: "0.7rem",

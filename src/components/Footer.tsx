@@ -16,14 +16,6 @@ const socials = [
   { label: "Contact", href: "mailto:daniel@messmakerz.com" },
 ];
 
-function ArrowUpRight() {
-  return (
-    <svg width="10" height="10" viewBox="0 0 9 9" fill="none" aria-hidden="true">
-      <path d="M1.5 7.5L7.5 1.5M7.5 1.5H2.5M7.5 1.5V6.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
-    </svg>
-  );
-}
-
 function NewsletterForm() {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
@@ -160,7 +152,6 @@ export default function Footer() {
                 >
                   {s.label}
                 </span>
-                <span style={{ color: "var(--text-subtle)" }}><ArrowUpRight /></span>
               </a>
             ))}
           </div>
